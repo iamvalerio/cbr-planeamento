@@ -13,6 +13,36 @@
       "e": null,
       "name": "Mobiliário Copa",
       "deleted": 0
+    },
+    "d01": {
+      "done": 1,
+      "p": null,
+      "b": [],
+      "f": []
+    },
+    "d02": {
+      "done": 1,
+      "p": null,
+      "b": [],
+      "f": []
+    },
+    "d03": {
+      "done": 1,
+      "p": null,
+      "b": [],
+      "f": []
+    },
+    "d04": {
+      "done": 1,
+      "p": null,
+      "b": [],
+      "f": []
+    },
+    "d05": {
+      "done": 1,
+      "p": null,
+      "b": [],
+      "f": []
     }
   },
   "custom": []
