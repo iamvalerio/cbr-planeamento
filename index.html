@@ -375,6 +375,25 @@
   <button class="pop-del-btn" id="pop-del">🗑 Remover actividade</button>
 </div>
 
+<!-- ── FAB ── -->
+<button class="fab" id="fab" title="Nova actividade">＋</button>
+
+<!-- ── Add activity modal ── -->
+<div class="add-modal" id="add-modal">
+  <div class="add-sheet">
+    <div class="add-hdr">
+      <span class="add-title">Nova Actividade</span>
+      <button class="add-close" id="add-close">✕</button>
+    </div>
+    <div class="add-lbl">Nome</div>
+    <input type="text" id="add-name" class="add-inp" placeholder="Descrição da actividade" autocomplete="off">
+    <div class="add-lbl">Categoria</div>
+    <div class="add-cat-grid" id="add-cat-grid"></div>
+    <button class="add-submit" id="add-submit" disabled>Adicionar</button>
+    <button class="add-cancel-btn" id="add-cancel">Cancelar</button>
+  </div>
+</div>
+
 <script>
 (function(){
   const T0=+new Date('2026-07-06'),TD=84,DMS=86400000;
@@ -825,9 +844,12 @@
       }
     }catch(e){}
 
-    renderTable();
-    updateDash();
+    try{
+      renderTable();
+      updateDash();
+    }catch(e){console.error('render error',e);}
     dashReady=true;
+    applyFilter();
     _setSyncDot('ok');
 
     // ── Polling de alterações remotas (a cada 30 s) ──
@@ -1161,24 +1183,5 @@
   });
 })();
 </script>
-
-<!-- ── FAB ── -->
-<button class="fab" id="fab" title="Nova actividade">＋</button>
-
-<!-- ── Add activity modal ── -->
-<div class="add-modal" id="add-modal">
-  <div class="add-sheet">
-    <div class="add-hdr">
-      <span class="add-title">Nova Actividade</span>
-      <button class="add-close" id="add-close">✕</button>
-    </div>
-    <div class="add-lbl">Nome</div>
-    <input type="text" id="add-name" class="add-inp" placeholder="Descrição da actividade" autocomplete="off">
-    <div class="add-lbl">Categoria</div>
-    <div class="add-cat-grid" id="add-cat-grid"></div>
-    <button class="add-submit" id="add-submit" disabled>Adicionar</button>
-    <button class="add-cancel-btn" id="add-cancel">Cancelar</button>
-  </div>
-</div>
 </body>
 </html>
