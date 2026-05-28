@@ -6,7 +6,9 @@
       "b": [
         "B"
       ],
-      "f": [],
+      "f": [
+        0
+      ],
       "s": null,
       "e": null,
       "name": "Mobiliário Copa",
