@@ -53,16 +53,12 @@
     },
     "d07": {
       "done": 0,
-      "p": "c",
-      "b": [
-        "A"
-      ],
-      "f": [
-        1
-      ],
+      "p": null,
+      "b": [],
+      "f": [],
       "s": null,
       "e": null,
-      "name": "ED. A - Piso 1",
+      "name": "ED. A - Piso 1 (1",
       "deleted": 0
     }
   },
