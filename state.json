@@ -57,7 +57,9 @@
       "b": [
         "A"
       ],
-      "f": [],
+      "f": [
+        1
+      ],
       "s": null,
       "e": null,
       "name": "ED. A - Piso 1 (150 ws)",
