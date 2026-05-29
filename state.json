@@ -54,8 +54,12 @@
     "d07": {
       "done": 0,
       "p": null,
-      "b": [],
-      "f": [],
+      "b": [
+        "A"
+      ],
+      "f": [
+        1
+      ],
       "s": null,
       "e": null,
       "name": "ED. A - Piso 1",
