@@ -56,9 +56,19 @@
       "p": null,
       "b": [],
       "f": [],
-      "s": "2026-06-29",
-      "e": "2026-07-03",
+      "s": null,
+      "e": null,
       "name": "ED. A - Piso 1 (150 ws)",
+      "deleted": 0
+    },
+    "d08": {
+      "done": 0,
+      "p": null,
+      "b": [],
+      "f": [],
+      "s": null,
+      "e": null,
+      "name": "ED — Guialmi (80 postos)",
       "deleted": 0
     }
   },
