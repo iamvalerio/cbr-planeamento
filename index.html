@@ -220,7 +220,7 @@
 <div class="topbar">
   <div>
     <div class="topbar-t">CBR Editora</div>
-    <div class="topbar-s">Planeamento de Instalações · Jul – Set 2026</div>
+    <div class="topbar-s">Planeamento de Instalações · Jun – Set 2026</div>
   </div>
   <div style="display:flex;align-items:center;gap:9px">
     <span id="sync-dot" title="A carregar…" style="width:8px;height:8px;border-radius:50%;background:#8E8E93;display:inline-block;flex-shrink:0;transition:background .4s"></span>
@@ -284,6 +284,7 @@
   <button class="fb" data-f="todo">A fazer</button>
   <button class="fb" data-f="done">Concluído</button>
   <div class="sep"></div>
+  <button class="fb fb-cat on" data-fc="faz">Fases</button>
   <button class="fb fb-cat on" data-fc="ste">Sist. Técnicos</button>
   <button class="fb fb-cat on" data-fc="it">IT &amp; Com.</button>
   <button class="fb fb-cat on" data-fc="sec">Segurança</button>
@@ -303,7 +304,7 @@
   <table id="gt">
     <colgroup>
       <col class="ck"><col class="cn"><col class="ct">
-      <col class="cw"><col class="cw"><col class="cw"><col class="cw">
+      <col class="cw"><col class="cw"><col class="cw"><col class="cw"><col class="cw">
       <col class="cw"><col class="cw"><col class="cw"><col class="cw"><col class="cw">
       <col class="cw"><col class="cw"><col class="cw"><col class="cw">
     </colgroup>
@@ -312,6 +313,7 @@
         <th class="sk" rowspan="2" style="background:#e8ecf8;border:1px solid #cdd3ed"></th>
         <th class="sn" rowspan="2" style="background:#e8ecf8;border:1px solid #cdd3ed;text-align:left;padding-left:10px;font-size:11px;font-weight:700;letter-spacing:.5px">ACTIVIDADE</th>
         <th class="st" rowspan="2" style="background:#e8ecf8;border:1px solid #cdd3ed;text-align:center;font-size:9px;font-weight:700;color:#888;letter-spacing:.5px">TAGS</th>
+        <th colspan="1">Junho 2026</th>
         <th colspan="4">Julho 2026</th>
         <th colspan="5">Agosto 2026</th>
         <th colspan="4">Setembro 2026</th>
@@ -396,13 +398,15 @@
 
 <script>
 (function(){
-  const T0=+new Date('2026-07-06'),TD=84,DMS=86400000;
+  const T0=+new Date('2026-06-29'),TD=98,DMS=86400000;
 
-  const WEEKS=['2026-07-06','2026-07-13','2026-07-20','2026-07-27',
+  const WEEKS=['2026-06-29',
+    '2026-07-06','2026-07-13','2026-07-20','2026-07-27',
     '2026-08-03','2026-08-10','2026-08-17','2026-08-24','2026-08-31',
     '2026-09-07','2026-09-14','2026-09-21','2026-09-28'];
 
   const CATS={
+    faz:{label:'Fases de Intervenção',           color:'#546e7a'},
     ste:{label:'Sistemas Técnicos e Eléctricos',color:'#007AFF'},
     it: {label:'IT & Comunicação',              color:'#5856D6'},
     sec:{label:'Segurança e Protecção',          color:'#FF3B30'},
@@ -417,6 +421,18 @@
 
   /* ── DATA ── */
   const DATED_PERIODS=[
+    {label:'Calendário de Intervenção por Área',bg:'#37474f',tasks:[
+      {id:'i01',cat:'faz',name:'Ed. A – Piso 1',        s:'2026-06-29',e:'2026-07-03'},
+      {id:'i02',cat:'faz',name:'Ed. A – Piso 0',        s:'2026-07-06',e:'2026-07-08'},
+      {id:'i03',cat:'faz',name:'Ed. A – Sótão',          s:'2026-07-09',e:'2026-07-10'},
+      {id:'i04',cat:'faz',name:'Ed. B – Piso 1',         s:'2026-07-13',e:'2026-07-15'},
+      {id:'i05',cat:'faz',name:'Ed. B – Piso 2',         s:'2026-07-15',e:'2026-07-17'},
+      {id:'i06',cat:'faz',name:'Ed. B – Piso 3',         s:'2026-07-20',e:'2026-07-22'},
+      {id:'i07',cat:'faz',name:'Ed. B – Piso 4',         s:'2026-07-27',e:'2026-07-31'},
+      {id:'i08',cat:'faz',name:'Ed. B – Copa',           s:null,e:null},
+      {id:'i09',cat:'faz',name:'Ed. B – Sala de Jogos',  s:null,e:null},
+      {id:'i10',cat:'faz',name:'Ed. A/B – Exterior',     s:null,e:null},
+    ]},
     {label:'Julho 2026',bg:'#455a64',tasks:[
       {id:'d01',cat:'wp', name:'EA Nave — Guialmi (80 postos)',  s:'2026-07-06',e:'2026-07-12'},
       {id:'d02',cat:'ste',name:'Electrificação — Maló',           s:'2026-07-06',e:'2026-07-31'},
@@ -652,8 +668,12 @@
     const tg=row.querySelector('.tg');if(!tg)return;
     let gc='';
     if(todayP)gc+=`<div class="tln" style="left:${todayP}"></div>`;
-    if(effS){const sd=(+new Date(effS)-T0)/DMS,ed=(+new Date(effE)-T0)/DMS+1;
-      gc+=`<div class="bar" style="left:${pct(Math.max(0,sd))};width:${pct(Math.max(0.5,ed-Math.max(0,sd)))};background:${cat.color}" title="${effS.slice(5).replace('-','/')} → ${effE.slice(5).replace('-','/')}"></div>`;
+    if(effS&&effE){
+      const sd=(+new Date(effS)-T0)/DMS,ed=(+new Date(effE)-T0)/DMS+1;
+      const csd=Math.max(0,sd),ced=Math.min(TD,ed);
+      if(ced>0&&csd<TD){
+        gc+=`<div class="bar" style="left:${pct(csd)};width:${pct(Math.max(0.5,ced-csd))};background:${cat.color}" title="${effS.slice(5).replace('-','/')} → ${effE.slice(5).replace('-','/')}"></div>`;
+      }
     }else{gc+=`<span class="tbd">A definir</span>`}
     tg.innerHTML=gc;
   }
@@ -683,7 +703,7 @@
       `<td class="sk" style="background:${color}"></td>`+
       `<td class="sn" style="background:${color};padding-left:${pl};font-size:${fs};font-weight:800;text-transform:uppercase;letter-spacing:${ls};color:#fff"></td>`+
       `<td class="st" style="background:${color}"></td>`+
-      `<td colspan="13" style="background:${color}"></td>`;
+      `<td colspan="14" style="background:${color}"></td>`;
     tr.querySelectorAll('td')[1].textContent=label;
     return tr;
   }
@@ -696,15 +716,19 @@
     let gc='';
     if(todayP)gc+=`<div class="tln" style="left:${todayP}"></div>`;
     const effS=ts.s||task.s,effE=ts.e||task.e;
-    if(effS){const sd=(+new Date(effS)-T0)/DMS,ed=(+new Date(effE)-T0)/DMS+1;
-      gc+=`<div class="bar" style="left:${pct(Math.max(0,sd))};width:${pct(Math.max(0.5,ed-Math.max(0,sd)))};background:${cat.color}" title="${effS.slice(5).replace('-','/')} → ${effE.slice(5).replace('-','/')}"></div>`;
+    if(effS&&effE){
+      const sd=(+new Date(effS)-T0)/DMS,ed=(+new Date(effE)-T0)/DMS+1;
+      const csd=Math.max(0,sd),ced=Math.min(TD,ed);
+      if(ced>0&&csd<TD){
+        gc+=`<div class="bar" style="left:${pct(csd)};width:${pct(Math.max(0.5,ced-csd))};background:${cat.color}" title="${effS.slice(5).replace('-','/')} → ${effE.slice(5).replace('-','/')}"></div>`;
+      }
     }else{gc+=`<span class="tbd">A definir</span>`}
     const effName=ts.name||task.name;
     tr.innerHTML=
       `<td class="t-chk sk"><input type="checkbox" data-id="${task.id}"${ts.done?' checked':''}></td>`+
       `<td class="t-name sn" title="${effName}"><span class="cat-dot" style="background:${cat.color}"></span><span class="tn">${effName}</span></td>`+
       `<td class="tags-cell st" data-id="${task.id}">${tagsHTML(task.id)}</td>`+
-      `<td class="tg" colspan="13">${gc}</td>`;
+      `<td class="tg" colspan="14">${gc}</td>`;
     return tr;
   }
 
@@ -719,7 +743,7 @@
       vis.forEach(t=>tb.appendChild(taskRow(t,t.cat)));
     });
     const sep2=document.createElement('tr');
-    sep2.innerHTML=`<td colspan="16" style="height:6px;background:#eef0f6;border:none"></td>`;
+    sep2.innerHTML=`<td colspan="17" style="height:6px;background:#eef0f6;border:none"></td>`;
     tb.appendChild(sep2);
     tb.appendChild(divRow('Actividades a Definir','#263238',false));
     const cust=loadCustom().filter(t=>!getTS(t.id).deleted);
