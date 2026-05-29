@@ -577,7 +577,7 @@
 
   /* ── STATE (declaração antecipada — usada por buildAllTasks abaixo) ── */
   let _state={tasks:{},custom:[]};
-  let _dirty=false, _syncTimer=null;
+  let _dirty=false, _syncTimer=null, _lastWriteAt=0;
 
   /* ── Custom tasks (add/remove) ── */
   function loadCustom(){ return _state.custom; }
@@ -637,6 +637,7 @@
       try{
         await _ghWrite(_state);
         _dirty=false;
+        _lastWriteAt=Date.now(); // guarda momento do write — bloqueia polling durante 90s (CDN propagation)
         _setSyncDot('ok');
       }catch(e){ _setSyncDot('err'); }
     },800);
@@ -905,6 +906,7 @@
     // ── Polling de alterações remotas (a cada 30 s) ──
     setInterval(async()=>{
       if(_dirty)return;
+      if(Date.now()-_lastWriteAt<90000)return; // aguarda CDN propagar antes de voltar a ler remoto
       try{
         const d=await _ghRead();
         if(!d)return;
