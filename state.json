@@ -53,13 +53,9 @@
     },
     "d07": {
       "done": 0,
-      "p": "c",
-      "b": [
-        "A"
-      ],
-      "f": [
-        1
-      ],
+      "p": null,
+      "b": [],
+      "f": [],
       "s": null,
       "e": null,
       "name": "ED. A - Piso 1 (150 ws)",
@@ -67,16 +63,22 @@
     },
     "d08": {
       "done": 0,
-      "p": "c",
-      "b": [
-        "A"
-      ],
-      "f": [
-        0
-      ],
+      "p": null,
+      "b": [],
+      "f": [],
       "s": null,
       "e": null,
       "name": "ED. A - Piso 0 - (80 )",
+      "deleted": 0
+    },
+    "d09": {
+      "done": 0,
+      "p": null,
+      "b": [],
+      "f": [],
+      "s": null,
+      "e": null,
+      "name": "ED. A - Sotão",
       "deleted": 0
     }
   },
