@@ -313,6 +313,13 @@
       "e": "2026-07-22",
       "name": "Plantas 3",
       "deleted": 0
+    },
+    "s07": {
+      "done": 0,
+      "p": null,
+      "b": [],
+      "f": [],
+      "deleted": 1
     }
   },
   "custom": []
