@@ -356,8 +356,17 @@
     "w03": {
       "done": 0,
       "p": null,
-      "b": [],
-      "f": [],
+      "b": [
+        "A",
+        "B"
+      ],
+      "f": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
       "s": null,
       "e": null,
       "name": "Mobiliário Informal - Consigo",
