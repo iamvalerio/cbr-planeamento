@@ -54,10 +54,14 @@
       "deleted": 0
     },
     "d05": {
-      "done": 1,
+      "done": 0,
       "p": null,
       "b": [],
-      "f": []
+      "f": [],
+      "s": null,
+      "e": null,
+      "name": null,
+      "deleted": 0
     },
     "d07": {
       "done": 0,
