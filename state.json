@@ -395,7 +395,9 @@
       "b": [
         "B"
       ],
-      "f": [],
+      "f": [
+        4
+      ],
       "s": null,
       "e": null,
       "name": "Pulse - Leds Fachada",
