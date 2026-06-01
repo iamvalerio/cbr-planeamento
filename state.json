@@ -209,6 +209,16 @@
       "e": "2026-07-31",
       "name": null,
       "deleted": 0
+    },
+    "w01": {
+      "done": 0,
+      "p": null,
+      "b": [],
+      "f": [],
+      "s": null,
+      "e": null,
+      "name": "Postos de trabalho e cadeiras Pacote 1",
+      "deleted": 0
     }
   },
   "custom": []
