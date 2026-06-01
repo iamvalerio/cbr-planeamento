@@ -15,16 +15,24 @@
       "deleted": 0
     },
     "d01": {
-      "done": 1,
+      "done": 0,
       "p": null,
       "b": [],
-      "f": []
+      "f": [],
+      "s": null,
+      "e": null,
+      "name": null,
+      "deleted": 0
     },
     "d02": {
-      "done": 1,
+      "done": 0,
       "p": null,
       "b": [],
-      "f": []
+      "f": [],
+      "s": null,
+      "e": null,
+      "name": null,
+      "deleted": 0
     },
     "d03": {
       "done": 1,
