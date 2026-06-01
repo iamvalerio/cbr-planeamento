@@ -440,6 +440,20 @@
       "e": "2026-08-28",
       "name": "Grupeme - Configuração",
       "deleted": 0
+    },
+    "s06": {
+      "done": 0,
+      "p": null,
+      "b": [
+        "B"
+      ],
+      "f": [
+        1
+      ],
+      "s": null,
+      "e": null,
+      "name": null,
+      "deleted": 0
     }
   },
   "custom": []
