@@ -44,7 +44,9 @@
       "b": [
         "A"
       ],
-      "f": [],
+      "f": [
+        0
+      ],
       "s": null,
       "e": null,
       "name": "Equipamentos WC A",
