@@ -438,7 +438,10 @@
       "s": "2026-07-06",
       "e": "2026-07-31",
       "name": "Pulse - Leds Fachada",
-      "deleted": 0
+      "deleted": 0,
+      "sup": null,
+      "ck_c": 1,
+      "ck_e": 0
     },
     "s05": {
       "done": 0,
