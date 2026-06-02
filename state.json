@@ -164,7 +164,10 @@
       "s": null,
       "e": null,
       "name": null,
-      "deleted": 0
+      "deleted": 0,
+      "sup": null,
+      "ck_c": 1,
+      "ck_e": 0
     },
     "s02": {
       "done": 0,
@@ -188,13 +191,23 @@
       "s": null,
       "e": null,
       "name": null,
-      "deleted": 0
+      "deleted": 0,
+      "sup": null,
+      "ck_c": 1,
+      "ck_e": 0
     },
     "i03": {
       "done": 0,
       "p": "c",
       "b": [],
-      "f": []
+      "f": [],
+      "s": null,
+      "e": null,
+      "name": null,
+      "deleted": 0,
+      "sup": null,
+      "ck_c": 1,
+      "ck_e": 0
     },
     "i05": {
       "done": 0,
