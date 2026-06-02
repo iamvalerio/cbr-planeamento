@@ -45,7 +45,10 @@
       "s": null,
       "e": null,
       "name": null,
-      "deleted": 0
+      "deleted": 0,
+      "sup": null,
+      "ck_c": 1,
+      "ck_e": 0
     },
     "d03": {
       "done": 0,
