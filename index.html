@@ -242,15 +242,13 @@
     .pop-tab.on{background:var(--card);color:var(--lbl);box-shadow:0 1px 3px rgba(60,40,16,.1)}
 
     /* ── CHECKLIST ── */
-    .ck-list{display:flex;flex-direction:column;gap:6px;margin-top:2px}
-    .ck-item{display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:12px;background:var(--bg);cursor:pointer;transition:background .14s;user-select:none;-webkit-tap-highlight-color:transparent}
-    .ck-item.on{background:rgba(128,151,81,.1)}
-    .ck-icon{font-size:16px;width:22px;text-align:center;flex-shrink:0}
-    .ck-lbl{flex:1;font-size:13px;font-weight:600;color:var(--lbl2);transition:color .14s}
-    .ck-item.on .ck-lbl{color:var(--verde)}
-    .ck-box{width:20px;height:20px;border-radius:50%;border:2px solid var(--sep);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .14s}
-    .ck-item.on .ck-box{background:var(--verde);border-color:var(--verde)}
-    .ck-item.on .ck-box::after{content:'✓';color:#fff;font-size:10px;font-weight:900}
+    .ck-list{display:flex;flex-direction:column;gap:4px;margin-top:2px}
+    .ck-row{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:12px;background:var(--bg);cursor:pointer;transition:background .14s;-webkit-tap-highlight-color:transparent}
+    .ck-row.on{background:rgba(128,151,81,.1)}
+    .ck-cb{width:20px;height:20px;cursor:pointer;accent-color:var(--verde);flex-shrink:0}
+    .ck-row-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0}
+    .ck-row-lbl{flex:1;font-size:13px;font-weight:600;color:var(--lbl2);transition:color .14s}
+    .ck-row.on .ck-row-lbl{color:var(--verde)}
     .pop-sup-inp{width:100%;border:1.5px solid var(--sep);border-radius:10px;padding:9px 11px;font-size:13px;color:var(--lbl);background:var(--bg);outline:none;font-family:inherit;box-sizing:border-box;transition:border-color .14s}
     .pop-sup-inp:focus{border-color:var(--verde);background:var(--card)}
 
@@ -526,21 +524,21 @@
 
     <div class="pop-title" style="margin-top:18px">Estado de Execução</div>
     <div class="ck-list">
-      <div class="ck-item" id="ck-c" data-k="ck_c">
-        <div class="ck-icon">🛒</div>
-        <div class="ck-lbl">Comprado</div>
-        <div class="ck-box"></div>
-      </div>
-      <div class="ck-item" id="ck-e" data-k="ck_e">
-        <div class="ck-icon">📦</div>
-        <div class="ck-lbl">Entregue</div>
-        <div class="ck-box"></div>
-      </div>
-      <div class="ck-item" id="ck-f" data-k="done">
-        <div class="ck-icon">✅</div>
-        <div class="ck-lbl">Feito</div>
-        <div class="ck-box"></div>
-      </div>
+      <label class="ck-row" id="ck-c">
+        <input type="checkbox" class="ck-cb" id="ck-cb-c" data-k="ck_c">
+        <span class="ck-row-icon">🛒</span>
+        <span class="ck-row-lbl">Comprado</span>
+      </label>
+      <label class="ck-row" id="ck-e">
+        <input type="checkbox" class="ck-cb" id="ck-cb-e" data-k="ck_e">
+        <span class="ck-row-icon">📦</span>
+        <span class="ck-row-lbl">Entregue</span>
+      </label>
+      <label class="ck-row" id="ck-f">
+        <input type="checkbox" class="ck-cb" id="ck-cb-f" data-k="done">
+        <span class="ck-row-icon">✅</span>
+        <span class="ck-row-lbl">Feito</span>
+      </label>
     </div>
   </div>
 
@@ -1195,9 +1193,9 @@
     document.getElementById('pop-de').value=ts.e||(dTask?.e)||'';
     // Supplier + checklist
     document.getElementById('pop-sup').value=ts.sup||'';
-    document.getElementById('ck-c').classList.toggle('on',!!ts.ck_c);
-    document.getElementById('ck-e').classList.toggle('on',!!ts.ck_e);
-    document.getElementById('ck-f').classList.toggle('on',!!ts.done);
+    document.getElementById('ck-cb-c').checked=!!ts.ck_c; document.getElementById('ck-c').classList.toggle('on',!!ts.ck_c);
+    document.getElementById('ck-cb-e').checked=!!ts.ck_e; document.getElementById('ck-e').classList.toggle('on',!!ts.ck_e);
+    document.getElementById('ck-cb-f').checked=!!ts.done;  document.getElementById('ck-f').classList.toggle('on',!!ts.done);
     // Reset to detalhe tab
     document.querySelectorAll('.pop-tab').forEach(t=>t.classList.toggle('on',t.dataset.t==='det'));
     document.getElementById('pop-panel-det').style.display='';
@@ -1304,31 +1302,22 @@
   });
   document.getElementById('pop-sup').addEventListener('click',e=>e.stopPropagation());
 
-  // ── Checklist: Comprado ──
-  document.getElementById('ck-c').addEventListener('click',e=>{
-    e.stopPropagation();
-    if(!activeId)return;
-    const on=document.getElementById('ck-c').classList.toggle('on');
-    setTS(activeId,{ck_c:on?1:0});
-    refreshTags(activeId);updateDash();
-  });
-  // ── Checklist: Entregue ──
-  document.getElementById('ck-e').addEventListener('click',e=>{
-    e.stopPropagation();
-    if(!activeId)return;
-    const on=document.getElementById('ck-e').classList.toggle('on');
-    setTS(activeId,{ck_e:on?1:0});
-    refreshTags(activeId);updateDash();
-  });
-  // ── Checklist: Feito (= done) ──
-  document.getElementById('ck-f').addEventListener('click',e=>{
-    e.stopPropagation();
-    if(!activeId)return;
-    const on=document.getElementById('ck-f').classList.toggle('on');
-    setTS(activeId,{done:on?1:0});
-    const row=document.querySelector(`tr[data-id="${activeId}"]`);
-    if(row){row.classList.toggle('done',on);row.dataset.done=on?'1':'0';const cb=row.querySelector('input[type=checkbox]');if(cb)cb.checked=on;}
-    refreshTags(activeId);updateDash();applyFilter();
+  // ── Checklist ──
+  document.querySelectorAll('.ck-cb').forEach(cb=>{
+    cb.addEventListener('change',e=>{
+      if(!activeId)return;
+      const k=cb.dataset.k;
+      const on=cb.checked;
+      cb.closest('.ck-row').classList.toggle('on',on);
+      const patch={};patch[k]=on?1:0;
+      setTS(activeId,patch);
+      if(k==='done'){
+        const row=document.querySelector(`tr[data-id="${activeId}"]`);
+        if(row){row.classList.toggle('done',on);row.dataset.done=on?'1':'0';const rowCb=row.querySelector('input[type=checkbox]');if(rowCb)rowCb.checked=on;}
+        applyFilter();
+      }
+      refreshTags(activeId);updateDash();
+    });
   });
 
   // Name edit — save on input
