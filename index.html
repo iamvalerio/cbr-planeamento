@@ -233,6 +233,22 @@
     .li{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--lbl2);font-weight:500}
     .ld{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 
+    /* ── MONTH STRIP ── */
+    .mon-strip{background:var(--bg);padding:9px 12px;display:flex;gap:7px;border-bottom:0.5px solid var(--sep);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .mon-strip::-webkit-scrollbar{display:none}
+    .mon-card{flex:1;min-width:72px;border-radius:14px;background:var(--card);padding:10px 12px;cursor:pointer;border:1.5px solid transparent;transition:all .18s cubic-bezier(.4,0,.2,1);box-shadow:var(--shadow-sm);user-select:none;-webkit-tap-highlight-color:transparent}
+    .mon-card.on{border-color:var(--verde);background:rgba(128,151,81,.07)}
+    .mon-card:active{transform:scale(.95)}
+    .mon-lbl{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--lbl3);margin-bottom:4px}
+    .mon-n{font-size:20px;font-weight:800;color:var(--lbl);line-height:1}
+    .mon-sub{font-size:9px;color:var(--lbl3);margin-top:2px;font-weight:500;white-space:nowrap}
+    .mon-bar{height:3px;border-radius:99px;background:rgba(26,22,16,.1);overflow:hidden;margin-top:7px}
+    .mon-fill{height:100%;border-radius:99px;background:var(--verde);width:0%;transition:width .6s cubic-bezier(.4,0,.2,1)}
+    .mon-all{min-width:50px;flex:0 0 50px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:10px 8px}
+    .mon-all-icon{font-size:18px;line-height:1;color:var(--lbl3)}
+    .mon-all-lbl{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--lbl3)}
+    .mon-all.on .mon-all-icon,.mon-all.on .mon-all-lbl{color:var(--verde)}
+
     @media(max-width:480px){
       :root{--cw:40px;--nw:150px;--kw:36px;--tw:72px}
       .topbar-s{display:none}
@@ -303,11 +319,50 @@
   </div>
 </div>
 
+<!-- ── MONTH STRIP ── -->
+<div class="mon-strip" id="mon-strip">
+  <div class="mon-card mon-all" id="mc-all" data-m="all">
+    <div class="mon-all-icon">◎</div>
+    <div class="mon-all-lbl">Todos</div>
+  </div>
+  <div class="mon-card" id="mc-jun" data-m="jun">
+    <div class="mon-lbl">Junho</div>
+    <div class="mon-n" id="mn-jun">–</div>
+    <div class="mon-sub" id="ms-jun">a fazer</div>
+    <div class="mon-bar"><div class="mon-fill" id="mf-jun"></div></div>
+  </div>
+  <div class="mon-card" id="mc-jul" data-m="jul">
+    <div class="mon-lbl">Julho</div>
+    <div class="mon-n" id="mn-jul">–</div>
+    <div class="mon-sub" id="ms-jul">a fazer</div>
+    <div class="mon-bar"><div class="mon-fill" id="mf-jul"></div></div>
+  </div>
+  <div class="mon-card" id="mc-aug" data-m="aug">
+    <div class="mon-lbl">Agosto</div>
+    <div class="mon-n" id="mn-aug">–</div>
+    <div class="mon-sub" id="ms-aug">a fazer</div>
+    <div class="mon-bar"><div class="mon-fill" id="mf-aug"></div></div>
+  </div>
+  <div class="mon-card" id="mc-sep" data-m="sep">
+    <div class="mon-lbl">Setembro</div>
+    <div class="mon-n" id="mn-sep">–</div>
+    <div class="mon-sub" id="ms-sep">a fazer</div>
+    <div class="mon-bar"><div class="mon-fill" id="mf-sep"></div></div>
+  </div>
+</div>
+
 <!-- ── FILTER BAR ── -->
 <div class="fbar">
   <button class="fb on" data-f="all">Todos</button>
   <button class="fb" data-f="todo">A fazer</button>
   <button class="fb" data-f="done">Concluído</button>
+  <div class="sep"></div>
+  <button class="fb fb-pri" data-fp="c">🔴 Crítico</button>
+  <button class="fb fb-pri" data-fp="i">🟠 Importante</button>
+  <button class="fb fb-pri" data-fp="o">⬜ Opcional</button>
+  <div class="sep"></div>
+  <button class="fb fb-bld" data-fb="A">Ed. A</button>
+  <button class="fb fb-bld" data-fb="B">Ed. B</button>
   <div class="sep"></div>
   <button class="fb fb-cat on" data-fc="faz">Fases</button>
   <button class="fb fb-cat on" data-fc="ste">Sist. Técnicos</button>
@@ -315,13 +370,6 @@
   <button class="fb fb-cat on" data-fc="sec">Segurança</button>
   <button class="fb fb-cat on" data-fc="wp">Workplace</button>
   <button class="fb fb-cat on" data-fc="ops">Operacional</button>
-  <div class="fbar-break"></div>
-  <button class="fb fb-pri" data-fp="c">🔴 Crítico</button>
-  <button class="fb fb-pri" data-fp="i">🟠 Importante</button>
-  <button class="fb fb-pri" data-fp="o">⬜ Opcional</button>
-  <div class="sep"></div>
-  <button class="fb fb-bld" data-fb="A">Edifício A</button>
-  <button class="fb fb-bld" data-fb="B">Edifício B</button>
 </div>
 
 <!-- ── GANTT ── -->
@@ -594,6 +642,13 @@
   const CAT_TOTALS={};
   ALL_TASKS.forEach(t=>{CAT_TOTALS[t.cat]=(CAT_TOTALS[t.cat]||0)+1});
 
+  const MONTH_RANGES={
+    jun:{label:'Junho',  start:new Date('2026-06-01'),end:new Date('2026-06-30')},
+    jul:{label:'Julho',  start:new Date('2026-07-01'),end:new Date('2026-07-31')},
+    aug:{label:'Agosto', start:new Date('2026-08-01'),end:new Date('2026-08-31')},
+    sep:{label:'Setembro',start:new Date('2026-09-01'),end:new Date('2026-09-30')},
+  };
+
   /* ── STATE — GitHub-backed, shared across all users ── */
   const _GH_REPO  = 'iamvalerio/cbr-planeamento';
   const _GH_TOKEN=String.fromCharCode(...[103,104,118,107,113,103,89,119,105,125,85,58,61,78,77,69,35,35,80,74,36,125,97,66,40,86,110,94,115,74,118,117,110,126,114,21,72,64,73,116,73,76,66,66,68,75,106,27,125,84,93,74,122,88,125,90,125,0,124,9,8,92,85,6,10,118,5,43,50,17,118,46,58,26,0,17,124,27,10,0,4,16,102,5,30,103,99,103,27,55,108,12,59].map((c,i)=>c^i));
@@ -636,17 +691,27 @@
     if(!putR.ok)throw new Error('write failed');
   }
 
+  let _writeInProgress=false,_writeQueued=false;
+  async function _flush(){
+    if(_writeInProgress){_writeQueued=true;return;}
+    _writeInProgress=true;
+    try{
+      await _ghWrite(_state);
+      _dirty=false;
+      _setSyncDot('ok');
+    }catch(e){
+      _setSyncDot('err');
+      setTimeout(_flush,4000); // retry automático em 4s
+    }finally{
+      _writeInProgress=false;
+      if(_writeQueued){_writeQueued=false;_flush();}
+    }
+  }
   function _push(){
     _dirty=true;
     _setSyncDot('saving');
     clearTimeout(_syncTimer);
-    _syncTimer=setTimeout(async()=>{
-      try{
-        await _ghWrite(_state);
-        _dirty=false;
-        _setSyncDot('ok');
-      }catch(e){ _setSyncDot('err'); }
-    },800);
+    _syncTimer=setTimeout(_flush,800);
   }
 
   function _setSyncDot(st){
@@ -764,9 +829,11 @@
     return tr;
   }
 
+  function hasEffDates(t){const ts=getTS(t.id);return !!(ts.s||t.s)&&!!(ts.e||t.e);}
   function renderTable(){
     ALL_TASKS=buildAllTasks();TOTAL=ALL_TASKS.length;
     tb.innerHTML='';
+    // ── SECÇÃO 1: Actividades Programadas ──
     tb.appendChild(divRow('Actividades Programadas','#263238',false));
     DATED_PERIODS.forEach(p=>{
       const vis=p.tasks.filter(t=>!getTS(t.id).deleted);
@@ -774,18 +841,28 @@
       tb.appendChild(divRow(p.label,p.bg,true));
       vis.forEach(t=>tb.appendChild(taskRow(t,t.cat)));
     });
+    // TBD tasks que o utilizador atribuiu datas → surgem aqui também
+    const tbdDated=[];
+    TBD_CATS.forEach(g=>{g.tasks.forEach(t=>{if(!getTS(t.id).deleted&&hasEffDates(t)&&!(t.s&&t.e))tbdDated.push({...t,cat:g.key});});});
+    loadCustom().forEach(t=>{if(!getTS(t.id).deleted&&hasEffDates(t))tbdDated.push(t);});
+    if(tbdDated.length){
+      tb.appendChild(divRow('Com Data Atribuída','#5B7A8C',true));
+      tbdDated.forEach(t=>tb.appendChild(taskRow(t,t.cat)));
+    }
+    // ── SEPARADOR ──
     const sep2=document.createElement('tr');
-    sep2.innerHTML=`<td colspan="17" style="height:6px;background:#eef0f6;border:none"></td>`;
+    sep2.innerHTML=`<td colspan="17" style="height:6px;background:rgba(26,22,16,.04);border:none"></td>`;
     tb.appendChild(sep2);
+    // ── SECÇÃO 2: Actividades a Definir (só as sem data) ──
     tb.appendChild(divRow('Actividades a Definir','#263238',false));
-    const cust=loadCustom().filter(t=>!getTS(t.id).deleted);
+    const custNoDates=loadCustom().filter(t=>!getTS(t.id).deleted&&!hasEffDates(t));
     TBD_CATS.forEach(g=>{
-      const orig=g.tasks.filter(t=>!getTS(t.id).deleted);
-      const cc=cust.filter(t=>t.cat===g.key);
+      const orig=g.tasks.filter(t=>!getTS(t.id).deleted&&!(t.s&&t.e)&&!hasEffDates(t));
+      const cc=custNoDates.filter(t=>t.cat===g.key);
       if(!orig.length&&!cc.length)return;
       tb.appendChild(divRow(CATS[g.key].label,CATS[g.key].color,true));
       orig.forEach(t=>tb.appendChild(taskRow(t,g.key)));
-      cc.forEach(t=>tb.appendChild(taskRow(t,g.key)));
+      cc.forEach(t=>tb.appendChild(taskRow(t,t.cat)));
     });
     if(dashReady){applyFilter();updateDash();}
   }
@@ -852,6 +929,32 @@
     priElems[k]={fill:document.getElementById(`pf-${k}`),count:document.getElementById(`pc-${k}`)};
   });
 
+  /* ── UPDATE MONTH CARDS ── */
+  function updateMonthCards(){
+    Object.entries(MONTH_RANGES).forEach(([key,m])=>{
+      const inMonth=ALL_TASKS.filter(t=>{
+        const ts=getTS(t.id);
+        const effS=ts.s||t.s,effE=ts.e||t.e;
+        if(!effS||!effE)return false;
+        return new Date(effS)<=m.end&&new Date(effE)>=m.start;
+      });
+      const total=inMonth.length;
+      const done=inMonth.filter(t=>getTS(t.id).done).length;
+      const todo=total-done;
+      const nEl=document.getElementById(`mn-${key}`);
+      const sEl=document.getElementById(`ms-${key}`);
+      const fEl=document.getElementById(`mf-${key}`);
+      if(nEl)nEl.textContent=todo>0?todo:(total>0?'✓':'–');
+      if(sEl)sEl.textContent=total>0?`de ${total} total`:'sem activ.';
+      if(fEl)fEl.style.width=total?(done/total*100).toFixed(1)+'%':'0%';
+      const card=document.getElementById(`mc-${key}`);
+      if(card){
+        card.style.borderColor=total>0&&todo>0?'transparent':total>0?'var(--verde)':'transparent';
+        if(nEl)nEl.style.color=todo>0?'var(--lbl)':'var(--verde)';
+      }
+    });
+  }
+
   /* ── UPDATE DASHBOARD ── */
   function updateDash(){
     const doneAll=ALL_TASKS.filter(t=>getTS(t.id).done).length;
@@ -889,6 +992,7 @@
       priElems[pk].fill.style.width=(pt.length?(dn/pt.length*100).toFixed(1):0)+'%';
       priElems[pk].count.textContent=`${dn}/${pt.length}`;
     });
+    updateMonthCards();
   }
   /* ── ASYNC INIT — carrega estado do GitHub, renderiza, depois faz polling ── */
   (async()=>{
@@ -1022,37 +1126,42 @@
     refreshTags(activeId);updateDash();
   });
 
-  // Dates
+  // Dates — ao mudar data, re-renderiza tabela (tarefas com data sobem para Programadas)
   document.getElementById('pop-ds').addEventListener('change',e=>{
     e.stopPropagation();
     if(!activeId)return;
+    const saved=activeId;
     const v=e.target.value||null;
-    setTS(activeId,{s:v});
-    // if start > end, move end to match start
-    const cur=getTS(activeId),dTask=ALL_TASKS.find(t=>t.id===activeId);
+    setTS(saved,{s:v});
+    const cur=getTS(saved),dTask=ALL_TASKS.find(t=>t.id===saved);
     const curE=cur.e||dTask?.e||'';
-    if(v&&curE&&v>curE){setTS(activeId,{e:v});document.getElementById('pop-de').value=v;}
-    refreshBar(activeId);refreshTags(activeId);
+    if(v&&curE&&v>curE){setTS(saved,{e:v});document.getElementById('pop-de').value=v;}
+    renderTable();
+    // reabrir popover na nova posição (linha pode ter mudado de secção)
+    setTimeout(()=>{const el=document.querySelector(`.tags-cell[data-id="${saved}"]`);if(el){openPop(saved,el);}},50);
   });
   document.getElementById('pop-de').addEventListener('change',e=>{
     e.stopPropagation();
     if(!activeId)return;
+    const saved=activeId;
     const v=e.target.value||null;
-    setTS(activeId,{e:v});
-    // if end < start, move start to match end
-    const cur=getTS(activeId),dTask=ALL_TASKS.find(t=>t.id===activeId);
+    setTS(saved,{e:v});
+    const cur=getTS(saved),dTask=ALL_TASKS.find(t=>t.id===saved);
     const curS=cur.s||dTask?.s||'';
-    if(v&&curS&&v<curS){setTS(activeId,{s:v});document.getElementById('pop-ds').value=v;}
-    refreshBar(activeId);refreshTags(activeId);
+    if(v&&curS&&v<curS){setTS(saved,{s:v});document.getElementById('pop-ds').value=v;}
+    renderTable();
+    setTimeout(()=>{const el=document.querySelector(`.tags-cell[data-id="${saved}"]`);if(el){openPop(saved,el);}},50);
   });
   document.getElementById('pop-dc').addEventListener('click',e=>{
     e.stopPropagation();
     if(!activeId)return;
-    setTS(activeId,{s:null,e:null});
-    const dTask=ALL_TASKS.find(t=>t.id===activeId);
+    const saved=activeId;
+    setTS(saved,{s:null,e:null});
+    const dTask=ALL_TASKS.find(t=>t.id===saved);
     document.getElementById('pop-ds').value=dTask?.s||'';
     document.getElementById('pop-de').value=dTask?.e||'';
-    refreshBar(activeId);refreshTags(activeId);
+    renderTable();
+    setTimeout(()=>{const el=document.querySelector(`.tags-cell[data-id="${saved}"]`);if(el){openPop(saved,el);}},50);
   });
   // Name edit — save on input
   document.getElementById('pop-name').addEventListener('input',e=>{
@@ -1108,7 +1217,7 @@
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closePop()});
 
   /* ── FILTERS ── */
-  let curStatus='all',curPri=null,curBld=null;
+  let curStatus='all',curPri=null,curBld=null,curMonth=null;
   const activeCats=new Set(Object.keys(CATS));
 
   document.querySelectorAll('.fb:not(.fb-cat):not(.fb-pri):not(.fb-bld)').forEach(b=>{
@@ -1166,17 +1275,47 @@
 
   function applyFilter(){
     document.querySelectorAll('.rt').forEach(row=>{
+      const id=row.dataset.id;
       const done=row.dataset.done==='1';
       const cat=row.dataset.cat;
       const pri=row.dataset.pri;
-      const bld=row.dataset.bld; // comma-separated: "A,B" or "A" or ""
+      const bld=row.dataset.bld;
       const hideSt=(curStatus==='todo'&&done)||(curStatus==='done'&&!done);
       const hideCt=!activeCats.has(cat);
       const hidePr=curPri&&pri!==curPri;
       const hideBl=curBld&&!bld.split(',').filter(Boolean).includes(curBld);
-      row.classList.toggle('gone',hideSt||hideCt||hidePr||hideBl);
+      let hideMo=false;
+      if(curMonth){
+        const task=ALL_TASKS.find(t=>t.id===id);
+        const ts=getTS(id);
+        const effS=ts.s||(task&&task.s),effE=ts.e||(task&&task.e);
+        if(effS&&effE){
+          const m=MONTH_RANGES[curMonth];
+          hideMo=!(new Date(effS)<=m.end&&new Date(effE)>=m.start);
+        }else{hideMo=true;} // sem datas: ocultar quando filtro de mês activo
+      }
+      row.classList.toggle('gone',hideSt||hideCt||hidePr||hideBl||hideMo);
     });
   }
+
+  /* ── MONTH STRIP FILTER ── */
+  document.getElementById('mon-strip').addEventListener('click',e=>{
+    const card=e.target.closest('.mon-card');
+    if(!card)return;
+    const m=card.dataset.m;
+    if(m==='all'||curMonth===m){
+      curMonth=null;
+      document.querySelectorAll('.mon-card').forEach(c=>c.classList.remove('on'));
+      document.getElementById('mc-all').classList.add('on');
+    }else{
+      curMonth=m;
+      document.querySelectorAll('.mon-card').forEach(c=>c.classList.toggle('on',c.dataset.m===m));
+      document.getElementById('mc-all').classList.remove('on');
+    }
+    applyFilter();
+  });
+  // Iniciar com "Todos" activo
+  document.getElementById('mc-all').classList.add('on');
 
   /* ── LEGEND ── */
   const leg=document.getElementById('leg');
