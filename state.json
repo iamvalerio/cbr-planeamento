@@ -136,7 +136,7 @@
       "deleted": 0
     },
     "i01": {
-      "done": 1,
+      "done": 0,
       "p": "c",
       "b": [
         "A"
@@ -150,7 +150,7 @@
       "deleted": 0,
       "sup": null,
       "ck_c": 1,
-      "ck_e": 0
+      "ck_e": 1
     },
     "i02": {
       "done": 0,
