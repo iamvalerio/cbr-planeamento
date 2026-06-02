@@ -233,6 +233,40 @@
     .li{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--lbl2);font-weight:500}
     .ld{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 
+    /* ── SUPPLIER TAG ── */
+    .tag-sup{background:rgba(91,122,140,.12);color:var(--slate);font-style:italic}
+
+    /* ── POPOVER TABS ── */
+    .pop-tabs{display:flex;background:var(--bg);border-radius:10px;padding:3px;margin-bottom:14px;gap:2px}
+    .pop-tab{flex:1;border:none;background:transparent;border-radius:8px;padding:7px 4px;font-size:11.5px;font-weight:600;color:var(--lbl2);cursor:pointer;transition:all .15s cubic-bezier(.4,0,.2,1);-webkit-tap-highlight-color:transparent}
+    .pop-tab.on{background:var(--card);color:var(--lbl);box-shadow:0 1px 3px rgba(60,40,16,.1)}
+
+    /* ── CHECKLIST ── */
+    .ck-list{display:flex;flex-direction:column;gap:6px;margin-top:2px}
+    .ck-item{display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:12px;background:var(--bg);cursor:pointer;transition:background .14s;user-select:none;-webkit-tap-highlight-color:transparent}
+    .ck-item.on{background:rgba(128,151,81,.1)}
+    .ck-icon{font-size:16px;width:22px;text-align:center;flex-shrink:0}
+    .ck-lbl{flex:1;font-size:13px;font-weight:600;color:var(--lbl2);transition:color .14s}
+    .ck-item.on .ck-lbl{color:var(--verde)}
+    .ck-box{width:20px;height:20px;border-radius:50%;border:2px solid var(--sep);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .14s}
+    .ck-item.on .ck-box{background:var(--verde);border-color:var(--verde)}
+    .ck-item.on .ck-box::after{content:'✓';color:#fff;font-size:10px;font-weight:900}
+    .pop-sup-inp{width:100%;border:1.5px solid var(--sep);border-radius:10px;padding:9px 11px;font-size:13px;color:var(--lbl);background:var(--bg);outline:none;font-family:inherit;box-sizing:border-box;transition:border-color .14s}
+    .pop-sup-inp:focus{border-color:var(--verde);background:var(--card)}
+
+    /* ── PIPELINE CARD ── */
+    .dc-pipe{display:flex;flex-direction:column;gap:0}
+    .pipe-steps{display:flex;gap:6px;margin-top:2px}
+    .pipe-step{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:10px 4px;border-radius:12px;background:var(--bg)}
+    .pipe-icon{font-size:17px;line-height:1}
+    .pipe-n{font-size:18px;font-weight:800;color:var(--lbl);line-height:1;margin-top:5px}
+    .pipe-lbl{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--lbl3);margin-top:3px}
+    .pipe-bar{height:3px;border-radius:99px;background:rgba(26,22,16,.1);overflow:hidden;width:85%;margin-top:7px}
+    .pipe-fill{height:100%;border-radius:99px;width:0%;transition:width .6s cubic-bezier(.4,0,.2,1)}
+    .pipe-sup-row{display:flex;align-items:center;justify-content:space-between;padding:9px 4px 0;border-top:0.5px solid var(--sep);margin-top:10px}
+    .pipe-sup-lbl{font-size:10.5px;color:var(--lbl2);font-weight:500}
+    .pipe-sup-n{font-size:12px;font-weight:700;color:var(--lbl)}
+
     /* ── MONTH STRIP ── */
     .mon-strip{background:var(--bg);padding:9px 12px;display:flex;gap:7px;border-bottom:0.5px solid var(--sep);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
     .mon-strip::-webkit-scrollbar{display:none}
@@ -315,6 +349,35 @@
     <div class="d-card dc3-pri">
       <div class="d-card-title">Por Prioridade</div>
       <div class="pri-rows" id="d-pri"></div>
+    </div>
+  </div>
+
+  <!-- Card 4: Pipeline de Execução -->
+  <div class="d-card dc-pipe">
+    <div class="d-card-title">Pipeline de Execução</div>
+    <div class="pipe-steps">
+      <div class="pipe-step">
+        <div class="pipe-icon">🛒</div>
+        <div class="pipe-n" id="pp-c">–</div>
+        <div class="pipe-lbl">Comprado</div>
+        <div class="pipe-bar"><div class="pipe-fill" id="pf-c" style="background:var(--slate)"></div></div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-icon">📦</div>
+        <div class="pipe-n" id="pp-e">–</div>
+        <div class="pipe-lbl">Entregue</div>
+        <div class="pipe-bar"><div class="pipe-fill" id="pf-e" style="background:var(--madeira)"></div></div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-icon">✅</div>
+        <div class="pipe-n" id="pp-f">–</div>
+        <div class="pipe-lbl">Feito</div>
+        <div class="pipe-bar"><div class="pipe-fill" id="pf-f" style="background:var(--verde)"></div></div>
+      </div>
+    </div>
+    <div class="pipe-sup-row">
+      <div class="pipe-sup-lbl">Fornecedores atribuídos</div>
+      <div class="pipe-sup-n" id="pp-sup">–</div>
     </div>
   </div>
 </div>
@@ -402,49 +465,83 @@
 <div class="popover" id="pop">
   <button class="pop-close" id="pop-x">✕</button>
 
-  <div class="pop-title">Nome</div>
-  <textarea id="pop-name" class="pop-name-inp" rows="2" placeholder="Nome da actividade"></textarea>
-
-  <div class="pop-title">Prioridade</div>
-  <div class="pop-group" id="pop-pri">
-    <button class="pop-btn" data-v="c">🔴 Crítico</button>
-    <button class="pop-btn" data-v="i">🟠 Importante</button>
-    <button class="pop-btn" data-v="o">⬜ Opcional</button>
+  <!-- Tabs -->
+  <div class="pop-tabs">
+    <button class="pop-tab on" data-t="det">Detalhe</button>
+    <button class="pop-tab" data-t="sup">Fornecedor</button>
   </div>
 
-  <div class="pop-title">
-    Edifício
-    <span class="pop-hint">seleção múltipla</span>
-  </div>
-  <div class="pop-group" id="pop-bld">
-    <button class="pop-btn" data-v="A" style="min-width:52px;text-align:center;font-size:14px;font-weight:900">A</button>
-    <button class="pop-btn" data-v="B" style="min-width:52px;text-align:center;font-size:14px;font-weight:900">B</button>
-  </div>
+  <!-- Panel: Detalhe -->
+  <div id="pop-panel-det">
+    <div class="pop-title">Nome</div>
+    <textarea id="pop-name" class="pop-name-inp" rows="2" placeholder="Nome da actividade"></textarea>
 
-  <div class="pop-title">
-    Piso
-    <span class="pop-hint">seleção múltipla</span>
-  </div>
-  <div class="pop-group" id="pop-flo" style="gap:6px">
-    <button class="pop-btn" data-v="0" style="min-width:38px;text-align:center">P0</button>
-    <button class="pop-btn" data-v="1" style="min-width:38px;text-align:center">P1</button>
-    <button class="pop-btn" data-v="2" style="min-width:38px;text-align:center">P2</button>
-    <button class="pop-btn" data-v="3" style="min-width:38px;text-align:center">P3</button>
-    <button class="pop-btn" data-v="4" style="min-width:38px;text-align:center">P4</button>
-  </div>
-  <div class="pop-flo-hint" id="pop-flo-hint"></div>
-
-  <div class="pop-title">Datas <span class="pop-hint">início · fim</span></div>
-  <div class="pop-dates">
-    <div class="pop-date-row">
-      <span class="pop-date-lbl">Início</span>
-      <input type="date" id="pop-ds" class="pop-date-inp" min="2026-06-01" max="2026-12-31">
+    <div class="pop-title">Prioridade</div>
+    <div class="pop-group" id="pop-pri">
+      <button class="pop-btn" data-v="c">🔴 Crítico</button>
+      <button class="pop-btn" data-v="i">🟠 Importante</button>
+      <button class="pop-btn" data-v="o">⬜ Opcional</button>
     </div>
-    <div class="pop-date-row">
-      <span class="pop-date-lbl">Fim</span>
-      <input type="date" id="pop-de" class="pop-date-inp" min="2026-06-01" max="2026-12-31">
+
+    <div class="pop-title">
+      Edifício
+      <span class="pop-hint">seleção múltipla</span>
     </div>
-    <button class="pop-date-clear" id="pop-dc">↺ repor datas originais</button>
+    <div class="pop-group" id="pop-bld">
+      <button class="pop-btn" data-v="A" style="min-width:52px;text-align:center;font-size:14px;font-weight:900">A</button>
+      <button class="pop-btn" data-v="B" style="min-width:52px;text-align:center;font-size:14px;font-weight:900">B</button>
+    </div>
+
+    <div class="pop-title">
+      Piso
+      <span class="pop-hint">seleção múltipla</span>
+    </div>
+    <div class="pop-group" id="pop-flo" style="gap:6px">
+      <button class="pop-btn" data-v="0" style="min-width:38px;text-align:center">P0</button>
+      <button class="pop-btn" data-v="1" style="min-width:38px;text-align:center">P1</button>
+      <button class="pop-btn" data-v="2" style="min-width:38px;text-align:center">P2</button>
+      <button class="pop-btn" data-v="3" style="min-width:38px;text-align:center">P3</button>
+      <button class="pop-btn" data-v="4" style="min-width:38px;text-align:center">P4</button>
+    </div>
+    <div class="pop-flo-hint" id="pop-flo-hint"></div>
+
+    <div class="pop-title">Datas <span class="pop-hint">início · fim</span></div>
+    <div class="pop-dates">
+      <div class="pop-date-row">
+        <span class="pop-date-lbl">Início</span>
+        <input type="date" id="pop-ds" class="pop-date-inp" min="2026-06-01" max="2026-12-31">
+      </div>
+      <div class="pop-date-row">
+        <span class="pop-date-lbl">Fim</span>
+        <input type="date" id="pop-de" class="pop-date-inp" min="2026-06-01" max="2026-12-31">
+      </div>
+      <button class="pop-date-clear" id="pop-dc">↺ repor datas originais</button>
+    </div>
+  </div>
+
+  <!-- Panel: Fornecedor -->
+  <div id="pop-panel-sup" style="display:none">
+    <div class="pop-title">Fornecedor</div>
+    <input type="text" id="pop-sup" class="pop-sup-inp" placeholder="Nome da empresa / fornecedor" autocomplete="off">
+
+    <div class="pop-title" style="margin-top:18px">Estado de Execução</div>
+    <div class="ck-list">
+      <div class="ck-item" id="ck-c" data-k="ck_c">
+        <div class="ck-icon">🛒</div>
+        <div class="ck-lbl">Comprado</div>
+        <div class="ck-box"></div>
+      </div>
+      <div class="ck-item" id="ck-e" data-k="ck_e">
+        <div class="ck-icon">📦</div>
+        <div class="ck-lbl">Entregue</div>
+        <div class="ck-box"></div>
+      </div>
+      <div class="ck-item" id="ck-f" data-k="done">
+        <div class="ck-icon">✅</div>
+        <div class="ck-lbl">Feito</div>
+        <div class="ck-box"></div>
+      </div>
+    </div>
   </div>
 
   <button class="pop-del-btn" id="pop-del">🗑 Remover actividade</button>
@@ -728,7 +825,7 @@
     if(!v||v===1) return{done:v?1:0,p:null,b:[],f:[]};
     // migrate: b may be old string format
     const b=v.b?(Array.isArray(v.b)?v.b:[v.b]):[];
-    return{done:v.done||0,p:v.p||null,b:b,f:v.f||[],s:v.s||null,e:v.e||null,name:v.name||null,deleted:v.deleted||0};
+    return{done:v.done||0,p:v.p||null,b:b,f:v.f||[],s:v.s||null,e:v.e||null,name:v.name||null,deleted:v.deleted||0,sup:v.sup||null,ck_c:v.ck_c||0,ck_e:v.ck_e||0};
   }
   function setTS(id,patch){
     const s=load(),cur=getTS(id);
@@ -745,7 +842,9 @@
     if(ts.b&&ts.b.length){ts.b.forEach(bv=>{h+=`<span class="tag tag-b">Ed.${bv}</span>`})}
     if(ts.f&&ts.f.length){ts.f.slice().sort((a,b)=>a-b).forEach(f=>{h+=`<span class="tag tag-f">P${f}</span>`})}
     if(ts.s){h+=`<span class="tag tag-d">📅 ${ts.s.slice(5).replace('-','/')}</span>`}
-    if(!ts.p&&(!ts.b||!ts.b.length)&&(!ts.f||!ts.f.length)&&!ts.s){h+=`<span class="tag tag-none">+ tag</span>`}
+    if(ts.sup){h+=`<span class="tag tag-sup">${ts.sup.length>14?ts.sup.slice(0,13)+'…':ts.sup}</span>`}
+    if(ts.ck_c||ts.ck_e){h+=`<span class="tag tag-sup">${ts.ck_c&&ts.ck_e?'🛒📦':ts.ck_c?'🛒':'📦'}</span>`}
+    if(!ts.p&&(!ts.b||!ts.b.length)&&(!ts.f||!ts.f.length)&&!ts.s&&!ts.sup){h+=`<span class="tag tag-none">+ tag</span>`}
     h+=`<span class="tags-edit">✎</span></div>`;
     return h;
   }
@@ -992,6 +1091,19 @@
       priElems[pk].fill.style.width=(pt.length?(dn/pt.length*100).toFixed(1):0)+'%';
       priElems[pk].count.textContent=`${dn}/${pt.length}`;
     });
+    // Pipeline
+    const pc=ALL_TASKS.filter(t=>getTS(t.id).ck_c).length;
+    const pe=ALL_TASKS.filter(t=>getTS(t.id).ck_e).length;
+    const pf=ALL_TASKS.filter(t=>getTS(t.id).done).length;
+    const pTotal=TOTAL||1;
+    document.getElementById('pp-c').textContent=pc;
+    document.getElementById('pp-e').textContent=pe;
+    document.getElementById('pp-f').textContent=pf;
+    document.getElementById('pf-c').style.width=(pc/pTotal*100).toFixed(1)+'%';
+    document.getElementById('pf-e').style.width=(pe/pTotal*100).toFixed(1)+'%';
+    document.getElementById('pf-f').style.width=(pf/pTotal*100).toFixed(1)+'%';
+    const sups=new Set(ALL_TASKS.map(t=>getTS(t.id).sup).filter(Boolean));
+    document.getElementById('pp-sup').textContent=sups.size>0?`${sups.size} ${sups.size===1?'empresa':'empresas'}`:'—';
     updateMonthCards();
   }
   /* ── ASYNC INIT — carrega estado do GitHub, renderiza, depois faz polling ── */
@@ -1081,8 +1193,17 @@
     // Dates
     document.getElementById('pop-ds').value=ts.s||(dTask?.s)||'';
     document.getElementById('pop-de').value=ts.e||(dTask?.e)||'';
+    // Supplier + checklist
+    document.getElementById('pop-sup').value=ts.sup||'';
+    document.getElementById('ck-c').classList.toggle('on',!!ts.ck_c);
+    document.getElementById('ck-e').classList.toggle('on',!!ts.ck_e);
+    document.getElementById('ck-f').classList.toggle('on',!!ts.done);
+    // Reset to detalhe tab
+    document.querySelectorAll('.pop-tab').forEach(t=>t.classList.toggle('on',t.dataset.t==='det'));
+    document.getElementById('pop-panel-det').style.display='';
+    document.getElementById('pop-panel-sup').style.display='none';
     const rect=anchor.getBoundingClientRect();
-    pop.style.top=Math.min(rect.bottom+6, window.innerHeight-460)+'px';
+    pop.style.top=Math.min(rect.bottom+6, window.innerHeight-480)+'px';
     pop.style.left=Math.max(8,Math.min(rect.left,window.innerWidth-248))+'px';
     pop.classList.add('show');
   }
@@ -1163,6 +1284,53 @@
     renderTable();
     setTimeout(()=>{const el=document.querySelector(`.tags-cell[data-id="${saved}"]`);if(el){openPop(saved,el);}},50);
   });
+  // ── Tab switching ──
+  document.querySelectorAll('.pop-tab').forEach(tab=>{
+    tab.addEventListener('click',e=>{
+      e.stopPropagation();
+      const t=tab.dataset.t;
+      document.querySelectorAll('.pop-tab').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
+      document.getElementById('pop-panel-det').style.display=t==='det'?'':'none';
+      document.getElementById('pop-panel-sup').style.display=t==='sup'?'':'none';
+    });
+  });
+
+  // ── Fornecedor ──
+  document.getElementById('pop-sup').addEventListener('input',e=>{
+    e.stopPropagation();
+    if(!activeId)return;
+    setTS(activeId,{sup:e.target.value.trim()||null});
+    refreshTags(activeId);updateDash();
+  });
+  document.getElementById('pop-sup').addEventListener('click',e=>e.stopPropagation());
+
+  // ── Checklist: Comprado ──
+  document.getElementById('ck-c').addEventListener('click',e=>{
+    e.stopPropagation();
+    if(!activeId)return;
+    const on=document.getElementById('ck-c').classList.toggle('on');
+    setTS(activeId,{ck_c:on?1:0});
+    refreshTags(activeId);updateDash();
+  });
+  // ── Checklist: Entregue ──
+  document.getElementById('ck-e').addEventListener('click',e=>{
+    e.stopPropagation();
+    if(!activeId)return;
+    const on=document.getElementById('ck-e').classList.toggle('on');
+    setTS(activeId,{ck_e:on?1:0});
+    refreshTags(activeId);updateDash();
+  });
+  // ── Checklist: Feito (= done) ──
+  document.getElementById('ck-f').addEventListener('click',e=>{
+    e.stopPropagation();
+    if(!activeId)return;
+    const on=document.getElementById('ck-f').classList.toggle('on');
+    setTS(activeId,{done:on?1:0});
+    const row=document.querySelector(`tr[data-id="${activeId}"]`);
+    if(row){row.classList.toggle('done',on);row.dataset.done=on?'1':'0';const cb=row.querySelector('input[type=checkbox]');if(cb)cb.checked=on;}
+    refreshTags(activeId);updateDash();applyFilter();
+  });
+
   // Name edit — save on input
   document.getElementById('pop-name').addEventListener('input',e=>{
     e.stopPropagation();
