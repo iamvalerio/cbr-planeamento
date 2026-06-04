@@ -427,7 +427,7 @@
       "deleted": 0
     },
     "s04": {
-      "done": 1,
+      "done": 0,
       "p": "c",
       "b": [
         "B"
@@ -441,7 +441,7 @@
       "deleted": 0,
       "sup": null,
       "ck_c": 1,
-      "ck_e": 1
+      "ck_e": 0
     },
     "s05": {
       "done": 0,
