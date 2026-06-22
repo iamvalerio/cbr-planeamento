@@ -501,7 +501,10 @@
       "s": "2026-08-17",
       "e": "2026-08-28",
       "name": "Grupeme - Configuração",
-      "deleted": 0
+      "deleted": 0,
+      "sup": null,
+      "ck_c": 1,
+      "ck_e": 0
     },
     "s06": {
       "done": 0,
