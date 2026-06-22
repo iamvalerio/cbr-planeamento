@@ -410,7 +410,10 @@
       "s": "2026-07-27",
       "e": "2026-07-31",
       "name": "Mobiliário Informal - Consigo",
-      "deleted": 0
+      "deleted": 0,
+      "sup": null,
+      "ck_c": 1,
+      "ck_e": 0
     },
     "w05": {
       "done": 0,
@@ -427,7 +430,10 @@
       "s": "2026-07-20",
       "e": "2026-07-31",
       "name": null,
-      "deleted": 0
+      "deleted": 0,
+      "sup": null,
+      "ck_c": 1,
+      "ck_e": 0
     },
     "s04": {
       "done": 0,
