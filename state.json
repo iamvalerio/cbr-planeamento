@@ -306,7 +306,7 @@
       "deleted": 0,
       "sup": null,
       "ck_c": 1,
-      "ck_e": 0
+      "ck_e": 1
     },
     "i07": {
       "done": 0,
@@ -467,7 +467,10 @@
       "s": "2026-06-29",
       "e": "2026-07-10",
       "name": null,
-      "deleted": 0
+      "deleted": 0,
+      "sup": null,
+      "ck_c": 1,
+      "ck_e": 0
     },
     "e03": {
       "done": 0,
