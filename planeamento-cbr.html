@@ -324,8 +324,8 @@
     .fm-zone-hd{display:flex;align-items:center;gap:9px;padding:6px 4px 8px;position:sticky;top:0;background:var(--bg);z-index:2}
     .fm-zone-dot{width:12px;height:12px;border-radius:4px;background:var(--zc,#bbb);flex-shrink:0}
     .fm-zone-name{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--zc,var(--lbl2));flex:1;min-width:0}
-    .fm-zone-count{font-size:11px;font-weight:700;color:var(--zc,var(--lbl2));background:rgba(26,22,16,.05);border-radius:99px;padding:3px 10px;flex-shrink:0}
-    .fm-zone.zdone .fm-zone-count{color:#fff;background:var(--zc,var(--verde))}
+    .fm-zone-count{font-size:11px;font-weight:700;color:var(--lbl2);background:rgba(26,22,16,.05);border-radius:99px;padding:3px 10px;flex-shrink:0}
+    .fm-zone-pct{font-size:11.5px;font-weight:800;color:#fff;background:var(--zc,var(--verde));border-radius:99px;padding:3px 9px;flex-shrink:0;min-width:38px;text-align:center}
     .fm-item{background:var(--card);border-radius:14px;border-left:4px solid var(--zc,transparent);margin-bottom:6px;padding:12px 14px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow-sm)}
     .fm-checks{display:flex;gap:11px;flex-shrink:0}
     .fm-ck{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .1s}
@@ -394,7 +394,7 @@
       </div>
     </div>
     <div class="dc1-right">
-      <div class="dc1-total"><b id="d-n">0</b>de 95 tarefas</div>
+      <div class="dc1-total"><b id="d-n">0</b>de 95 tasks</div>
       <div class="dc1-chips">
         <div class="dc1-chip">
           <div class="dc1-chip-dot" style="background:#455a64"></div>
@@ -446,7 +446,7 @@
       <div class="pipe-step">
         <div class="pipe-icon">✅</div>
         <div class="pipe-n" id="pp-f">–</div>
-        <div class="pipe-lbl">Feito</div>
+        <div class="pipe-lbl">Done</div>
         <div class="pipe-bar"><div class="pipe-fill" id="pf-f" style="background:var(--verde)"></div></div>
       </div>
     </div>
@@ -978,7 +978,7 @@
     const effName=ts.name||task.name;
     tr.innerHTML=
       `<td class="t-chk sk"><div class="sk-ck-wrap">`+
-      `<label class="sk-ck-lbl" title="Feito"><input type="checkbox" class="ck-tbl ck-solo" data-id="${task.id}" data-k="done"${ts.done?' checked':''}></label>`+
+      `<label class="sk-ck-lbl" title="Done"><input type="checkbox" class="ck-tbl ck-solo" data-id="${task.id}" data-k="done"${ts.done?' checked':''}></label>`+
       `</div></td>`+
       `<td class="t-name sn" title="${effName}"><span class="cat-dot" style="background:${cat.color}"></span><span class="tn">${effName}</span></td>`+
       `<td class="tags-cell st" data-id="${task.id}">${tagsHTML(task.id)}</td>`+
@@ -1600,7 +1600,7 @@
     const supHtml=ts.sup?`<div class="lv-sup">🏢 ${ts.sup.length>26?ts.sup.slice(0,25)+'…':ts.sup}</div>`:'';
     d.innerHTML=
       `<div class="lv-ck">`+
-      `<label class="sk-ck-lbl" title="Feito"><input type="checkbox" class="ck-tbl ck-solo" data-id="${task.id}" data-k="done"${ts.done?' checked':''}></label>`+
+      `<label class="sk-ck-lbl" title="Done"><input type="checkbox" class="ck-tbl ck-solo" data-id="${task.id}" data-k="done"${ts.done?' checked':''}></label>`+
       `</div>`+
       `<div class="lv-body" data-id="${task.id}">`+
         `<div class="lv-name"><span class="cat-dot" style="background:${cat.color};flex-shrink:0"></span><span class="lv-name-txt">${effName}</span></div>`+
@@ -1752,8 +1752,9 @@
       zone.className='fm-zone'+(fmZoneDone(st)?' zdone':'');
       zone.dataset.zi=zi;
       zone.style.setProperty('--zc',z.c);
+      const zp=st.total?Math.round((st.c+st.f)/(2*st.total)*100):0;
       const hd=document.createElement('div');hd.className='fm-zone-hd';
-      hd.innerHTML=`<span class="fm-zone-dot"></span><span class="fm-zone-name">${esc(z.z)}</span><span class="fm-zone-count">🛒${st.c} ✅${st.f}</span>`;
+      hd.innerHTML=`<span class="fm-zone-dot"></span><span class="fm-zone-name">${esc(z.z)}</span><span class="fm-zone-count">🛒${st.c} ✅${st.f}</span><span class="fm-zone-pct">${zp}%</span>`;
       zone.appendChild(hd);
       z.items.forEach(item=>{
         const s=fmChkState(item.id);
@@ -1833,6 +1834,7 @@
     const it=ck.closest('.fm-item'); if(k==='f')it.classList.toggle('done',on);
     const zone=ck.closest('.fm-zone'), st=fmZoneStats(+zone.dataset.zi);
     zone.querySelector('.fm-zone-count').textContent=`🛒${st.c} ✅${st.f}`;
+    zone.querySelector('.fm-zone-pct').textContent=(st.total?Math.round((st.c+st.f)/(2*st.total)*100):0)+'%';
     zone.classList.toggle('zdone',fmZoneDone(st));
     updateFMProgress();
     if(navigator.vibrate)try{navigator.vibrate(8)}catch(e){}
