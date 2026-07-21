@@ -578,7 +578,12 @@
     }
   },
   "custom": [],
-  "fmcheck": {},
+  "fmcheck": {
+    "imrv6nnkqehkz": {
+      "c": 1,
+      "f": 1
+    }
+  },
   "fmzones": [
     {
       "z": "Hall de entrada",
