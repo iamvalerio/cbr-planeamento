@@ -37,7 +37,12 @@
     body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-serif;background:var(--bg);color:var(--lbl);-webkit-font-smoothing:antialiased}
 
     /* ── NAV BAR ── */
-    .topbar{background:rgba(237,233,227,.94);backdrop-filter:saturate(200%) blur(24px);-webkit-backdrop-filter:saturate(200%) blur(24px);padding:11px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:300;border-bottom:0.5px solid var(--sep)}
+    .stickytop{position:sticky;top:0;z-index:300;background:rgba(237,233,227,.94);backdrop-filter:saturate(200%) blur(24px);-webkit-backdrop-filter:saturate(200%) blur(24px);border-bottom:0.5px solid var(--sep)}
+    .topbar{padding:11px 18px 9px;display:flex;align-items:center;justify-content:space-between}
+    .topnav{display:flex;gap:6px;padding:0 12px 10px}
+    .tn-btn{flex:1;border:1.5px solid var(--sep);background:rgba(26,22,16,.05);color:var(--lbl2);border-radius:12px;padding:9px 6px;font-size:12px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .18s;white-space:nowrap;letter-spacing:.1px;display:flex;align-items:center;justify-content:center;gap:5px}
+    .tn-btn.on{background:var(--verde);color:#fff;border-color:transparent;box-shadow:var(--shadow-sm)}
+    .tn-btn:active{transform:scale(.97)}
     .topbar-t{font-size:15px;font-weight:700;letter-spacing:-.2px;color:var(--lbl)}
     .topbar-s{font-size:11px;color:var(--lbl2);margin-top:1px;font-weight:500;letter-spacing:.1px}
     .topbar-pct{font-size:22px;font-weight:700;color:var(--verde);line-height:1}
@@ -300,7 +305,6 @@
     .vw-btn{border:1.5px solid var(--sep);background:rgba(26,22,16,.07);color:var(--lbl2);border-radius:20px;padding:5px 11px;font-size:11px;cursor:pointer;font-weight:600;-webkit-tap-highlight-color:transparent;transition:all .18s;white-space:nowrap;letter-spacing:.1px}
     .vw-btn.on{background:var(--verde);color:#fff;border-color:transparent}
     .vw-btn:active{transform:scale(.93)}
-    .fm-btn{background:var(--verde);color:#fff;border-color:transparent}
 
     /* ── CHECK-LIST FM (overlay full-screen) ── */
     .fm-overlay{position:fixed;inset:0;z-index:800;background:var(--bg);display:none;flex-direction:column}
@@ -334,6 +338,16 @@
     .fm-ck.k-f.on .fm-ck-cap{color:var(--verde)}
     .fm-label{font-size:14.5px;font-weight:500;color:var(--lbl);flex:1;min-width:0;line-height:1.3;transition:color .15s}
     .fm-item.done .fm-label{color:var(--lbl3);text-decoration:line-through;text-decoration-color:var(--lbl3)}
+    .fm-edit-btn{border:1.5px solid var(--sep);background:rgba(26,22,16,.05);color:var(--lbl2);border-radius:20px;padding:6px 11px;font-size:12px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;white-space:nowrap;flex-shrink:0;transition:all .18s}
+    .fm-edit-btn.on{background:var(--verde);color:#fff;border-color:transparent}
+    .fm-edit-btn:active{transform:scale(.95)}
+    .fm-edit-inp{flex:1;min-width:0;font-family:inherit;font-size:14.5px;font-weight:500;color:var(--lbl);background:var(--bg);border:1px solid var(--sep);border-radius:9px;padding:10px 11px;-webkit-tap-highlight-color:transparent}
+    .fm-edit-inp:focus{outline:none;border-color:var(--zc,var(--verde));background:var(--card)}
+    .fm-del{flex-shrink:0;width:40px;height:40px;border:none;background:rgba(139,61,46,.1);color:var(--red);border-radius:9px;font-size:16px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .1s}
+    .fm-del:active{transform:scale(.88)}
+    .fm-add{width:100%;margin:2px 0 4px;padding:11px;border:1.5px dashed var(--zc,var(--lbl3));background:transparent;color:var(--zc,var(--lbl2));border-radius:12px;font-size:12.5px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;letter-spacing:.2px;opacity:.85}
+    .fm-add:active{transform:scale(.99)}
+    #fmcheck.editmode .fm-item{padding:8px 10px}
 
     @media(max-width:480px){
       :root{--cw:40px;--nw:150px;--kw:50px;--tw:72px}
@@ -345,16 +359,22 @@
 <body>
 
 <!-- ── TOP BAR ── -->
-<div class="topbar">
-  <div>
-    <div class="topbar-t">CBR Editora</div>
-    <div class="topbar-s">Planeamento de Instalações · Jun – Set 2026</div>
+<div class="stickytop">
+  <div class="topbar">
+    <div>
+      <div class="topbar-t">CBR Editora</div>
+      <div class="topbar-s">Planeamento de Instalações · Jun – Set 2026</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="vw-btn" id="vw-toggle" title="Alternar entre Gantt e Lista">📋 Lista</button>
+      <span id="sync-dot" title="A carregar…" style="width:8px;height:8px;border-radius:50%;background:#8C9198;display:inline-block;flex-shrink:0;transition:background .4s"></span>
+      <div class="topbar-pct" id="top-pct">0%</div>
+    </div>
   </div>
-  <div style="display:flex;align-items:center;gap:8px">
-    <button class="vw-btn fm-btn" id="fm-btn" title="Check-list FM">✅ Check-list FM</button>
-    <button class="vw-btn" id="vw-toggle" title="Alternar entre Gantt e Lista">📋 Lista</button>
-    <span id="sync-dot" title="A carregar…" style="width:8px;height:8px;border-radius:50%;background:#8C9198;display:inline-block;flex-shrink:0;transition:background .4s"></span>
-    <div class="topbar-pct" id="top-pct">0%</div>
+  <div class="topnav">
+    <button class="tn-btn on" id="nav-editora">🏢 Editora</button>
+    <button class="tn-btn" id="nav-fm">✅ Check-list FM</button>
+    <button class="tn-btn" id="nav-layout">🗺️ Layout</button>
   </div>
 </div>
 
@@ -593,6 +613,7 @@
       <div class="fm-title">✅ Check-list FM</div>
       <div class="fm-sub" id="fm-sub">0 pontos verificados</div>
     </div>
+    <button class="fm-edit-btn" id="fm-edit" title="Editar lista">✏️ Editar</button>
     <div class="fm-pct" id="fm-pct">0%</div>
   </div>
   <div class="fm-progress"><div class="fm-progress-fill" id="fm-progress-fill"></div></div>
@@ -1664,8 +1685,8 @@
   }
   document.getElementById('vw-toggle').addEventListener('click',()=>setView(curView==='gantt'?'lista':'gantt'));
 
-  /* ══════════ CHECK-LIST FM (por zonas) ══════════ */
-  const FM_ZONES=[
+  /* ══════════ CHECK-LIST FM (por zonas, editável) ══════════ */
+  const FM_DEFAULT=[
     {z:'Hall de entrada',c:'#B0622D',items:['Chaveiro','Caixas para guarda-chuvas','Estante arrumos','Caixotes lixo arrumos','Ecoponto recepção','Decoração da estante da recepção','Tapete Cairo da entrada','Balcão da recepção','Intercomunicador','Aspirador de mão','Bengaleiro à entrada','Bengaleiro recepção','Bengaleiro zona de espera','Impressora','Etiquetadora','Base impressora Heidelberg','Carrinhos para entregas']},
     {z:'Openspaces',c:'#809751',items:['Bengaleiros','Ecopontos','Whiteboards, apagadores e canetas']},
     {z:'WC’s',c:'#5B7A8C',items:['Caixotes lixo','Cabides nas portas']},
@@ -1678,77 +1699,151 @@
     {z:'Copas e cozinhas',c:'#C0793F',items:['Ecopontos','Caixotes lixo da cozinha','Carrinho dos tabuleiros','Bengaleiro','Lista da Tatiana','Revestimento de protecção do pavimento','Carrinho Andreia (comidas e coffee break)','Copos, talheres e loiças']},
     {z:'Resto',c:'#8E6FA0',items:['Equipamentos de jogos / sala de jogos','Máquinas de água (ver quantidades)','Mobiliário restante (Frederico)','Limpeza — contrato','Equipamentos casa de banho','Plataforma elevatória de acesso ao piso inferior','Caixas de correio','Extintores e suportes','Auto-extinção DC','Carrinho de limpeza','Móvel / carrinho para Coffee spot','Whiteboard para zonas informais','Validar zonas informais','Validar espelhos WC']},
   ];
-  let fmOpen=false;
+  let fmOpen=false, fmEdit=false;
 
-  function fmGet(){ if(!_state.fmcheck||typeof _state.fmcheck!=='object')_state.fmcheck={}; return _state.fmcheck; }
+  function fmNewId(){ return 'i'+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+  function fmSeed(){
+    if(!_state.fmcheck||typeof _state.fmcheck!=='object')_state.fmcheck={};
+    if(!Array.isArray(_state.fmzones)){
+      const old=_state.fmcheck, migrated={};
+      _state.fmzones=FM_DEFAULT.map((z,zi)=>({
+        z:z.z, c:z.c,
+        items:z.items.map((t,i)=>{
+          const id=fmNewId();
+          const oc=old['fmc_'+zi+'_'+i], of=old['fm_'+zi+'_'+i];
+          if(oc||of)migrated[id]={c:oc?1:0,f:of?1:0};
+          return {id,t};
+        })
+      }));
+      _state.fmcheck=migrated;
+      _push(); // persiste a estrutura semeada uma vez
+    }
+  }
+  function fmZones(){ fmSeed(); return _state.fmzones; }
+  function fmChkState(id){ return _state.fmcheck[id]||{c:0,f:0}; }
+  function fmSetChk(id,k,v){ const m=_state.fmcheck; if(!m[id])m[id]={c:0,f:0}; m[id][k]=v?1:0; _push(); }
+  function esc(t){ return (t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
   function fmZoneStats(zi){
-    const s=fmGet();let done=0;
-    FM_ZONES[zi].items.forEach((_,i)=>{ if(s['fm_'+zi+'_'+i])done++; });
-    return{done,total:FM_ZONES[zi].items.length};
+    const z=fmZones()[zi]; let c=0,f=0;
+    z.items.forEach(it=>{const s=fmChkState(it.id); if(s.c)c++; if(s.f)f++;});
+    return {c,f,total:z.items.length};
   }
   function fmGlobalStats(){
-    let done=0,total=0;
-    FM_ZONES.forEach((_,zi)=>{const st=fmZoneStats(zi);done+=st.done;total+=st.total;});
-    return{done,total};
+    let c=0,f=0,total=0;
+    fmZones().forEach((_,zi)=>{const st=fmZoneStats(zi); c+=st.c; f+=st.f; total+=st.total;});
+    return {c,f,total};
   }
+  function fmZoneDone(st){ return st.total>0 && st.c===st.total && st.f===st.total; }
   function updateFMProgress(){
     const g=fmGlobalStats();
-    const p=g.total?Math.round(g.done/g.total*100):0;
+    // % contempla as duas: comprado + feito (cada ponto vale 2)
+    const p=g.total?Math.round((g.c+g.f)/(2*g.total)*100):0;
     document.getElementById('fm-pct').textContent=p+'%';
     document.getElementById('fm-progress-fill').style.width=p+'%';
-    document.getElementById('fm-sub').textContent=`${g.done} de ${g.total} pontos verificados`;
+    document.getElementById('fm-sub').textContent=`🛒 ${g.c} comprado · ✅ ${g.f} feito · ${g.total} pontos`;
   }
   function renderFM(){
     const body=document.getElementById('fm-body');
-    const s=fmGet();
     body.innerHTML='';
-    FM_ZONES.forEach((z,zi)=>{
+    fmZones().forEach((z,zi)=>{
       const st=fmZoneStats(zi);
       const zone=document.createElement('div');
-      zone.className='fm-zone'+(st.done===st.total?' zdone':'');
+      zone.className='fm-zone'+(fmZoneDone(st)?' zdone':'');
       zone.dataset.zi=zi;
       zone.style.setProperty('--zc',z.c);
       const hd=document.createElement('div');hd.className='fm-zone-hd';
-      hd.innerHTML=`<span class="fm-zone-dot"></span><span class="fm-zone-name">${z.z}</span><span class="fm-zone-count">${st.done}/${st.total}</span>`;
+      hd.innerHTML=`<span class="fm-zone-dot"></span><span class="fm-zone-name">${esc(z.z)}</span><span class="fm-zone-count">🛒${st.c} ✅${st.f}</span>`;
       zone.appendChild(hd);
-      z.items.forEach((label,i)=>{
-        const cOn=!!s['fmc_'+zi+'_'+i], fOn=!!s['fm_'+zi+'_'+i];
+      z.items.forEach(item=>{
+        const s=fmChkState(item.id);
         const it=document.createElement('div');
-        it.className='fm-item'+(fOn?' done':'');
-        it.innerHTML=
-          `<div class="fm-checks">`+
-            `<div class="fm-ck k-c${cOn?' on':''}" data-zi="${zi}" data-i="${i}" data-k="c"><div class="fm-ck-box">${cOn?'✓':''}</div><div class="fm-ck-cap">Comprado</div></div>`+
-            `<div class="fm-ck k-f${fOn?' on':''}" data-zi="${zi}" data-i="${i}" data-k="f"><div class="fm-ck-box">${fOn?'✓':''}</div><div class="fm-ck-cap">Feito</div></div>`+
-          `</div>`+
-          `<div class="fm-label">${label}</div>`;
+        it.className='fm-item'+(s.f?' done':'');
+        it.dataset.id=item.id;
+        if(fmEdit){
+          it.innerHTML=
+            `<input class="fm-edit-inp" data-id="${item.id}" value="${esc(item.t)}" placeholder="Descrição do ponto…">`+
+            `<button class="fm-del" data-id="${item.id}" title="Apagar ponto">🗑</button>`;
+        }else{
+          it.innerHTML=
+            `<div class="fm-checks">`+
+              `<div class="fm-ck k-c${s.c?' on':''}" data-id="${item.id}" data-k="c"><div class="fm-ck-box">${s.c?'✓':''}</div><div class="fm-ck-cap">Comprado</div></div>`+
+              `<div class="fm-ck k-f${s.f?' on':''}" data-id="${item.id}" data-k="f"><div class="fm-ck-box">${s.f?'✓':''}</div><div class="fm-ck-cap">Feito</div></div>`+
+            `</div>`+
+            `<div class="fm-label">${esc(item.t)}</div>`;
+        }
         zone.appendChild(it);
       });
+      if(fmEdit){
+        const add=document.createElement('button');
+        add.className='fm-add'; add.dataset.zi=zi; add.textContent='＋ Adicionar ponto';
+        zone.appendChild(add);
+      }
       body.appendChild(zone);
     });
     updateFMProgress();
   }
   function openFM(){ fmOpen=true; renderFM(); document.getElementById('fmcheck').classList.add('show'); document.body.style.overflow='hidden'; }
-  function closeFM(){ fmOpen=false; document.getElementById('fmcheck').classList.remove('show'); document.body.style.overflow=''; }
+  function closeFM(){ fmOpen=false; if(fmEdit)setFmEdit(false); document.getElementById('fmcheck').classList.remove('show'); document.body.style.overflow=''; setNav('editora'); }
+  function setFmEdit(on){
+    fmEdit=on;
+    const b=document.getElementById('fm-edit');
+    b.classList.toggle('on',on); b.textContent=on?'✓ Concluir':'✏️ Editar';
+    document.getElementById('fmcheck').classList.toggle('editmode',on);
+    renderFM();
+  }
 
-  document.getElementById('fm-btn').addEventListener('click',openFM);
+  /* ── NAV DE TOPO (Editora / Check-list FM / Layout) ── */
+  const LAYOUT_PDF='layout.pdf';
+  function setNav(w){['editora','fm','layout'].forEach(k=>{const b=document.getElementById('nav-'+k);if(b)b.classList.toggle('on',k===w);});}
+  document.getElementById('nav-editora').addEventListener('click',()=>{closeFM();setNav('editora');});
+  document.getElementById('nav-fm').addEventListener('click',()=>{openFM();setNav('fm');});
+  document.getElementById('nav-layout').addEventListener('click',async()=>{
+    try{const r=await fetch(LAYOUT_PDF,{method:'HEAD',cache:'no-store'});if(r.ok){window.open(LAYOUT_PDF,'_blank','noopener');return;}}catch(e){}
+    alert('O Layout (PDF) ainda não foi carregado — vai ficar disponível aqui assim que for adicionado.');
+  });
   document.getElementById('fm-back').addEventListener('click',closeFM);
+  document.getElementById('fm-edit').addEventListener('click',()=>setFmEdit(!fmEdit));
+
   document.getElementById('fm-body').addEventListener('click',e=>{
-    const ck=e.target.closest('.fm-ck'); if(!ck)return;
-    const zi=+ck.dataset.zi, i=+ck.dataset.i, k=ck.dataset.k, s=fmGet();
-    const key=(k==='c'?'fmc_':'fm_')+zi+'_'+i, on=!s[key];
-    s[key]=on?1:0; _push();
+    // apagar ponto
+    const del=e.target.closest('.fm-del');
+    if(del){
+      const id=del.dataset.id;
+      for(const z of fmZones()){const ix=z.items.findIndex(x=>x.id===id); if(ix>=0){z.items.splice(ix,1);break;}}
+      delete _state.fmcheck[id]; _push(); renderFM();
+      if(navigator.vibrate)try{navigator.vibrate(12)}catch(e){}
+      return;
+    }
+    // adicionar ponto
+    const add=e.target.closest('.fm-add');
+    if(add){
+      const zi=+add.dataset.zi, id=fmNewId();
+      fmZones()[zi].items.push({id,t:''}); _push(); renderFM();
+      const inp=document.querySelector(`.fm-edit-inp[data-id="${id}"]`);
+      if(inp)inp.focus();
+      return;
+    }
+    // marcar comprado / feito
+    const ck=e.target.closest('.fm-ck'); if(!ck||fmEdit)return;
+    const id=ck.dataset.id, k=ck.dataset.k, on=!fmChkState(id)[k];
+    fmSetChk(id,k,on);
     ck.classList.toggle('on',on);
     ck.querySelector('.fm-ck-box').textContent=on?'✓':'';
-    if(k==='f'){
-      const it=ck.closest('.fm-item'); it.classList.toggle('done',on);
-      const zone=it.closest('.fm-zone'), st=fmZoneStats(zi);
-      zone.querySelector('.fm-zone-count').textContent=st.done+'/'+st.total;
-      zone.classList.toggle('zdone',st.done===st.total);
-      updateFMProgress();
-    }
+    const it=ck.closest('.fm-item'); if(k==='f')it.classList.toggle('done',on);
+    const zone=ck.closest('.fm-zone'), st=fmZoneStats(+zone.dataset.zi);
+    zone.querySelector('.fm-zone-count').textContent=`🛒${st.c} ✅${st.f}`;
+    zone.classList.toggle('zdone',fmZoneDone(st));
+    updateFMProgress();
     if(navigator.vibrate)try{navigator.vibrate(8)}catch(e){}
   });
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&fmOpen)closeFM();});
+  document.getElementById('fm-body').addEventListener('input',e=>{
+    const inp=e.target.closest('.fm-edit-inp'); if(!inp)return;
+    const id=inp.dataset.id;
+    for(const z of fmZones()){const item=z.items.find(x=>x.id===id); if(item){item.t=inp.value;break;}}
+    _push();
+  });
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&fmOpen){fmEdit?setFmEdit(false):closeFM();}});
 
 })();
 </script>
