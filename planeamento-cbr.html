@@ -317,16 +317,23 @@
     .fm-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:6px 12px calc(48px + env(safe-area-inset-bottom,0px))}
     .fm-zone{margin-top:18px}
     .fm-zone:first-child{margin-top:8px}
-    .fm-zone-hd{display:flex;align-items:center;gap:8px;padding:6px 4px 8px;position:sticky;top:0;background:var(--bg);z-index:2}
-    .fm-zone-name{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--lbl2);flex:1;min-width:0}
-    .fm-zone-count{font-size:11px;font-weight:700;color:var(--lbl2);background:rgba(26,22,16,.06);border-radius:99px;padding:3px 10px;flex-shrink:0}
-    .fm-zone.zdone .fm-zone-count{color:#fff;background:var(--verde)}
-    .fm-item{background:var(--card);border-radius:14px;margin-bottom:6px;padding:14px;display:flex;align-items:center;gap:13px;box-shadow:var(--shadow-sm);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s,transform .1s}
-    .fm-item:active{transform:scale(.99);background:rgba(128,151,81,.06)}
-    .fm-box{width:24px;height:24px;border-radius:8px;border:2px solid var(--lbl3);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .18s;font-size:14px;font-weight:700;color:#fff}
-    .fm-item.on .fm-box{background:var(--verde);border-color:var(--verde)}
-    .fm-label{font-size:14.5px;font-weight:500;color:var(--lbl);flex:1;min-width:0;line-height:1.3}
-    .fm-item.on .fm-label{color:var(--lbl2);text-decoration:line-through;text-decoration-color:var(--lbl3)}
+    .fm-zone-hd{display:flex;align-items:center;gap:9px;padding:6px 4px 8px;position:sticky;top:0;background:var(--bg);z-index:2}
+    .fm-zone-dot{width:12px;height:12px;border-radius:4px;background:var(--zc,#bbb);flex-shrink:0}
+    .fm-zone-name{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--zc,var(--lbl2));flex:1;min-width:0}
+    .fm-zone-count{font-size:11px;font-weight:700;color:var(--zc,var(--lbl2));background:rgba(26,22,16,.05);border-radius:99px;padding:3px 10px;flex-shrink:0}
+    .fm-zone.zdone .fm-zone-count{color:#fff;background:var(--zc,var(--verde))}
+    .fm-item{background:var(--card);border-radius:14px;border-left:4px solid var(--zc,transparent);margin-bottom:6px;padding:12px 14px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow-sm)}
+    .fm-checks{display:flex;gap:11px;flex-shrink:0}
+    .fm-ck{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .1s}
+    .fm-ck:active{transform:scale(.88)}
+    .fm-ck-box{width:27px;height:27px;border-radius:8px;border:2px solid var(--lbl3);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;background:var(--card);transition:all .16s}
+    .fm-ck-cap{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.2px;color:var(--lbl3);white-space:nowrap}
+    .fm-ck.k-c.on .fm-ck-box{background:var(--tijolo);border-color:var(--tijolo)}
+    .fm-ck.k-c.on .fm-ck-cap{color:var(--tijolo)}
+    .fm-ck.k-f.on .fm-ck-box{background:var(--verde);border-color:var(--verde)}
+    .fm-ck.k-f.on .fm-ck-cap{color:var(--verde)}
+    .fm-label{font-size:14.5px;font-weight:500;color:var(--lbl);flex:1;min-width:0;line-height:1.3;transition:color .15s}
+    .fm-item.done .fm-label{color:var(--lbl3);text-decoration:line-through;text-decoration-color:var(--lbl3)}
 
     @media(max-width:480px){
       :root{--cw:40px;--nw:150px;--kw:50px;--tw:72px}
@@ -1659,17 +1666,17 @@
 
   /* ══════════ CHECK-LIST FM (por zonas) ══════════ */
   const FM_ZONES=[
-    {z:'Hall de entrada',items:['Chaveiro','Caixas para guarda-chuvas','Estante arrumos','Caixotes lixo arrumos','Ecoponto recepção','Decoração da estante da recepção','Tapete Cairo da entrada','Balcão da recepção','Intercomunicador','Aspirador de mão','Bengaleiro à entrada','Bengaleiro recepção','Bengaleiro zona de espera','Impressora','Etiquetadora','Base impressora Heidelberg','Carrinhos para entregas']},
-    {z:'Openspaces',items:['Bengaleiros','Ecopontos','Whiteboards, apagadores e canetas']},
-    {z:'WC’s',items:['Caixotes lixo','Cabides nas portas']},
-    {z:'Salas de reuniões',items:['Aparadores','Conteúdo dentro dos aparadores','Cabides','Caixote lixo','Máquinas café','Aparador de vidro (sala de entrada)','Whiteboards, apagadores e canetas']},
-    {z:'Cubículo de vidro',items:['Mesa alta pequena','Monitor / TV','Caixote lixo pequeno','Planta']},
-    {z:'Dojo',items:['Banda e instrumentos','Tapete da banda','Zona informal','Aparador com máquina de café','Solução acústica','Base impressora Heidelberg']},
-    {z:'Nave',items:['Tela / projector / sistema de som','Base impressora Heidelberg','Patins das mesas','Material de apoio a eventos']},
-    {z:'Arrumos',items:['Estantes e caixas','Layout salas de limpeza','Carrinhos de limpeza']},
-    {z:'Balneários',items:['Bases de duche','Cacifos','Roupeiros','Secadores','Retentores portas corta-fogo']},
-    {z:'Copas e cozinhas',items:['Ecopontos','Caixotes lixo da cozinha','Carrinho dos tabuleiros','Bengaleiro','Lista da Tatiana','Revestimento de protecção do pavimento','Carrinho Andreia (comidas e coffee break)','Copos, talheres e loiças']},
-    {z:'Resto',items:['Equipamentos de jogos / sala de jogos','Máquinas de água (ver quantidades)','Mobiliário restante (Frederico)','Limpeza — contrato','Equipamentos casa de banho','Plataforma elevatória de acesso ao piso inferior','Caixas de correio','Extintores e suportes','Auto-extinção DC','Carrinho de limpeza','Móvel / carrinho para Coffee spot','Whiteboard para zonas informais','Validar zonas informais','Validar espelhos WC']},
+    {z:'Hall de entrada',c:'#B0622D',items:['Chaveiro','Caixas para guarda-chuvas','Estante arrumos','Caixotes lixo arrumos','Ecoponto recepção','Decoração da estante da recepção','Tapete Cairo da entrada','Balcão da recepção','Intercomunicador','Aspirador de mão','Bengaleiro à entrada','Bengaleiro recepção','Bengaleiro zona de espera','Impressora','Etiquetadora','Base impressora Heidelberg','Carrinhos para entregas']},
+    {z:'Openspaces',c:'#809751',items:['Bengaleiros','Ecopontos','Whiteboards, apagadores e canetas']},
+    {z:'WC’s',c:'#5B7A8C',items:['Caixotes lixo','Cabides nas portas']},
+    {z:'Salas de reuniões',c:'#C79A3A',items:['Aparadores','Conteúdo dentro dos aparadores','Cabides','Caixote lixo','Máquinas café','Aparador de vidro (sala de entrada)','Whiteboards, apagadores e canetas']},
+    {z:'Cubículo de vidro',c:'#6FA098',items:['Mesa alta pequena','Monitor / TV','Caixote lixo pequeno','Planta']},
+    {z:'Dojo',c:'#A0524A',items:['Banda e instrumentos','Tapete da banda','Zona informal','Aparador com máquina de café','Solução acústica','Base impressora Heidelberg']},
+    {z:'Nave',c:'#6C7FA8',items:['Tela / projector / sistema de som','Base impressora Heidelberg','Patins das mesas','Material de apoio a eventos']},
+    {z:'Arrumos',c:'#8F7A52',items:['Estantes e caixas','Layout salas de limpeza','Carrinhos de limpeza']},
+    {z:'Balneários',c:'#4C8C86',items:['Bases de duche','Cacifos','Roupeiros','Secadores','Retentores portas corta-fogo']},
+    {z:'Copas e cozinhas',c:'#C0793F',items:['Ecopontos','Caixotes lixo da cozinha','Carrinho dos tabuleiros','Bengaleiro','Lista da Tatiana','Revestimento de protecção do pavimento','Carrinho Andreia (comidas e coffee break)','Copos, talheres e loiças']},
+    {z:'Resto',c:'#8E6FA0',items:['Equipamentos de jogos / sala de jogos','Máquinas de água (ver quantidades)','Mobiliário restante (Frederico)','Limpeza — contrato','Equipamentos casa de banho','Plataforma elevatória de acesso ao piso inferior','Caixas de correio','Extintores e suportes','Auto-extinção DC','Carrinho de limpeza','Móvel / carrinho para Coffee spot','Whiteboard para zonas informais','Validar zonas informais','Validar espelhos WC']},
   ];
   let fmOpen=false;
 
@@ -1700,15 +1707,20 @@
       const zone=document.createElement('div');
       zone.className='fm-zone'+(st.done===st.total?' zdone':'');
       zone.dataset.zi=zi;
+      zone.style.setProperty('--zc',z.c);
       const hd=document.createElement('div');hd.className='fm-zone-hd';
-      hd.innerHTML=`<span class="fm-zone-name">${z.z}</span><span class="fm-zone-count">${st.done}/${st.total}</span>`;
+      hd.innerHTML=`<span class="fm-zone-dot"></span><span class="fm-zone-name">${z.z}</span><span class="fm-zone-count">${st.done}/${st.total}</span>`;
       zone.appendChild(hd);
       z.items.forEach((label,i)=>{
-        const id='fm_'+zi+'_'+i, on=!!s[id];
+        const cOn=!!s['fmc_'+zi+'_'+i], fOn=!!s['fm_'+zi+'_'+i];
         const it=document.createElement('div');
-        it.className='fm-item'+(on?' on':'');
-        it.dataset.id=id;
-        it.innerHTML=`<div class="fm-box">${on?'✓':''}</div><div class="fm-label">${label}</div>`;
+        it.className='fm-item'+(fOn?' done':'');
+        it.innerHTML=
+          `<div class="fm-checks">`+
+            `<div class="fm-ck k-c${cOn?' on':''}" data-zi="${zi}" data-i="${i}" data-k="c"><div class="fm-ck-box">${cOn?'✓':''}</div><div class="fm-ck-cap">Comprado</div></div>`+
+            `<div class="fm-ck k-f${fOn?' on':''}" data-zi="${zi}" data-i="${i}" data-k="f"><div class="fm-ck-box">${fOn?'✓':''}</div><div class="fm-ck-cap">Feito</div></div>`+
+          `</div>`+
+          `<div class="fm-label">${label}</div>`;
         zone.appendChild(it);
       });
       body.appendChild(zone);
@@ -1721,15 +1733,19 @@
   document.getElementById('fm-btn').addEventListener('click',openFM);
   document.getElementById('fm-back').addEventListener('click',closeFM);
   document.getElementById('fm-body').addEventListener('click',e=>{
-    const it=e.target.closest('.fm-item'); if(!it)return;
-    const id=it.dataset.id, s=fmGet(), on=!s[id];
-    s[id]=on?1:0; _push();
-    it.classList.toggle('on',on);
-    it.querySelector('.fm-box').textContent=on?'✓':'';
-    const zone=it.closest('.fm-zone'), zi=+zone.dataset.zi, st=fmZoneStats(zi);
-    zone.querySelector('.fm-zone-count').textContent=st.done+'/'+st.total;
-    zone.classList.toggle('zdone',st.done===st.total);
-    updateFMProgress();
+    const ck=e.target.closest('.fm-ck'); if(!ck)return;
+    const zi=+ck.dataset.zi, i=+ck.dataset.i, k=ck.dataset.k, s=fmGet();
+    const key=(k==='c'?'fmc_':'fm_')+zi+'_'+i, on=!s[key];
+    s[key]=on?1:0; _push();
+    ck.classList.toggle('on',on);
+    ck.querySelector('.fm-ck-box').textContent=on?'✓':'';
+    if(k==='f'){
+      const it=ck.closest('.fm-item'); it.classList.toggle('done',on);
+      const zone=it.closest('.fm-zone'), st=fmZoneStats(zi);
+      zone.querySelector('.fm-zone-count').textContent=st.done+'/'+st.total;
+      zone.classList.toggle('zdone',st.done===st.total);
+      updateFMProgress();
+    }
     if(navigator.vibrate)try{navigator.vibrate(8)}catch(e){}
   });
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&fmOpen)closeFM();});
