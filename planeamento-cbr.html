@@ -180,6 +180,8 @@
     .sk-ck-lbl:active{background:rgba(128,151,81,.12)}
     .sk-ck-lbl input[type=checkbox]{width:14px;height:14px;cursor:pointer;accent-color:var(--verde);flex-shrink:0;margin:0}
     .sk-ck-ico{font-size:11px;line-height:1}
+    .ck-solo{width:20px!important;height:20px!important;border-radius:6px}
+    .lv-ck:has(.ck-solo){padding-right:14px}
 
     input[type=checkbox]{width:18px;height:18px;cursor:pointer;accent-color:var(--verde)}
 
@@ -948,9 +950,7 @@
     const effName=ts.name||task.name;
     tr.innerHTML=
       `<td class="t-chk sk"><div class="sk-ck-wrap">`+
-      `<label class="sk-ck-lbl" title="Comprado"><input type="checkbox" class="ck-tbl" data-id="${task.id}" data-k="ck_c"${ts.ck_c?' checked':''}><span class="sk-ck-ico">🛒</span></label>`+
-      `<label class="sk-ck-lbl" title="Entregue"><input type="checkbox" class="ck-tbl" data-id="${task.id}" data-k="ck_e"${ts.ck_e?' checked':''}><span class="sk-ck-ico">📦</span></label>`+
-      `<label class="sk-ck-lbl" title="Feito"><input type="checkbox" class="ck-tbl" data-id="${task.id}" data-k="done"${ts.done?' checked':''}><span class="sk-ck-ico">✅</span></label>`+
+      `<label class="sk-ck-lbl" title="Feito"><input type="checkbox" class="ck-tbl ck-solo" data-id="${task.id}" data-k="done"${ts.done?' checked':''}></label>`+
       `</div></td>`+
       `<td class="t-name sn" title="${effName}"><span class="cat-dot" style="background:${cat.color}"></span><span class="tn">${effName}</span></td>`+
       `<td class="tags-cell st" data-id="${task.id}">${tagsHTML(task.id)}</td>`+
@@ -1572,9 +1572,7 @@
     const supHtml=ts.sup?`<div class="lv-sup">🏢 ${ts.sup.length>26?ts.sup.slice(0,25)+'…':ts.sup}</div>`:'';
     d.innerHTML=
       `<div class="lv-ck">`+
-      `<label class="sk-ck-lbl" title="Comprado"><input type="checkbox" class="ck-tbl" data-id="${task.id}" data-k="ck_c"${ts.ck_c?' checked':''}><span class="sk-ck-ico">🛒</span></label>`+
-      `<label class="sk-ck-lbl" title="Entregue"><input type="checkbox" class="ck-tbl" data-id="${task.id}" data-k="ck_e"${ts.ck_e?' checked':''}><span class="sk-ck-ico">📦</span></label>`+
-      `<label class="sk-ck-lbl" title="Feito"><input type="checkbox" class="ck-tbl" data-id="${task.id}" data-k="done"${ts.done?' checked':''}><span class="sk-ck-ico">✅</span></label>`+
+      `<label class="sk-ck-lbl" title="Feito"><input type="checkbox" class="ck-tbl ck-solo" data-id="${task.id}" data-k="done"${ts.done?' checked':''}></label>`+
       `</div>`+
       `<div class="lv-body" data-id="${task.id}">`+
         `<div class="lv-name"><span class="cat-dot" style="background:${cat.color};flex-shrink:0"></span><span class="lv-name-txt">${effName}</span></div>`+
