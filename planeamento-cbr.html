@@ -1799,9 +1799,9 @@
   function setNav(w){['editora','fm','layout'].forEach(k=>{const b=document.getElementById('nav-'+k);if(b)b.classList.toggle('on',k===w);});}
   document.getElementById('nav-editora').addEventListener('click',()=>{closeFM();setNav('editora');});
   document.getElementById('nav-fm').addEventListener('click',()=>{openFM();setNav('fm');});
-  document.getElementById('nav-layout').addEventListener('click',async()=>{
-    try{const r=await fetch(LAYOUT_PDF,{method:'HEAD',cache:'no-store'});if(r.ok){window.open(LAYOUT_PDF,'_blank','noopener');return;}}catch(e){}
-    alert('O Layout (PDF) ainda não foi carregado — vai ficar disponível aqui assim que for adicionado.');
+  document.getElementById('nav-layout').addEventListener('click',()=>{
+    // abertura síncrona (dentro do gesto) → fiável no browser mobile; visualizador nativo permite zoom
+    window.open(LAYOUT_PDF,'_blank','noopener');
   });
   document.getElementById('fm-back').addEventListener('click',closeFM);
   document.getElementById('fm-edit').addEventListener('click',()=>setFmEdit(!fmEdit));
