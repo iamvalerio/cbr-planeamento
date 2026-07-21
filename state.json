@@ -578,8 +578,365 @@
     }
   },
   "custom": [],
-  "fmcheck": {
-    "fmc_0_0": 0,
-    "fm_0_0": 0
-  }
+  "fmcheck": {},
+  "fmzones": [
+    {
+      "z": "Hall de entrada",
+      "c": "#B0622D",
+      "items": [
+        {
+          "id": "imrv6nnkqehkz",
+          "t": "Chaveiro"
+        },
+        {
+          "id": "imrv6nnkqbedb",
+          "t": "Caixas para guarda-chuvas"
+        },
+        {
+          "id": "imrv6nnkqyr5p",
+          "t": "Estante arrumos"
+        },
+        {
+          "id": "imrv6nnkqyv12",
+          "t": "Caixotes lixo arrumos"
+        },
+        {
+          "id": "imrv6nnkqb4uq",
+          "t": "Ecoponto recepção"
+        },
+        {
+          "id": "imrv6nnkqhe00",
+          "t": "Decoração da estante da recepção"
+        },
+        {
+          "id": "imrv6nnkq21ce",
+          "t": "Tapete Cairo da entrada"
+        },
+        {
+          "id": "imrv6nnkqyzsh",
+          "t": "Balcão da recepção"
+        },
+        {
+          "id": "imrv6nnkqqzzt",
+          "t": "Intercomunicador"
+        },
+        {
+          "id": "imrv6nnkqbut4",
+          "t": "Aspirador de mão"
+        },
+        {
+          "id": "imrv6nnkqilv0",
+          "t": "Bengaleiro à entrada"
+        },
+        {
+          "id": "imrv6nnkq2rao",
+          "t": "Bengaleiro recepção"
+        },
+        {
+          "id": "imrv6nnkq8uzu",
+          "t": "Bengaleiro zona de espera"
+        },
+        {
+          "id": "imrv6nnkqwh82",
+          "t": "Impressora"
+        },
+        {
+          "id": "imrv6nnkqrnzf",
+          "t": "Etiquetadora"
+        },
+        {
+          "id": "imrv6nnkq121r",
+          "t": "Base impressora Heidelberg"
+        },
+        {
+          "id": "imrv6nnkqabzo",
+          "t": "Carrinhos para entregas"
+        }
+      ]
+    },
+    {
+      "z": "Openspaces",
+      "c": "#809751",
+      "items": [
+        {
+          "id": "imrv6nnkqpwx0",
+          "t": "Bengaleiros"
+        },
+        {
+          "id": "imrv6nnkqssh1",
+          "t": "Ecopontos"
+        },
+        {
+          "id": "imrv6nnkql8mh",
+          "t": "Whiteboards, apagadores e canetas"
+        }
+      ]
+    },
+    {
+      "z": "WC’s",
+      "c": "#5B7A8C",
+      "items": [
+        {
+          "id": "imrv6nnkq6zm2",
+          "t": "Caixotes lixo"
+        },
+        {
+          "id": "imrv6nnkqex1k",
+          "t": "Cabides nas portas"
+        }
+      ]
+    },
+    {
+      "z": "Salas de reuniões",
+      "c": "#C79A3A",
+      "items": [
+        {
+          "id": "imrv6nnkqm3d1",
+          "t": "Aparadores"
+        },
+        {
+          "id": "imrv6nnkqhjva",
+          "t": "Conteúdo dentro dos aparadores"
+        },
+        {
+          "id": "imrv6nnkqsysm",
+          "t": "Cabides"
+        },
+        {
+          "id": "imrv6nnkqpu59",
+          "t": "Caixote lixo"
+        },
+        {
+          "id": "imrv6nnkqpdko",
+          "t": "Máquinas café"
+        },
+        {
+          "id": "imrv6nnkqr5qh",
+          "t": "Aparador de vidro (sala de entrada)"
+        },
+        {
+          "id": "imrv6nnkqwzq2",
+          "t": "Whiteboards, apagadores e canetas"
+        }
+      ]
+    },
+    {
+      "z": "Cubículo de vidro",
+      "c": "#6FA098",
+      "items": [
+        {
+          "id": "imrv6nnkqhgsp",
+          "t": "Mesa alta pequena"
+        },
+        {
+          "id": "imrv6nnkqmqb6",
+          "t": "Monitor / TV"
+        },
+        {
+          "id": "imrv6nnkq745j",
+          "t": "Caixote lixo pequeno"
+        },
+        {
+          "id": "imrv6nnkqq8k3",
+          "t": "Planta"
+        }
+      ]
+    },
+    {
+      "z": "Dojo",
+      "c": "#A0524A",
+      "items": [
+        {
+          "id": "imrv6nnkqpfj0",
+          "t": "Banda e instrumentos"
+        },
+        {
+          "id": "imrv6nnkqu4tj",
+          "t": "Tapete da banda"
+        },
+        {
+          "id": "imrv6nnkqsmp8",
+          "t": "Zona informal"
+        },
+        {
+          "id": "imrv6nnkq63rv",
+          "t": "Aparador com máquina de café"
+        },
+        {
+          "id": "imrv6nnkqasti",
+          "t": "Solução acústica"
+        },
+        {
+          "id": "imrv6nnkql7fx",
+          "t": "Base impressora Heidelberg"
+        }
+      ]
+    },
+    {
+      "z": "Nave",
+      "c": "#6C7FA8",
+      "items": [
+        {
+          "id": "imrv6nnkqwew7",
+          "t": "Tela / projector / sistema de som"
+        },
+        {
+          "id": "imrv6nnkqbdgp",
+          "t": "Base impressora Heidelberg"
+        },
+        {
+          "id": "imrv6nnkqa6jz",
+          "t": "Patins das mesas"
+        },
+        {
+          "id": "imrv6nnkqdz7g",
+          "t": "Material de apoio a eventos"
+        }
+      ]
+    },
+    {
+      "z": "Arrumos",
+      "c": "#8F7A52",
+      "items": [
+        {
+          "id": "imrv6nnkqyh42",
+          "t": "Estantes e caixas"
+        },
+        {
+          "id": "imrv6nnkq07ki",
+          "t": "Layout salas de limpeza"
+        },
+        {
+          "id": "imrv6nnkqfszs",
+          "t": "Carrinhos de limpeza"
+        }
+      ]
+    },
+    {
+      "z": "Balneários",
+      "c": "#4C8C86",
+      "items": [
+        {
+          "id": "imrv6nnkqjgaf",
+          "t": "Bases de duche"
+        },
+        {
+          "id": "imrv6nnkqp5xg",
+          "t": "Cacifos"
+        },
+        {
+          "id": "imrv6nnkqg8r4",
+          "t": "Roupeiros"
+        },
+        {
+          "id": "imrv6nnkqbwpx",
+          "t": "Secadores"
+        },
+        {
+          "id": "imrv6nnkqklnu",
+          "t": "Retentores portas corta-fogo"
+        }
+      ]
+    },
+    {
+      "z": "Copas e cozinhas",
+      "c": "#C0793F",
+      "items": [
+        {
+          "id": "imrv6nnkqzie9",
+          "t": "Ecopontos"
+        },
+        {
+          "id": "imrv6nnkqth34",
+          "t": "Caixotes lixo da cozinha"
+        },
+        {
+          "id": "imrv6nnkqpuy8",
+          "t": "Carrinho dos tabuleiros"
+        },
+        {
+          "id": "imrv6nnkqvnpi",
+          "t": "Bengaleiro"
+        },
+        {
+          "id": "imrv6nnkqp9o1",
+          "t": "Lista da Tatiana"
+        },
+        {
+          "id": "imrv6nnkqnnok",
+          "t": "Revestimento de protecção do pavimento"
+        },
+        {
+          "id": "imrv6nnkqjn8h",
+          "t": "Carrinho Andreia (comidas e coffee break)"
+        },
+        {
+          "id": "imrv6nnkq86y4",
+          "t": "Copos, talheres e loiças"
+        }
+      ]
+    },
+    {
+      "z": "Resto",
+      "c": "#8E6FA0",
+      "items": [
+        {
+          "id": "imrv6nnkqja1m",
+          "t": "Equipamentos de jogos / sala de jogos"
+        },
+        {
+          "id": "imrv6nnkrjcfh",
+          "t": "Máquinas de água (ver quantidades)"
+        },
+        {
+          "id": "imrv6nnkr3ewu",
+          "t": "Mobiliário restante (Frederico)"
+        },
+        {
+          "id": "imrv6nnkrgnbg",
+          "t": "Limpeza — contrato"
+        },
+        {
+          "id": "imrv6nnkrbcfk",
+          "t": "Equipamentos casa de banho"
+        },
+        {
+          "id": "imrv6nnkr0lfb",
+          "t": "Plataforma elevatória de acesso ao piso inferior"
+        },
+        {
+          "id": "imrv6nnkr2bul",
+          "t": "Caixas de correio"
+        },
+        {
+          "id": "imrv6nnkr4kbp",
+          "t": "Extintores e suportes"
+        },
+        {
+          "id": "imrv6nnkrg17v",
+          "t": "Auto-extinção DC"
+        },
+        {
+          "id": "imrv6nnkrqkms",
+          "t": "Carrinho de limpeza"
+        },
+        {
+          "id": "imrv6nnkr5cby",
+          "t": "Móvel / carrinho para Coffee spot"
+        },
+        {
+          "id": "imrv6nnkrjftg",
+          "t": "Whiteboard para zonas informais"
+        },
+        {
+          "id": "imrv6nnkrhpgb",
+          "t": "Validar zonas informais"
+        },
+        {
+          "id": "imrv6nnkrkl5a",
+          "t": "Validar espelhos WC"
+        }
+      ]
+    }
+  ]
 }
