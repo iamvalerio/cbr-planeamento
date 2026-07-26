@@ -580,11 +580,11 @@
   "custom": [],
   "fmcheck": {
     "imrv6nnkqehkz": {
-      "c": 1,
-      "f": 1
+      "c": 0,
+      "f": 0
     },
     "imrv6nnkqbedb": {
-      "c": 1,
+      "c": 0,
       "f": 0
     },
     "imrv6nnkqyr5p": {
@@ -592,8 +592,8 @@
       "f": 0
     },
     "imrv6nnkqyv12": {
-      "c": 1,
-      "f": 1
+      "c": 0,
+      "f": 0
     }
   },
   "fmzones": [
