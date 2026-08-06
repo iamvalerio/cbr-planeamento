@@ -29,7 +29,7 @@
       "deleted": 0
     },
     "d02": {
-      "done": 0,
+      "done": 1,
       "p": "c",
       "b": [
         "A",
@@ -66,7 +66,7 @@
       "deleted": 0
     },
     "d04": {
-      "done": 0,
+      "done": 1,
       "p": "i",
       "b": [
         "A"
@@ -77,7 +77,10 @@
       "s": null,
       "e": "2026-07-16",
       "name": null,
-      "deleted": 0
+      "deleted": 0,
+      "sup": null,
+      "ck_c": 0,
+      "ck_e": 0
     },
     "d05": {
       "done": 0,
