@@ -1,4 +1,540 @@
 {
-  "obcheck": {},
-  "obzones": null
+  "obcheck": {
+    "omsjfmulluco3": {
+      "d": 0,
+      "r": "",
+      "o": "opção1- cumprir projeto com inclusão dos passadiços e linhas de vida · opção2- definir data limite para decisão das escadas · opção3- Aceitar solução e custo da proposta A.pimenta"
+    },
+    "omsjfmullyaa4": {
+      "d": 0,
+      "r": "",
+      "o": "1- definição portão Rua do Arnado · 2- Gradeamento no topo voltado ao estacionamento Continente"
+    },
+    "omsjfmull74ls": {
+      "d": 0,
+      "r": "A.Pimenta/Critical",
+      "o": ""
+    },
+    "omsjfmulln65p": {
+      "d": 0,
+      "r": "",
+      "o": "1- definição baflles (Arquitetos) · 2- contratar fornecedor (Reunia/Critical)"
+    },
+    "omsjfmull1rnw": {
+      "d": 0,
+      "r": "A.Pimenta",
+      "o": ""
+    },
+    "omsjfmullrpzi": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmull0crn": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullcbfd": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmull9osk": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullwsii": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmull1r4k": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullj03q": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullwyr6": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmull41mh": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullntmt": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmull57au": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmull98hp": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullacqw": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmulltdg1": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullofm5": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullpuoj": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmulli00k": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullladv": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmull2m64": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullr6qc": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullwi0f": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullj3si": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullv75s": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullxthq": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmulls4k6": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullq4oq": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullq2jf": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullukq6": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmull4og5": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmulle9wc": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullr0ow": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullw9zb": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullrt1b": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullzp9x": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullv4fj": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullj25z": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmull9i7g": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmull6jj2": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullhvrx": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullecsb": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullzmv1": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullyclm": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullz3jn": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmull2b1x": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmull3vvt": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullxkv4": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    },
+    "omsjfmullykxp": {
+      "d": 0,
+      "r": "",
+      "o": ""
+    }
+  },
+  "obzones": [
+    {
+      "z": "Obra por Executar / Pendências",
+      "c": "#8B3D2E",
+      "items": [
+        {
+          "id": "omsjfmulluco3",
+          "t": "Instalação dos painéis fotovoltaicos"
+        },
+        {
+          "id": "omsjfmullyaa4",
+          "t": "Portões/Grade no logradouro voltado à AutoIndustrial"
+        },
+        {
+          "id": "omsjfmull74ls",
+          "t": "Molas de braço nas portas grandes"
+        },
+        {
+          "id": "omsjfmulln65p",
+          "t": "Tratamento acústico da sala multiusos"
+        },
+        {
+          "id": "omsjfmull1rnw",
+          "t": "Facilitar Entrada de cabos no PT (posto de transformação)"
+        }
+      ]
+    },
+    {
+      "z": "Vistorias e Aceitação Técnica",
+      "c": "#5B7A8C",
+      "items": [
+        {
+          "id": "omsjfmullrpzi",
+          "t": "Vistoria final com a fiscalização/projetista de cada especialidade"
+        },
+        {
+          "id": "omsjfmull0crn",
+          "t": "Auto de receção provisória da obra (dono de obra + empreiteiro)"
+        },
+        {
+          "id": "omsjfmullcbfd",
+          "t": "Resolução da lista de defeitos (punch list)"
+        },
+        {
+          "id": "omsjfmull9osk",
+          "t": "Testes e comissionamento de instalações (elétrica, AVAC, águas, esgotos, gás, elevadores, incêndio)"
+        },
+        {
+          "id": "omsjfmullwsii",
+          "t": "Ensaios obrigatórios (isolamento elétrico, estanquidade, pressão de redes, etc.)"
+        },
+        {
+          "id": "omsjfmull1r4k",
+          "t": "Entrega de telas finais (as-built) de todas as especialidades"
+        }
+      ]
+    },
+    {
+      "z": "Licenciamento e Documentação Legal",
+      "c": "#809751",
+      "items": [
+        {
+          "id": "omsjfmullj03q",
+          "t": "Processo de alterações no decurso da Obra"
+        },
+        {
+          "id": "omsjfmullwyr6",
+          "t": "Submissão projeto de alterações Arquitetura"
+        },
+        {
+          "id": "omsjfmull41mh",
+          "t": "Submissão projeto de alterações Estrutura"
+        },
+        {
+          "id": "omsjfmullntmt",
+          "t": "Pedidos de dispensa das outras especialidades"
+        },
+        {
+          "id": "omsjfmull57au",
+          "t": "Requerimento de autorização de utilização à Câmara Municipal"
+        },
+        {
+          "id": "omsjfmull98hp",
+          "t": "Termos de responsabilidade dos técnicos"
+        },
+        {
+          "id": "omsjfmullacqw",
+          "t": "Certificado Energético (SCE) atualizado"
+        },
+        {
+          "id": "omsjfmulltdg1",
+          "t": "MAP's Segurança Contra Incêndio (SCIE)"
+        },
+        {
+          "id": "omsjfmullofm5",
+          "t": "Ensaios Acústicos"
+        },
+        {
+          "id": "omsjfmullpuoj",
+          "t": "Certificado Elevadores"
+        },
+        {
+          "id": "omsjfmulli00k",
+          "t": "Autorização de utilização"
+        }
+      ]
+    },
+    {
+      "z": "Ligações a Redes e Serviços",
+      "c": "#B0622D",
+      "items": [
+        {
+          "id": "omsjfmullladv",
+          "t": "Ligação definitiva de eletricidade"
+        },
+        {
+          "id": "omsjfmull2m64",
+          "t": "Ligação definitiva de água e saneamento"
+        },
+        {
+          "id": "omsjfmullr6qc",
+          "t": "Ligação de gás (se aplicável)"
+        },
+        {
+          "id": "omsjfmullwi0f",
+          "t": "Instalação e ativação de telecomunicações/internet"
+        },
+        {
+          "id": "omsjfmullj3si",
+          "t": "Contratos de manutenção (elevadores, AVAC, elétrica, extintores)"
+        }
+      ]
+    },
+    {
+      "z": "Seguros",
+      "c": "#6C7FA8",
+      "items": [
+        {
+          "id": "omsjfmullv75s",
+          "t": "Cancelamento do seguro de obra (CAR/EAR)"
+        },
+        {
+          "id": "omsjfmullxthq",
+          "t": "Contratação de seguro multirriscos do edifício"
+        },
+        {
+          "id": "omsjfmulls4k6",
+          "t": "Seguro de responsabilidade civil de exploração"
+        },
+        {
+          "id": "omsjfmullq4oq",
+          "t": "Seguro contra incêndio"
+        }
+      ]
+    },
+    {
+      "z": "Segurança e Equipamentos",
+      "c": "#A0524A",
+      "items": [
+        {
+          "id": "omsjfmullq2jf",
+          "t": "Extintores, bocas de incêndio e sinalética instalados e certificados"
+        },
+        {
+          "id": "omsjfmullukq6",
+          "t": "Plano de emergência/evacuação elaborado"
+        },
+        {
+          "id": "omsjfmull4og5",
+          "t": "Sinalética de segurança e acessibilidade colocada"
+        }
+      ]
+    },
+    {
+      "z": "Limpeza e Preparação do Espaço",
+      "c": "#4C8C86",
+      "items": [
+        {
+          "id": "omsjfmulle9wc",
+          "t": "Limpeza final de obra (fina)"
+        },
+        {
+          "id": "omsjfmullr0ow",
+          "t": "Remoção de entulhos, materiais sobrantes e equipamentos de estaleiro"
+        },
+        {
+          "id": "omsjfmullw9zb",
+          "t": "Desmontagem do estaleiro (vedações, contentores, casas de apoio)"
+        },
+        {
+          "id": "omsjfmullrt1b",
+          "t": "Reposição de espaços exteriores/arranjos exteriores"
+        }
+      ]
+    },
+    {
+      "z": "Aspetos Financeiros e Contratuais",
+      "c": "#C79A3A",
+      "items": [
+        {
+          "id": "omsjfmullzp9x",
+          "t": "Conta final de obra e fecho de contas com empreiteiro(s)"
+        },
+        {
+          "id": "omsjfmullv4fj",
+          "t": "Libertação/gestão de retenções e garantias bancárias"
+        },
+        {
+          "id": "omsjfmullj25z",
+          "t": "Faturação e pagamentos finais"
+        },
+        {
+          "id": "omsjfmull9i7g",
+          "t": "Arquivo da documentação contratual e financeira"
+        }
+      ]
+    },
+    {
+      "z": "Garantias e Manuais",
+      "c": "#8F7A52",
+      "items": [
+        {
+          "id": "omsjfmull6jj2",
+          "t": "Manuais de utilização e manutenção de equipamentos"
+        },
+        {
+          "id": "omsjfmullhvrx",
+          "t": "Termos de garantia de obra e de equipamentos instalados"
+        },
+        {
+          "id": "omsjfmullecsb",
+          "t": "Contactos de assistência técnica/pós-venda"
+        }
+      ]
+    },
+    {
+      "z": "Recursos Humanos",
+      "c": "#6FA098",
+      "items": [
+        {
+          "id": "omsjfmullzmv1",
+          "t": "Recrutamento e formação da equipa de exploração"
+        },
+        {
+          "id": "omsjfmullyclm",
+          "t": "Definição de procedimentos operacionais"
+        },
+        {
+          "id": "omsjfmullz3jn",
+          "t": "Formação em segurança e emergência para colaboradores"
+        }
+      ]
+    },
+    {
+      "z": "Abertura / Início de Exploração",
+      "c": "#8E6FA0",
+      "items": [
+        {
+          "id": "omsjfmull2b1x",
+          "t": "Licenças específicas de atividade (comércio, restauração, alojamento, indústria, etc.)"
+        },
+        {
+          "id": "omsjfmull3vvt",
+          "t": "Comunicação prévia/autorização de exploração junto das entidades competentes"
+        },
+        {
+          "id": "omsjfmullxkv4",
+          "t": "Definição de data de abertura e plano de lançamento/marketing"
+        },
+        {
+          "id": "omsjfmullykxp",
+          "t": "Testes operacionais finais (simulação de funcionamento)"
+        }
+      ]
+    }
+  ]
 }
