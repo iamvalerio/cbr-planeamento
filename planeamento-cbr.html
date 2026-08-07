@@ -348,6 +348,18 @@
     .fm-add{width:100%;margin:2px 0 4px;padding:11px;border:1.5px dashed var(--zc,var(--lbl3));background:transparent;color:var(--zc,var(--lbl2));border-radius:12px;font-size:12.5px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;letter-spacing:.2px;opacity:.85}
     .fm-add:active{transform:scale(.99)}
     #fmcheck.editmode .fm-item{padding:8px 10px}
+    #obracheck.editmode .fm-item{padding:8px 10px}
+
+    /* ── CHECK-LIST OBRA (item único + responsável/observações) ── */
+    .fm-item.oc-item{align-items:flex-start}
+    .oc-body{flex:1;min-width:0}
+    .oc-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
+    .oc-resp{font-size:9.5px;font-weight:700;color:var(--slate);background:rgba(91,122,140,.1);border-radius:6px;padding:2px 7px;white-space:nowrap}
+    .oc-obs{font-size:10.5px;color:var(--lbl3);font-style:italic;line-height:1.35;margin-top:4px}
+    .fm-edit-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+    .fm-edit-col .fm-edit-inp{width:100%}
+    .fm-edit-inp.sm{font-size:12px;padding:8px 10px}
+    .fm-edit-lbl{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--lbl3);margin:2px 0 -2px 2px}
 
     @media(max-width:480px){
       :root{--cw:40px;--nw:150px;--kw:50px;--tw:72px}
@@ -374,6 +386,7 @@
   <div class="topnav">
     <button class="tn-btn on" id="nav-editora">🏢 Editora</button>
     <button class="tn-btn" id="nav-fm">✅ Check-list FM</button>
+    <button class="tn-btn" id="nav-obra">🏗️ Fim de Obra</button>
     <button class="tn-btn" id="nav-layout">🗺️ Layout</button>
   </div>
 </div>
@@ -618,6 +631,20 @@
   </div>
   <div class="fm-progress"><div class="fm-progress-fill" id="fm-progress-fill"></div></div>
   <div class="fm-body" id="fm-body"></div>
+</div>
+
+<div class="fm-overlay" id="obracheck">
+  <div class="fm-head">
+    <button class="fm-back" id="ob-back" title="Fechar" aria-label="Fechar">‹</button>
+    <div class="fm-head-t">
+      <div class="fm-title">🏗️ Fim de Obra</div>
+      <div class="fm-sub" id="ob-sub">0 itens concluídos</div>
+    </div>
+    <button class="fm-edit-btn" id="ob-edit" title="Editar lista">✏️ Editar</button>
+    <div class="fm-pct" id="ob-pct">0%</div>
+  </div>
+  <div class="fm-progress"><div class="fm-progress-fill" id="ob-progress-fill"></div></div>
+  <div class="fm-body" id="ob-body"></div>
 </div>
 
 <script>
@@ -1174,6 +1201,7 @@
         _state=(d.tasks!==undefined)?d:{tasks:d,custom:[]};
         if(!Array.isArray(_state.custom))_state.custom=[];
         if(!_state.fmcheck||typeof _state.fmcheck!=='object')_state.fmcheck={};
+        if(!_state.obcheck||typeof _state.obcheck!=='object')_state.obcheck={};
       }
     }catch(e){}
 
@@ -1194,10 +1222,12 @@
         const fresh=(d.tasks!==undefined)?d:{tasks:d,custom:[]};
         if(!Array.isArray(fresh.custom))fresh.custom=[];
         if(!fresh.fmcheck||typeof fresh.fmcheck!=='object')fresh.fmcheck={};
+        if(!fresh.obcheck||typeof fresh.obcheck!=='object')fresh.obcheck={};
         if(JSON.stringify(fresh)!==JSON.stringify(_state)){
           _state=fresh;
           renderTable();
           if(fmOpen)renderFM();
+          if(obOpen)renderOB();
           _setSyncDot('ok');
         }
       }catch(e){}
@@ -1794,17 +1824,195 @@
     renderFM();
   }
 
-  /* ── NAV DE TOPO (Editora / Check-list FM / Layout) ── */
+  /* ══════════ CHECK-LIST FIM DE OBRA (por categoria, com responsável/observações) ══════════ */
+  const OB_DEFAULT=[
+    {z:'Obra por Executar / Pendências',c:'#8B3D2E',items:[
+      {t:'Instalação dos painéis fotovoltaicos',r:'',o:'opção1- cumprir projeto com inclusão dos passadiços e linhas de vida · opção2- definir data limite para decisão das escadas · opção3- Aceitar solução e custo da proposta A.pimenta'},
+      {t:'Portões/Grade no logradouro voltado à AutoIndustrial',r:'',o:'1- definição portão Rua do Arnado · 2- Gradeamento no topo voltado ao estacionamento Continente'},
+      {t:'Molas de braço nas portas grandes',r:'A.Pimenta/Critical',o:''},
+      {t:'Tratamento acústico da sala multiusos',r:'',o:'1- definição baflles (Arquitetos) · 2- contratar fornecedor (Reunia/Critical)'},
+      {t:'Facilitar Entrada de cabos no PT (posto de transformação)',r:'A.Pimenta',o:''},
+    ]},
+    {z:'Vistorias e Aceitação Técnica',c:'#5B7A8C',items:[
+      {t:'Vistoria final com a fiscalização/projetista de cada especialidade',r:'',o:''},
+      {t:'Auto de receção provisória da obra (dono de obra + empreiteiro)',r:'',o:''},
+      {t:'Resolução da lista de defeitos (punch list)',r:'',o:''},
+      {t:'Testes e comissionamento de instalações (elétrica, AVAC, águas, esgotos, gás, elevadores, incêndio)',r:'',o:''},
+      {t:'Ensaios obrigatórios (isolamento elétrico, estanquidade, pressão de redes, etc.)',r:'',o:''},
+      {t:'Entrega de telas finais (as-built) de todas as especialidades',r:'',o:''},
+    ]},
+    {z:'Licenciamento e Documentação Legal',c:'#809751',items:[
+      {t:'Processo de alterações no decurso da Obra',r:'',o:''},
+      {t:'Submissão projeto de alterações Arquitetura',r:'',o:''},
+      {t:'Submissão projeto de alterações Estrutura',r:'',o:''},
+      {t:'Pedidos de dispensa das outras especialidades',r:'',o:''},
+      {t:'Requerimento de autorização de utilização à Câmara Municipal',r:'',o:''},
+      {t:'Termos de responsabilidade dos técnicos',r:'',o:''},
+      {t:'Certificado Energético (SCE) atualizado',r:'',o:''},
+      {t:'MAP\'s Segurança Contra Incêndio (SCIE)',r:'',o:''},
+      {t:'Ensaios Acústicos',r:'',o:''},
+      {t:'Certificado Elevadores',r:'',o:''},
+      {t:'Autorização de utilização',r:'',o:''},
+    ]},
+    {z:'Ligações a Redes e Serviços',c:'#B0622D',items:[
+      {t:'Ligação definitiva de eletricidade',r:'',o:''},
+      {t:'Ligação definitiva de água e saneamento',r:'',o:''},
+      {t:'Ligação de gás (se aplicável)',r:'',o:''},
+      {t:'Instalação e ativação de telecomunicações/internet',r:'',o:''},
+      {t:'Contratos de manutenção (elevadores, AVAC, elétrica, extintores)',r:'',o:''},
+    ]},
+    {z:'Seguros',c:'#6C7FA8',items:[
+      {t:'Cancelamento do seguro de obra (CAR/EAR)',r:'',o:''},
+      {t:'Contratação de seguro multirriscos do edifício',r:'',o:''},
+      {t:'Seguro de responsabilidade civil de exploração',r:'',o:''},
+      {t:'Seguro contra incêndio',r:'',o:''},
+    ]},
+    {z:'Segurança e Equipamentos',c:'#A0524A',items:[
+      {t:'Extintores, bocas de incêndio e sinalética instalados e certificados',r:'',o:''},
+      {t:'Plano de emergência/evacuação elaborado',r:'',o:''},
+      {t:'Sinalética de segurança e acessibilidade colocada',r:'',o:''},
+    ]},
+    {z:'Limpeza e Preparação do Espaço',c:'#4C8C86',items:[
+      {t:'Limpeza final de obra (fina)',r:'',o:''},
+      {t:'Remoção de entulhos, materiais sobrantes e equipamentos de estaleiro',r:'',o:''},
+      {t:'Desmontagem do estaleiro (vedações, contentores, casas de apoio)',r:'',o:''},
+      {t:'Reposição de espaços exteriores/arranjos exteriores',r:'',o:''},
+    ]},
+    {z:'Aspetos Financeiros e Contratuais',c:'#C79A3A',items:[
+      {t:'Conta final de obra e fecho de contas com empreiteiro(s)',r:'',o:''},
+      {t:'Libertação/gestão de retenções e garantias bancárias',r:'',o:''},
+      {t:'Faturação e pagamentos finais',r:'',o:''},
+      {t:'Arquivo da documentação contratual e financeira',r:'',o:''},
+    ]},
+    {z:'Garantias e Manuais',c:'#8F7A52',items:[
+      {t:'Manuais de utilização e manutenção de equipamentos',r:'',o:''},
+      {t:'Termos de garantia de obra e de equipamentos instalados',r:'',o:''},
+      {t:'Contactos de assistência técnica/pós-venda',r:'',o:''},
+    ]},
+    {z:'Recursos Humanos',c:'#6FA098',items:[
+      {t:'Recrutamento e formação da equipa de exploração',r:'',o:''},
+      {t:'Definição de procedimentos operacionais',r:'',o:''},
+      {t:'Formação em segurança e emergência para colaboradores',r:'',o:''},
+    ]},
+    {z:'Abertura / Início de Exploração',c:'#8E6FA0',items:[
+      {t:'Licenças específicas de atividade (comércio, restauração, alojamento, indústria, etc.)',r:'',o:''},
+      {t:'Comunicação prévia/autorização de exploração junto das entidades competentes',r:'',o:''},
+      {t:'Definição de data de abertura e plano de lançamento/marketing',r:'',o:''},
+      {t:'Testes operacionais finais (simulação de funcionamento)',r:'',o:''},
+    ]},
+  ];
+  let obOpen=false, obEdit=false;
+
+  function obNewId(){ return 'o'+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+  function obSeed(){
+    if(!_state.obcheck||typeof _state.obcheck!=='object')_state.obcheck={};
+    if(!Array.isArray(_state.obzones)){
+      _state.obzones=OB_DEFAULT.map(z=>({
+        z:z.z, c:z.c,
+        items:z.items.map(it=>{
+          const id=obNewId();
+          _state.obcheck[id]={d:0,r:it.r||'',o:it.o||''};
+          return {id,t:it.t};
+        })
+      }));
+      _push(); // persiste a estrutura semeada uma vez
+    }
+  }
+  function obZones(){ obSeed(); return _state.obzones; }
+  function obChkState(id){ return _state.obcheck[id]||{d:0,r:'',o:''}; }
+  function obSetDone(id,v){ const m=_state.obcheck; if(!m[id])m[id]={d:0,r:'',o:''}; m[id].d=v?1:0; _push(); }
+  function obSetField(id,k,v){ const m=_state.obcheck; if(!m[id])m[id]={d:0,r:'',o:''}; m[id][k]=v; _push(); }
+
+  function obZoneStats(zi){
+    const z=obZones()[zi]; let d=0;
+    z.items.forEach(it=>{ if(obChkState(it.id).d)d++; });
+    return {d,total:z.items.length};
+  }
+  function obGlobalStats(){
+    let d=0,total=0;
+    obZones().forEach((_,zi)=>{const st=obZoneStats(zi); d+=st.d; total+=st.total;});
+    return {d,total};
+  }
+  function obZoneDone(st){ return st.total>0 && st.d===st.total; }
+  function updateOBProgress(){
+    const g=obGlobalStats();
+    const p=g.total?Math.round(g.d/g.total*100):0;
+    document.getElementById('ob-pct').textContent=p+'%';
+    document.getElementById('ob-progress-fill').style.width=p+'%';
+    document.getElementById('ob-sub').textContent=`✅ ${g.d} de ${g.total} itens concluídos`;
+  }
+  function renderOB(){
+    const body=document.getElementById('ob-body');
+    body.innerHTML='';
+    obZones().forEach((z,zi)=>{
+      const st=obZoneStats(zi);
+      const zone=document.createElement('div');
+      zone.className='fm-zone'+(obZoneDone(st)?' zdone':'');
+      zone.dataset.zi=zi;
+      zone.style.setProperty('--zc',z.c);
+      const zp=st.total?Math.round(st.d/st.total*100):0;
+      const hd=document.createElement('div');hd.className='fm-zone-hd';
+      hd.innerHTML=`<span class="fm-zone-dot"></span><span class="fm-zone-name">${esc(z.z)}</span><span class="fm-zone-count">✅${st.d}/${st.total}</span><span class="fm-zone-pct">${zp}%</span>`;
+      zone.appendChild(hd);
+      z.items.forEach(item=>{
+        const s=obChkState(item.id);
+        const it=document.createElement('div');
+        it.className='fm-item oc-item'+(s.d?' done':'');
+        it.dataset.id=item.id;
+        if(obEdit){
+          it.innerHTML=
+            `<div class="fm-edit-col">`+
+              `<input class="fm-edit-inp" data-id="${item.id}" data-f="t" value="${esc(item.t)}" placeholder="Descrição do item…">`+
+              `<input class="fm-edit-inp sm" data-id="${item.id}" data-f="r" value="${esc(s.r)}" placeholder="Responsável…">`+
+              `<input class="fm-edit-inp sm" data-id="${item.id}" data-f="o" value="${esc(s.o)}" placeholder="Observações…">`+
+            `</div>`+
+            `<button class="fm-del" data-id="${item.id}" title="Apagar item">🗑</button>`;
+        }else{
+          it.innerHTML=
+            `<div class="fm-checks">`+
+              `<div class="fm-ck k-f${s.d?' on':''}" data-id="${item.id}"><div class="fm-ck-box">${s.d?'✓':''}</div><div class="fm-ck-cap">Concluído</div></div>`+
+            `</div>`+
+            `<div class="oc-body">`+
+              `<div class="fm-label">${esc(item.t)}</div>`+
+              (s.r?`<div class="oc-meta"><span class="oc-resp">👤 ${esc(s.r)}</span></div>`:'')+
+              (s.o?`<div class="oc-obs">${esc(s.o)}</div>`:'')+
+            `</div>`;
+        }
+        zone.appendChild(it);
+      });
+      if(obEdit){
+        const add=document.createElement('button');
+        add.className='fm-add'; add.dataset.zi=zi; add.textContent='＋ Adicionar item';
+        zone.appendChild(add);
+      }
+      body.appendChild(zone);
+    });
+    updateOBProgress();
+  }
+  function openOB(){ obOpen=true; renderOB(); document.getElementById('obracheck').classList.add('show'); document.body.style.overflow='hidden'; }
+  function closeOB(){ obOpen=false; if(obEdit)setObEdit(false); document.getElementById('obracheck').classList.remove('show'); document.body.style.overflow=''; setNav('editora'); }
+  function setObEdit(on){
+    obEdit=on;
+    const b=document.getElementById('ob-edit');
+    b.classList.toggle('on',on); b.textContent=on?'✓ Concluir':'✏️ Editar';
+    document.getElementById('obracheck').classList.toggle('editmode',on);
+    renderOB();
+  }
+
+  /* ── NAV DE TOPO (Editora / Check-list FM / Fim de Obra / Layout) ── */
   const LAYOUT_PDF='layout.pdf';
-  function setNav(w){['editora','fm','layout'].forEach(k=>{const b=document.getElementById('nav-'+k);if(b)b.classList.toggle('on',k===w);});}
-  document.getElementById('nav-editora').addEventListener('click',()=>{closeFM();setNav('editora');});
-  document.getElementById('nav-fm').addEventListener('click',()=>{openFM();setNav('fm');});
+  function setNav(w){['editora','fm','obra','layout'].forEach(k=>{const b=document.getElementById('nav-'+k);if(b)b.classList.toggle('on',k===w);});}
+  document.getElementById('nav-editora').addEventListener('click',()=>{closeFM();closeOB();setNav('editora');});
+  document.getElementById('nav-fm').addEventListener('click',()=>{closeOB();openFM();setNav('fm');});
+  document.getElementById('nav-obra').addEventListener('click',()=>{closeFM();openOB();setNav('obra');});
   document.getElementById('nav-layout').addEventListener('click',()=>{
     // abertura síncrona (dentro do gesto) → fiável no browser mobile; visualizador nativo permite zoom
     window.open(LAYOUT_PDF,'_blank','noopener');
   });
   document.getElementById('fm-back').addEventListener('click',closeFM);
   document.getElementById('fm-edit').addEventListener('click',()=>setFmEdit(!fmEdit));
+  document.getElementById('ob-back').addEventListener('click',closeOB);
+  document.getElementById('ob-edit').addEventListener('click',()=>setObEdit(!obEdit));
 
   document.getElementById('fm-body').addEventListener('click',e=>{
     // apagar ponto
@@ -1846,6 +2054,52 @@
     _push();
   });
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&fmOpen){fmEdit?setFmEdit(false):closeFM();}});
+
+  document.getElementById('ob-body').addEventListener('click',e=>{
+    // apagar item
+    const del=e.target.closest('.fm-del');
+    if(del){
+      const id=del.dataset.id;
+      for(const z of obZones()){const ix=z.items.findIndex(x=>x.id===id); if(ix>=0){z.items.splice(ix,1);break;}}
+      delete _state.obcheck[id]; _push(); renderOB();
+      if(navigator.vibrate)try{navigator.vibrate(12)}catch(e){}
+      return;
+    }
+    // adicionar item
+    const add=e.target.closest('.fm-add');
+    if(add){
+      const zi=+add.dataset.zi, id=obNewId();
+      _state.obcheck[id]={d:0,r:'',o:''};
+      obZones()[zi].items.push({id,t:''}); _push(); renderOB();
+      const inp=document.querySelector(`#ob-body .fm-edit-inp[data-id="${id}"][data-f="t"]`);
+      if(inp)inp.focus();
+      return;
+    }
+    // marcar concluído
+    const ck=e.target.closest('.fm-ck'); if(!ck||obEdit)return;
+    const id=ck.dataset.id, on=!obChkState(id).d;
+    obSetDone(id,on);
+    ck.classList.toggle('on',on);
+    ck.querySelector('.fm-ck-box').textContent=on?'✓':'';
+    ck.closest('.fm-item').classList.toggle('done',on);
+    const zone=ck.closest('.fm-zone'), st=obZoneStats(+zone.dataset.zi);
+    zone.querySelector('.fm-zone-count').textContent=`✅${st.d}/${st.total}`;
+    zone.querySelector('.fm-zone-pct').textContent=(st.total?Math.round(st.d/st.total*100):0)+'%';
+    zone.classList.toggle('zdone',obZoneDone(st));
+    updateOBProgress();
+    if(navigator.vibrate)try{navigator.vibrate(8)}catch(e){}
+  });
+  document.getElementById('ob-body').addEventListener('input',e=>{
+    const inp=e.target.closest('.fm-edit-inp'); if(!inp)return;
+    const id=inp.dataset.id, f=inp.dataset.f;
+    if(f==='t'){
+      for(const z of obZones()){const item=z.items.find(x=>x.id===id); if(item){item.t=inp.value;break;}}
+    }else{
+      obSetField(id,f,inp.value);
+    }
+    _push();
+  });
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&obOpen){obEdit?setObEdit(false):closeOB();}});
 
 })();
 </script>
