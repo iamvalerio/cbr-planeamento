@@ -2,7 +2,7 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Fim de Obra | CBR Editora</title>
   <style>
     :root{
@@ -23,82 +23,123 @@
       --sep:rgba(26,22,16,.1);
       /* ── Sombras quentes ── */
       --shadow-sm:0 1px 3px rgba(60,40,16,.08),0 1px 2px rgba(60,40,16,.05);
+      --hdh:96px;
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{overflow-x:hidden;max-width:100%}
     body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-serif;background:var(--bg);color:var(--lbl);-webkit-font-smoothing:antialiased}
 
     /* ── TOP BAR ── */
-    .stickytop{position:sticky;top:0;z-index:300;background:rgba(237,233,227,.94);backdrop-filter:saturate(200%) blur(24px);-webkit-backdrop-filter:saturate(200%) blur(24px);border-bottom:0.5px solid var(--sep)}
-    .topbar{padding:11px 18px 9px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-    .topbar-back{font-size:12px;font-weight:600;color:var(--lbl2);text-decoration:none;display:flex;align-items:center;gap:3px;flex-shrink:0}
-    .topbar-back:hover{color:var(--verde)}
-    .topbar-t{font-size:15px;font-weight:700;letter-spacing:-.2px;color:var(--lbl)}
-    .topbar-s{font-size:11px;color:var(--lbl2);margin-top:1px;font-weight:500;letter-spacing:.1px}
-    .topbar-r{display:flex;align-items:center;gap:9px;flex-shrink:0}
-    .topbar-pct{font-size:22px;font-weight:700;color:var(--verde);line-height:1}
-    .edit-btn{border:1.5px solid var(--sep);background:rgba(26,22,16,.05);color:var(--lbl2);border-radius:20px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;white-space:nowrap;transition:all .18s}
+    .stickytop{position:sticky;top:0;z-index:300;background:rgba(237,233,227,.94);backdrop-filter:saturate(200%) blur(24px);-webkit-backdrop-filter:saturate(200%) blur(24px);border-bottom:0.5px solid var(--sep);padding-top:env(safe-area-inset-top,0px)}
+    .tb-row{padding:9px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .tb-row1{padding-bottom:5px}
+    .tb-row2{padding-top:0}
+    .topbar-back{font-size:12.5px;font-weight:600;color:var(--lbl2);text-decoration:none;display:flex;align-items:center;gap:3px;flex-shrink:0;padding:6px 2px;-webkit-tap-highlight-color:transparent}
+    .topbar-back:active{opacity:.5}
+    .topbar-r1{display:flex;align-items:center;gap:8px;flex-shrink:0}
+    .topbar-pct{font-size:19px;font-weight:700;color:var(--verde);line-height:1;min-width:38px;text-align:right}
+    .topbar-titles{flex:1;min-width:0}
+    .topbar-t{font-size:16px;font-weight:700;letter-spacing:-.2px;color:var(--lbl);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .topbar-s{font-size:11px;color:var(--lbl2);margin-top:1px;font-weight:500;letter-spacing:.1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .edit-btn{border:1.5px solid var(--sep);background:rgba(26,22,16,.05);color:var(--lbl2);border-radius:20px;padding:8px 13px;font-size:12.5px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;white-space:nowrap;transition:all .18s;flex-shrink:0;min-height:36px}
     .edit-btn.on{background:var(--verde);color:#fff;border-color:transparent}
     .edit-btn:active{transform:scale(.95)}
     .progress{height:4px;background:rgba(128,151,81,.15)}
     .progress-fill{height:100%;background:var(--verde);width:0;transition:width .5s cubic-bezier(.4,0,.2,1)}
 
     /* ── BODY / ZONES ── */
-    .body{max-width:720px;margin:0 auto;padding:14px 14px calc(60px + env(safe-area-inset-bottom,0px))}
-    .zone{margin-top:18px}
+    .body{max-width:720px;margin:0 auto;padding:14px 10px calc(60px + env(safe-area-inset-bottom,0px))}
+    .zone{margin-top:20px}
     .zone:first-child{margin-top:8px}
-    .zone-hd{display:flex;align-items:center;gap:9px;padding:6px 4px 8px;position:sticky;top:78px;background:var(--bg);z-index:2}
-    .zone-dot{width:12px;height:12px;border-radius:4px;background:var(--zc,#bbb);flex-shrink:0}
-    .zone-name{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--zc,var(--lbl2));flex:1;min-width:0}
-    .zone-count{font-size:11px;font-weight:700;color:var(--lbl2);background:rgba(26,22,16,.05);border-radius:99px;padding:3px 10px;flex-shrink:0}
-    .zone-pct{font-size:11.5px;font-weight:800;color:#fff;background:var(--zc,var(--verde));border-radius:99px;padding:3px 9px;flex-shrink:0;min-width:38px;text-align:center}
+    .zone-hd{display:flex;align-items:center;gap:8px;padding:7px 6px 8px;position:sticky;top:var(--hdh);background:var(--bg);z-index:2}
+    .zone-dot{width:11px;height:11px;border-radius:4px;background:var(--zc,#bbb);flex-shrink:0}
+    .zone-name{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--zc,var(--lbl2));flex:1;min-width:0;line-height:1.3}
+    .zone-count{font-size:10.5px;font-weight:700;color:var(--lbl2);background:rgba(26,22,16,.05);border-radius:99px;padding:3px 9px;flex-shrink:0;white-space:nowrap}
+    .zone-pct{font-size:11px;font-weight:800;color:#fff;background:var(--zc,var(--verde));border-radius:99px;padding:3px 8px;flex-shrink:0;min-width:34px;text-align:center}
 
-    .item{background:var(--card);border-radius:14px;border-left:4px solid var(--zc,transparent);margin-bottom:6px;padding:12px 14px;display:flex;align-items:flex-start;gap:14px;box-shadow:var(--shadow-sm)}
-    .checks{display:flex;gap:11px;flex-shrink:0}
-    .ck{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .1s}
-    .ck:active{transform:scale(.88)}
-    .ck-box{width:27px;height:27px;border-radius:8px;border:2px solid var(--lbl3);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;background:var(--card);transition:all .16s}
+    .item{background:var(--card);border-radius:14px;border-left:4px solid var(--zc,transparent);margin-bottom:8px;padding:13px;box-shadow:var(--shadow-sm)}
+    .item-top{display:flex;align-items:flex-start;gap:12px}
+    .checks{display:flex;flex-shrink:0}
+    .ck{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .1s;padding:2px;min-width:44px}
+    .ck:active{transform:scale(.9)}
+    .ck-box{width:28px;height:28px;border-radius:8px;border:2px solid var(--lbl3);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;background:var(--card);transition:all .16s}
     .ck-cap{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.2px;color:var(--lbl3);white-space:nowrap}
     .ck.on .ck-box{background:var(--verde);border-color:var(--verde)}
     .ck.on .ck-cap{color:var(--verde)}
     .item-body{flex:1;min-width:0}
-    .label{font-size:14.5px;font-weight:500;color:var(--lbl);line-height:1.3;transition:color .15s}
+    .label{font-size:15px;font-weight:500;color:var(--lbl);line-height:1.35;word-wrap:break-word}
     .item.done .label{color:var(--lbl3);text-decoration:line-through;text-decoration-color:var(--lbl3)}
-    .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
-    .resp{font-size:9.5px;font-weight:700;color:var(--slate);background:rgba(91,122,140,.1);border-radius:6px;padding:2px 7px;white-space:nowrap}
-    .obs{font-size:10.5px;color:var(--lbl3);font-style:italic;line-height:1.35;margin-top:4px}
+    .meta{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:8px}
+    .resp{font-size:10px;font-weight:700;color:var(--slate);background:rgba(91,122,140,.1);border-radius:6px;padding:4px 8px;white-space:nowrap}
+    .obs{font-size:11px;color:var(--lbl3);font-style:italic;line-height:1.4;margin-top:6px}
 
-    .edit-btn2{border:1.5px solid var(--sep);background:rgba(26,22,16,.05);color:var(--lbl2);border-radius:20px;padding:6px 11px;font-size:12px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;white-space:nowrap;flex-shrink:0;transition:all .18s}
+    /* Owner select */
+    .owner-wrap{position:relative;display:inline-flex;flex-shrink:0}
+    .owner-wrap::after{content:'▾';position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:8px;color:var(--oc,var(--lbl3));pointer-events:none;opacity:.8}
+    .owner-select{appearance:none;-webkit-appearance:none;-moz-appearance:none;border:1.5px solid var(--oc,var(--sep));background:var(--card);color:var(--oc,var(--lbl2));font-family:inherit;font-size:11.5px;font-weight:700;padding:6px 22px 6px 9px;border-radius:8px;cursor:pointer;-webkit-tap-highlight-color:transparent;min-height:30px;max-width:132px;text-overflow:ellipsis}
+    .owner-select:focus{outline:none}
+
     .del-btn{flex-shrink:0;width:40px;height:40px;border:none;background:rgba(139,61,46,.1);color:var(--red);border-radius:9px;font-size:16px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .1s}
     .del-btn:active{transform:scale(.88)}
-    .add-btn{width:100%;margin:2px 0 4px;padding:11px;border:1.5px dashed var(--zc,var(--lbl3));background:transparent;color:var(--zc,var(--lbl2));border-radius:12px;font-size:12.5px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;letter-spacing:.2px;opacity:.85}
+    .add-btn{width:100%;margin:2px 0 4px;padding:12px;border:1.5px dashed var(--zc,var(--lbl3));background:transparent;color:var(--zc,var(--lbl2));border-radius:12px;font-size:12.5px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;letter-spacing:.2px;opacity:.85;min-height:44px}
     .add-btn:active{transform:scale(.99)}
 
-    .edit-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
-    .edit-inp{width:100%;font-family:inherit;font-size:14.5px;font-weight:500;color:var(--lbl);background:var(--bg);border:1px solid var(--sep);border-radius:9px;padding:10px 11px;-webkit-tap-highlight-color:transparent}
+    .edit-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:7px}
+    .edit-inp{width:100%;font-family:inherit;font-size:16px;font-weight:500;color:var(--lbl);background:var(--bg);border:1px solid var(--sep);border-radius:9px;padding:11px;-webkit-tap-highlight-color:transparent}
     .edit-inp:focus{outline:none;border-color:var(--zc,var(--verde));background:var(--card)}
-    .edit-inp.sm{font-size:12px;padding:8px 10px}
-    body.editmode .item{padding:8px 10px}
+    .edit-inp.sm{font-size:14.5px;padding:9px 11px}
+    .item.editing{padding:11px}
+    .edit-top-row{display:flex;gap:8px;align-items:flex-start}
+
+    /* ── SUB-AÇÕES (checklist dentro do item) ── */
+    .subs{margin-top:11px;padding-top:10px;border-top:1px dashed var(--sep)}
+    .subs-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+    .subs-lbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--lbl3)}
+    .subs-count{font-size:9.5px;font-weight:800;color:var(--lbl2);background:rgba(26,22,16,.05);border-radius:99px;padding:2px 8px}
+    .subs-count.all{color:#fff;background:var(--verde)}
+    .subs-list{display:flex;flex-direction:column;gap:1px}
+    .sub-item{display:flex;align-items:flex-start;gap:10px;padding:8px 4px;cursor:pointer;-webkit-tap-highlight-color:transparent;border-radius:9px}
+    .sub-item:active{background:rgba(26,22,16,.04)}
+    .sub-ck-box{width:21px;height:21px;border-radius:6px;border:2px solid var(--lbl3);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;background:var(--card);margin-top:1px;transition:all .16s}
+    .sub-item.on .sub-ck-box{background:var(--verde);border-color:var(--verde)}
+    .sub-label{font-size:13.5px;color:var(--lbl);line-height:1.4;flex:1;min-width:0;padding-top:2px}
+    .sub-item.on .sub-label{color:var(--lbl3);text-decoration:line-through}
+    .sub-resp{font-size:9px;font-weight:700;color:var(--slate);background:rgba(91,122,140,.1);border-radius:5px;padding:2px 6px;white-space:nowrap;flex-shrink:0;margin-top:3px}
+
+    .sub-edit-row{display:flex;flex-wrap:wrap;gap:6px;padding:6px 0;align-items:center}
+    .sub-edit-row .edit-inp{flex:1 1 140px;min-width:0}
+    .sub-del-btn{flex-shrink:0;width:34px;height:34px;border:none;background:rgba(139,61,46,.1);color:var(--red);border-radius:8px;font-size:13px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+    .add-sub-btn{width:100%;margin-top:4px;padding:9px;border:1.5px dashed var(--sep);background:transparent;color:var(--lbl2);border-radius:10px;font-size:11.5px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;min-height:38px}
+    .add-sub-btn:active{transform:scale(.98)}
 
     @media(max-width:480px){
-      .topbar-s{display:none}
-      .zone-hd{top:70px}
+      .topbar-s{max-width:52vw}
+      .owner-select{max-width:104px}
+      .body{padding-left:8px;padding-right:8px}
+      .item{padding:11px}
+    }
+    @media(max-width:360px){
+      .owner-select{max-width:88px;font-size:11px}
+      .resp{font-size:9px;padding:3px 6px}
     }
   </style>
 </head>
 <body>
 
 <div class="stickytop">
-  <div class="topbar">
+  <div class="tb-row tb-row1">
     <a class="topbar-back" href="planeamento-cbr.html" title="Voltar ao Planeamento">‹ Planeamento</a>
-    <div style="flex:1;min-width:0;text-align:center">
-      <div class="topbar-t">🏗️ Fim de Obra</div>
-      <div class="topbar-s" id="sub">0 de 0 itens concluídos</div>
-    </div>
-    <div class="topbar-r">
-      <button class="edit-btn" id="edit-btn" title="Editar lista">✏️ Editar</button>
+    <div class="topbar-r1">
       <span id="sync-dot" title="A carregar…" style="width:8px;height:8px;border-radius:50%;background:#8C9198;display:inline-block;flex-shrink:0;transition:background .4s"></span>
       <div class="topbar-pct" id="pct">0%</div>
     </div>
+  </div>
+  <div class="tb-row tb-row2">
+    <div class="topbar-titles">
+      <div class="topbar-t">🏗️ Fim de Obra</div>
+      <div class="topbar-s" id="sub">0 de 0 itens concluídos</div>
+    </div>
+    <button class="edit-btn" id="edit-btn" title="Editar lista">✏️ Editar</button>
   </div>
   <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
 </div>
@@ -109,81 +150,94 @@
 (function(){
   function esc(t){ return (t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
+  const OWNERS=[
+    {k:'valerio',n:'Valério',c:'#809751'},
+    {k:'artur',  n:'Artur',  c:'#B0622D'},
+    {k:'joao',   n:'João',   c:'#5B7A8C'},
+  ];
+  function ownerColor(k){ const o=OWNERS.find(x=>x.k===k); return o?o.c:''; }
+  function ownerSelectHtml(id,val){
+    const oc=ownerColor(val);
+    const opts=`<option value=""${!val?' selected':''}>👤 Atribuir</option>`+
+      OWNERS.map(o=>`<option value="${o.k}"${val===o.k?' selected':''}>${o.n}</option>`).join('');
+    return `<span class="owner-wrap" style="${oc?`--oc:${oc}`:''}"><select class="owner-select" data-id="${id}" style="${oc?`--oc:${oc}`:''}">${opts}</select></span>`;
+  }
+
   /* ── DADOS — CE_checklistconclusaoobra_2.xlsx (Coimbra Editora · Conclusão de Obra e Início de Exploração) ── */
   const OB_DEFAULT=[
     {z:'Obra por Executar / Pendências',c:'#8B3D2E',items:[
-      {t:'Instalação dos painéis fotovoltaicos',r:'',o:'opção1- cumprir projeto com inclusão dos passadiços e linhas de vida · opção2- definir data limite para decisão das escadas · opção3- Aceitar solução e custo da proposta A.pimenta'},
-      {t:'Portões/Grade no logradouro voltado à AutoIndustrial',r:'',o:'1- definição portão Rua do Arnado · 2- Gradeamento no topo voltado ao estacionamento Continente'},
-      {t:'Molas de braço nas portas grandes',r:'A.Pimenta/Critical',o:''},
-      {t:'Tratamento acústico da sala multiusos',r:'',o:'1- definição baflles (Arquitetos) · 2- contratar fornecedor (Reunia/Critical)'},
-      {t:'Facilitar Entrada de cabos no PT (posto de transformação)',r:'A.Pimenta',o:''},
+      {t:'Instalação dos painéis fotovoltaicos',r:'',subs:[{t:'opção1- cumprir projeto com inclusão dos passadiços e linhas de vida',r:''},{t:'opção2- definir data limite para decisão das escadas',r:''},{t:'opção3- Aceitar solução e custo da proposta A.pimenta',r:''}]},
+      {t:'Portões/Grade no logradouro voltado à AutoIndustrial',r:'',subs:[{t:'1- definição portão Rua do Arnado',r:''},{t:'2- Gradeamento no topo voltado ao estacionamento Continente',r:''}]},
+      {t:'Molas de braço nas portas grandes',r:'A.Pimenta/Critical'},
+      {t:'Tratamento acústico da sala multiusos',r:'',subs:[{t:'1- definição baflles',r:'Arquitetos'},{t:'2- contratar fornecedor',r:'Reunia/Critical'}]},
+      {t:'Facilitar Entrada de cabos no PT (posto de transformação)',r:'A.Pimenta'},
     ]},
     {z:'Vistorias e Aceitação Técnica',c:'#5B7A8C',items:[
-      {t:'Vistoria final com a fiscalização/projetista de cada especialidade',r:'',o:''},
-      {t:'Auto de receção provisória da obra (dono de obra + empreiteiro)',r:'',o:''},
-      {t:'Resolução da lista de defeitos (punch list)',r:'',o:''},
-      {t:'Testes e comissionamento de instalações (elétrica, AVAC, águas, esgotos, gás, elevadores, incêndio)',r:'',o:''},
-      {t:'Ensaios obrigatórios (isolamento elétrico, estanquidade, pressão de redes, etc.)',r:'',o:''},
-      {t:'Entrega de telas finais (as-built) de todas as especialidades',r:'',o:''},
+      {t:'Vistoria final com a fiscalização/projetista de cada especialidade',r:''},
+      {t:'Auto de receção provisória da obra (dono de obra + empreiteiro)',r:''},
+      {t:'Resolução da lista de defeitos (punch list)',r:''},
+      {t:'Testes e comissionamento de instalações (elétrica, AVAC, águas, esgotos, gás, elevadores, incêndio)',r:''},
+      {t:'Ensaios obrigatórios (isolamento elétrico, estanquidade, pressão de redes, etc.)',r:''},
+      {t:'Entrega de telas finais (as-built) de todas as especialidades',r:''},
     ]},
     {z:'Licenciamento e Documentação Legal',c:'#809751',items:[
-      {t:'Processo de alterações no decurso da Obra',r:'',o:''},
-      {t:'Submissão projeto de alterações Arquitetura',r:'',o:''},
-      {t:'Submissão projeto de alterações Estrutura',r:'',o:''},
-      {t:'Pedidos de dispensa das outras especialidades',r:'',o:''},
-      {t:'Requerimento de autorização de utilização à Câmara Municipal',r:'',o:''},
-      {t:'Termos de responsabilidade dos técnicos',r:'',o:''},
-      {t:'Certificado Energético (SCE) atualizado',r:'',o:''},
-      {t:'MAP\'s Segurança Contra Incêndio (SCIE)',r:'',o:''},
-      {t:'Ensaios Acústicos',r:'',o:''},
-      {t:'Certificado Elevadores',r:'',o:''},
-      {t:'Autorização de utilização',r:'',o:''},
+      {t:'Processo de alterações no decurso da Obra',r:''},
+      {t:'Submissão projeto de alterações Arquitetura',r:''},
+      {t:'Submissão projeto de alterações Estrutura',r:''},
+      {t:'Pedidos de dispensa das outras especialidades',r:''},
+      {t:'Requerimento de autorização de utilização à Câmara Municipal',r:''},
+      {t:'Termos de responsabilidade dos técnicos',r:''},
+      {t:'Certificado Energético (SCE) atualizado',r:''},
+      {t:'MAP\'s Segurança Contra Incêndio (SCIE)',r:''},
+      {t:'Ensaios Acústicos',r:''},
+      {t:'Certificado Elevadores',r:''},
+      {t:'Autorização de utilização',r:''},
     ]},
     {z:'Ligações a Redes e Serviços',c:'#B0622D',items:[
-      {t:'Ligação definitiva de eletricidade',r:'',o:''},
-      {t:'Ligação definitiva de água e saneamento',r:'',o:''},
-      {t:'Ligação de gás (se aplicável)',r:'',o:''},
-      {t:'Instalação e ativação de telecomunicações/internet',r:'',o:''},
-      {t:'Contratos de manutenção (elevadores, AVAC, elétrica, extintores)',r:'',o:''},
+      {t:'Ligação definitiva de eletricidade',r:''},
+      {t:'Ligação definitiva de água e saneamento',r:''},
+      {t:'Ligação de gás (se aplicável)',r:''},
+      {t:'Instalação e ativação de telecomunicações/internet',r:''},
+      {t:'Contratos de manutenção (elevadores, AVAC, elétrica, extintores)',r:''},
     ]},
     {z:'Seguros',c:'#6C7FA8',items:[
-      {t:'Cancelamento do seguro de obra (CAR/EAR)',r:'',o:''},
-      {t:'Contratação de seguro multirriscos do edifício',r:'',o:''},
-      {t:'Seguro de responsabilidade civil de exploração',r:'',o:''},
-      {t:'Seguro contra incêndio',r:'',o:''},
+      {t:'Cancelamento do seguro de obra (CAR/EAR)',r:''},
+      {t:'Contratação de seguro multirriscos do edifício',r:''},
+      {t:'Seguro de responsabilidade civil de exploração',r:''},
+      {t:'Seguro contra incêndio',r:''},
     ]},
     {z:'Segurança e Equipamentos',c:'#A0524A',items:[
-      {t:'Extintores, bocas de incêndio e sinalética instalados e certificados',r:'',o:''},
-      {t:'Plano de emergência/evacuação elaborado',r:'',o:''},
-      {t:'Sinalética de segurança e acessibilidade colocada',r:'',o:''},
+      {t:'Extintores, bocas de incêndio e sinalética instalados e certificados',r:''},
+      {t:'Plano de emergência/evacuação elaborado',r:''},
+      {t:'Sinalética de segurança e acessibilidade colocada',r:''},
     ]},
     {z:'Limpeza e Preparação do Espaço',c:'#4C8C86',items:[
-      {t:'Limpeza final de obra (fina)',r:'',o:''},
-      {t:'Remoção de entulhos, materiais sobrantes e equipamentos de estaleiro',r:'',o:''},
-      {t:'Desmontagem do estaleiro (vedações, contentores, casas de apoio)',r:'',o:''},
-      {t:'Reposição de espaços exteriores/arranjos exteriores',r:'',o:''},
+      {t:'Limpeza final de obra (fina)',r:''},
+      {t:'Remoção de entulhos, materiais sobrantes e equipamentos de estaleiro',r:''},
+      {t:'Desmontagem do estaleiro (vedações, contentores, casas de apoio)',r:''},
+      {t:'Reposição de espaços exteriores/arranjos exteriores',r:''},
     ]},
     {z:'Aspetos Financeiros e Contratuais',c:'#C79A3A',items:[
-      {t:'Conta final de obra e fecho de contas com empreiteiro(s)',r:'',o:''},
-      {t:'Libertação/gestão de retenções e garantias bancárias',r:'',o:''},
-      {t:'Faturação e pagamentos finais',r:'',o:''},
-      {t:'Arquivo da documentação contratual e financeira',r:'',o:''},
+      {t:'Conta final de obra e fecho de contas com empreiteiro(s)',r:''},
+      {t:'Libertação/gestão de retenções e garantias bancárias',r:''},
+      {t:'Faturação e pagamentos finais',r:''},
+      {t:'Arquivo da documentação contratual e financeira',r:''},
     ]},
     {z:'Garantias e Manuais',c:'#8F7A52',items:[
-      {t:'Manuais de utilização e manutenção de equipamentos',r:'',o:''},
-      {t:'Termos de garantia de obra e de equipamentos instalados',r:'',o:''},
-      {t:'Contactos de assistência técnica/pós-venda',r:'',o:''},
+      {t:'Manuais de utilização e manutenção de equipamentos',r:''},
+      {t:'Termos de garantia de obra e de equipamentos instalados',r:''},
+      {t:'Contactos de assistência técnica/pós-venda',r:''},
     ]},
     {z:'Recursos Humanos',c:'#6FA098',items:[
-      {t:'Recrutamento e formação da equipa de exploração',r:'',o:''},
-      {t:'Definição de procedimentos operacionais',r:'',o:''},
-      {t:'Formação em segurança e emergência para colaboradores',r:'',o:''},
+      {t:'Recrutamento e formação da equipa de exploração',r:''},
+      {t:'Definição de procedimentos operacionais',r:''},
+      {t:'Formação em segurança e emergência para colaboradores',r:''},
     ]},
     {z:'Abertura / Início de Exploração',c:'#8E6FA0',items:[
-      {t:'Licenças específicas de atividade (comércio, restauração, alojamento, indústria, etc.)',r:'',o:''},
-      {t:'Comunicação prévia/autorização de exploração junto das entidades competentes',r:'',o:''},
-      {t:'Definição de data de abertura e plano de lançamento/marketing',r:'',o:''},
-      {t:'Testes operacionais finais (simulação de funcionamento)',r:'',o:''},
+      {t:'Licenças específicas de atividade (comércio, restauração, alojamento, indústria, etc.)',r:''},
+      {t:'Comunicação prévia/autorização de exploração junto das entidades competentes',r:''},
+      {t:'Definição de data de abertura e plano de lançamento/marketing',r:''},
+      {t:'Testes operacionais finais (simulação de funcionamento)',r:''},
     ]},
   ];
 
@@ -233,6 +287,7 @@
   }
 
   let editMode=false;
+  const BLANK=()=>({d:0,r:'',o:'',owner:''});
 
   function newId(){ return 'o'+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
   function seed(){
@@ -242,22 +297,32 @@
         z:z.z, c:z.c,
         items:z.items.map(it=>{
           const id=newId();
-          _state.obcheck[id]={d:0,r:it.r||'',o:it.o||''};
-          return {id,t:it.t};
+          _state.obcheck[id]={d:0,r:it.r||'',o:'',owner:''};
+          const subs=(it.subs||[]).map(sub=>{
+            const sid=newId();
+            _state.obcheck[sid]={d:0,r:sub.r||'',o:'',owner:''};
+            return {id:sid,t:sub.t};
+          });
+          return {id,t:it.t,subs};
         })
       }));
       _push();
     }
   }
   function zones(){ seed(); return _state.obzones; }
-  function chkState(id){ return _state.obcheck[id]||{d:0,r:'',o:''}; }
-  function setDone(id,v){ const m=_state.obcheck; if(!m[id])m[id]={d:0,r:'',o:''}; m[id].d=v?1:0; _push(); }
-  function setField(id,k,v){ const m=_state.obcheck; if(!m[id])m[id]={d:0,r:'',o:''}; m[id][k]=v; _push(); }
+  function chkState(id){ return _state.obcheck[id]||BLANK(); }
+  function setDone(id,v){ const m=_state.obcheck; if(!m[id])m[id]=BLANK(); m[id].d=v?1:0; _push(); }
+  function setField(id,k,v){ const m=_state.obcheck; if(!m[id])m[id]=BLANK(); m[id][k]=v; _push(); }
 
   function zoneStats(zi){
     const z=zones()[zi]; let d=0;
     z.items.forEach(it=>{ if(chkState(it.id).d)d++; });
     return {d,total:z.items.length};
+  }
+  function subStats(item){
+    const subs=item.subs||[]; let d=0;
+    subs.forEach(s=>{ if(chkState(s.id).d)d++; });
+    return {d,total:subs.length};
   }
   function globalStats(){
     let d=0,total=0;
@@ -272,6 +337,39 @@
     document.getElementById('progress-fill').style.width=p+'%';
     document.getElementById('sub').textContent=`${g.d} de ${g.total} itens concluídos`;
   }
+
+  function renderSubs(item,inEdit){
+    const subs=item.subs||[];
+    if(!inEdit && subs.length===0)return '';
+    const sst=subStats(item);
+    const countCls=sst.total>0 && sst.d===sst.total?' all':'';
+    let html=`<div class="subs"><div class="subs-hd"><span class="subs-lbl">Sub-ações</span>`+
+      (subs.length?`<span class="subs-count${countCls}">${sst.d}/${sst.total}</span>`:'')+
+      `</div>`;
+    if(inEdit){
+      html+=`<div class="subs-list">`+subs.map(sub=>{
+        const s=chkState(sub.id);
+        return `<div class="sub-edit-row" data-item-id="${item.id}">`+
+          `<input class="edit-inp sm" data-subid="${sub.id}" data-f="t" value="${esc(sub.t)}" placeholder="Sub-ação…">`+
+          `<input class="edit-inp sm" data-subid="${sub.id}" data-f="r" value="${esc(s.r)}" placeholder="Resp.…" style="max-width:110px">`+
+          `<button class="sub-del-btn" data-subid="${sub.id}" data-item-id="${item.id}" title="Apagar sub-ação">🗑</button>`+
+        `</div>`;
+      }).join('')+`</div>`+
+      `<button class="add-sub-btn" data-item-id="${item.id}">＋ Adicionar sub-ação</button>`;
+    }else{
+      html+=`<div class="subs-list">`+subs.map(sub=>{
+        const s=chkState(sub.id);
+        return `<div class="sub-item${s.d?' on':''}" data-subid="${sub.id}" data-item-id="${item.id}">`+
+          `<div class="sub-ck-box">${s.d?'✓':''}</div>`+
+          `<div class="sub-label">${esc(sub.t)}</div>`+
+          (s.r?`<span class="sub-resp">${esc(s.r)}</span>`:'')+
+        `</div>`;
+      }).join('')+`</div>`;
+    }
+    html+=`</div>`;
+    return html;
+  }
+
   function render(){
     const body=document.getElementById('body');
     body.innerHTML='';
@@ -288,26 +386,38 @@
       z.items.forEach(item=>{
         const s=chkState(item.id);
         const it=document.createElement('div');
-        it.className='item'+(s.d?' done':'');
+        it.className='item'+(s.d?' done':'')+(editMode?' editing':'');
         it.dataset.id=item.id;
         if(editMode){
           it.innerHTML=
-            `<div class="edit-col">`+
-              `<input class="edit-inp" data-id="${item.id}" data-f="t" value="${esc(item.t)}" placeholder="Descrição do item…">`+
-              `<input class="edit-inp sm" data-id="${item.id}" data-f="r" value="${esc(s.r)}" placeholder="Responsável…">`+
-              `<input class="edit-inp sm" data-id="${item.id}" data-f="o" value="${esc(s.o)}" placeholder="Observações…">`+
+            `<div class="edit-top-row">`+
+              `<div class="edit-col">`+
+                `<input class="edit-inp" data-id="${item.id}" data-f="t" value="${esc(item.t)}" placeholder="Descrição do item…">`+
+                `<div style="display:flex;flex-wrap:wrap;gap:7px;align-items:center">`+
+                  ownerSelectHtml(item.id,s.owner)+
+                  `<input class="edit-inp sm" data-id="${item.id}" data-f="r" value="${esc(s.r)}" placeholder="Responsável…" style="flex:1;min-width:120px">`+
+                `</div>`+
+                `<input class="edit-inp sm" data-id="${item.id}" data-f="o" value="${esc(s.o)}" placeholder="Observações…">`+
+              `</div>`+
+              `<button class="del-btn" data-id="${item.id}" title="Apagar item">🗑</button>`+
             `</div>`+
-            `<button class="del-btn" data-id="${item.id}" title="Apagar item">🗑</button>`;
+            renderSubs(item,true);
         }else{
           it.innerHTML=
-            `<div class="checks">`+
-              `<div class="ck${s.d?' on':''}" data-id="${item.id}"><div class="ck-box">${s.d?'✓':''}</div><div class="ck-cap">Concluído</div></div>`+
+            `<div class="item-top">`+
+              `<div class="checks">`+
+                `<div class="ck${s.d?' on':''}" data-id="${item.id}"><div class="ck-box">${s.d?'✓':''}</div><div class="ck-cap">Concluído</div></div>`+
+              `</div>`+
+              `<div class="item-body">`+
+                `<div class="label">${esc(item.t)}</div>`+
+                `<div class="meta">`+
+                  ownerSelectHtml(item.id,s.owner)+
+                  (s.r?`<span class="resp">👤 ${esc(s.r)}</span>`:'')+
+                `</div>`+
+                (s.o?`<div class="obs">${esc(s.o)}</div>`:'')+
+              `</div>`+
             `</div>`+
-            `<div class="item-body">`+
-              `<div class="label">${esc(item.t)}</div>`+
-              (s.r?`<div class="meta"><span class="resp">👤 ${esc(s.r)}</span></div>`:'')+
-              (s.o?`<div class="obs">${esc(s.o)}</div>`:'')+
-            `</div>`;
+            renderSubs(item,false);
         }
         zone.appendChild(it);
       });
@@ -324,30 +434,84 @@
     editMode=on;
     const b=document.getElementById('edit-btn');
     b.classList.toggle('on',on); b.textContent=on?'✓ Concluir':'✏️ Editar';
-    document.body.classList.toggle('editmode',on);
     render();
   }
 
-  document.getElementById('edit-btn').addEventListener('click',()=>setEdit(!editMode));
+  function syncHeaderHeight(){
+    const h=document.querySelector('.stickytop').offsetHeight;
+    document.documentElement.style.setProperty('--hdh',h+'px');
+  }
+  window.addEventListener('resize',syncHeaderHeight);
+  window.addEventListener('orientationchange',()=>setTimeout(syncHeaderHeight,150));
+
+  document.getElementById('edit-btn').addEventListener('click',()=>{setEdit(!editMode);syncHeaderHeight();});
 
   document.getElementById('body').addEventListener('click',e=>{
+    // apagar item
     const del=e.target.closest('.del-btn');
     if(del){
       const id=del.dataset.id;
-      for(const z of zones()){const ix=z.items.findIndex(x=>x.id===id); if(ix>=0){z.items.splice(ix,1);break;}}
+      for(const z of zones()){
+        const ix=z.items.findIndex(x=>x.id===id);
+        if(ix>=0){ (z.items[ix].subs||[]).forEach(s=>delete _state.obcheck[s.id]); z.items.splice(ix,1); break; }
+      }
       delete _state.obcheck[id]; _push(); render();
       if(navigator.vibrate)try{navigator.vibrate(12)}catch(e){}
       return;
     }
+    // apagar sub-ação
+    const subDel=e.target.closest('.sub-del-btn');
+    if(subDel){
+      const subId=subDel.dataset.subid, itemId=subDel.dataset.itemId;
+      for(const z of zones()){
+        const item=z.items.find(x=>x.id===itemId);
+        if(item){ const ix=(item.subs||[]).findIndex(s=>s.id===subId); if(ix>=0)item.subs.splice(ix,1); break; }
+      }
+      delete _state.obcheck[subId]; _push(); render();
+      return;
+    }
+    // adicionar item
     const add=e.target.closest('.add-btn');
     if(add){
       const zi=+add.dataset.zi, id=newId();
-      _state.obcheck[id]={d:0,r:'',o:''};
-      zones()[zi].items.push({id,t:''}); _push(); render();
+      _state.obcheck[id]=BLANK();
+      zones()[zi].items.push({id,t:'',subs:[]}); _push(); render();
       const inp=document.querySelector(`.edit-inp[data-id="${id}"][data-f="t"]`);
       if(inp)inp.focus();
       return;
     }
+    // adicionar sub-ação
+    const addSub=e.target.closest('.add-sub-btn');
+    if(addSub){
+      const itemId=addSub.dataset.itemId, sid=newId();
+      _state.obcheck[sid]=BLANK();
+      for(const z of zones()){
+        const item=z.items.find(x=>x.id===itemId);
+        if(item){ if(!item.subs)item.subs=[]; item.subs.push({id:sid,t:''}); break; }
+      }
+      _push(); render();
+      const inp=document.querySelector(`.edit-inp[data-subid="${sid}"][data-f="t"]`);
+      if(inp)inp.focus();
+      return;
+    }
+    // marcar sub-ação concluída
+    const subItem=e.target.closest('.sub-item');
+    if(subItem){
+      const subId=subItem.dataset.subid, on=!chkState(subId).d;
+      setDone(subId,on);
+      subItem.classList.toggle('on',on);
+      subItem.querySelector('.sub-ck-box').textContent=on?'✓':'';
+      const itemEl=subItem.closest('.item'), itemId=subItem.dataset.itemId;
+      let item=null; for(const z of zones()){item=z.items.find(x=>x.id===itemId); if(item)break;}
+      if(item){
+        const sst=subStats(item);
+        const countEl=itemEl.querySelector('.subs-count');
+        if(countEl){ countEl.textContent=`${sst.d}/${sst.total}`; countEl.classList.toggle('all',sst.total>0&&sst.d===sst.total); }
+      }
+      if(navigator.vibrate)try{navigator.vibrate(6)}catch(e){}
+      return;
+    }
+    // marcar item concluído
     const ck=e.target.closest('.ck'); if(!ck||editMode)return;
     const id=ck.dataset.id, on=!chkState(id).d;
     setDone(id,on);
@@ -361,15 +525,36 @@
     updateProgress();
     if(navigator.vibrate)try{navigator.vibrate(8)}catch(e){}
   });
+
   document.getElementById('body').addEventListener('input',e=>{
     const inp=e.target.closest('.edit-inp'); if(!inp)return;
+    if(inp.dataset.subid){
+      const subId=inp.dataset.subid, f=inp.dataset.f;
+      if(f==='t'){
+        for(const z of zones()){
+          for(const item of z.items){ const sub=(item.subs||[]).find(s=>s.id===subId); if(sub){ sub.t=inp.value; break; } }
+        }
+        _push();
+      }else{
+        setField(subId,f,inp.value);
+      }
+      return;
+    }
     const id=inp.dataset.id, f=inp.dataset.f;
     if(f==='t'){
       for(const z of zones()){const item=z.items.find(x=>x.id===id); if(item){item.t=inp.value;break;}}
+      _push();
     }else{
       setField(id,f,inp.value);
     }
-    _push();
+  });
+
+  document.getElementById('body').addEventListener('change',e=>{
+    const sel=e.target.closest('.owner-select'); if(!sel)return;
+    const id=sel.dataset.id, val=sel.value, oc=ownerColor(val);
+    setField(id,'owner',val);
+    sel.style.setProperty('--oc',oc||'');
+    sel.parentElement.style.setProperty('--oc',oc||'');
   });
 
   /* ── ASYNC INIT — carrega estado do GitHub, renderiza, depois faz polling ── */
@@ -382,7 +567,7 @@
         if(!_state.obcheck||typeof _state.obcheck!=='object')_state.obcheck={};
       }
     }catch(e){}
-    try{ render(); }catch(e){ console.error('render error',e); }
+    try{ render(); syncHeaderHeight(); }catch(e){ console.error('render error',e); }
     _setSyncDot('ok');
 
     setInterval(async()=>{
