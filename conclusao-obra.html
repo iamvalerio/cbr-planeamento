@@ -309,7 +309,28 @@
       _push();
     }
   }
-  function zones(){ seed(); return _state.obzones; }
+  function migrate(){
+    // repara estado semeado antes desta versão (sem subs/owner), sem perder o que já estava marcado
+    const tmplByTitle={};
+    OB_DEFAULT.forEach(z=>z.items.forEach(it=>{ tmplByTitle[it.t]=it; }));
+    let changed=false;
+    (_state.obzones||[]).forEach(z=>{
+      z.items.forEach(item=>{
+        if(!Array.isArray(item.subs)){
+          const tmpl=tmplByTitle[item.t];
+          const subsTmpl=(tmpl&&tmpl.subs)||[];
+          item.subs=subsTmpl.map(sub=>{
+            const sid=newId();
+            _state.obcheck[sid]={d:0,r:sub.r||'',o:'',owner:''};
+            return {id:sid,t:sub.t};
+          });
+          changed=true;
+        }
+      });
+    });
+    if(changed)_push();
+  }
+  function zones(){ seed(); migrate(); return _state.obzones; }
   function chkState(id){ return _state.obcheck[id]||BLANK(); }
   function setDone(id,v){ const m=_state.obcheck; if(!m[id])m[id]=BLANK(); m[id].d=v?1:0; _push(); }
   function setField(id,k,v){ const m=_state.obcheck; if(!m[id])m[id]=BLANK(); m[id][k]=v; _push(); }
