@@ -259,6 +259,48 @@
       "d": 0,
       "r": "",
       "o": ""
+    },
+    "omsjjqfjrh09k": {
+      "d": 0,
+      "r": "",
+      "o": "",
+      "owner": ""
+    },
+    "omsjjqfjrolxo": {
+      "d": 0,
+      "r": "",
+      "o": "",
+      "owner": ""
+    },
+    "omsjjqfjrj4u3": {
+      "d": 0,
+      "r": "",
+      "o": "",
+      "owner": ""
+    },
+    "omsjjqfjsouec": {
+      "d": 0,
+      "r": "",
+      "o": "",
+      "owner": ""
+    },
+    "omsjjqfjsmu1i": {
+      "d": 0,
+      "r": "",
+      "o": "",
+      "owner": ""
+    },
+    "omsjjqfjsa6jn": {
+      "d": 0,
+      "r": "Arquitetos",
+      "o": "",
+      "owner": ""
+    },
+    "omsjjqfjs3sl5": {
+      "d": 0,
+      "r": "Reunia/Critical",
+      "o": "",
+      "owner": ""
     }
   },
   "obzones": [
@@ -268,23 +310,59 @@
       "items": [
         {
           "id": "omsjfmulluco3",
-          "t": "Instalação dos painéis fotovoltaicos"
+          "t": "Instalação dos painéis fotovoltaicos",
+          "subs": [
+            {
+              "id": "omsjjqfjrh09k",
+              "t": "opção1- cumprir projeto com inclusão dos passadiços e linhas de vida"
+            },
+            {
+              "id": "omsjjqfjrolxo",
+              "t": "opção2- definir data limite para decisão das escadas"
+            },
+            {
+              "id": "omsjjqfjrj4u3",
+              "t": "opção3- Aceitar solução e custo da proposta A.pimenta"
+            }
+          ]
         },
         {
           "id": "omsjfmullyaa4",
-          "t": "Portões/Grade no logradouro voltado à AutoIndustrial"
+          "t": "Portões/Grade no logradouro voltado à AutoIndustrial",
+          "subs": [
+            {
+              "id": "omsjjqfjsouec",
+              "t": "1- definição portão Rua do Arnado"
+            },
+            {
+              "id": "omsjjqfjsmu1i",
+              "t": "2- Gradeamento no topo voltado ao estacionamento Continente"
+            }
+          ]
         },
         {
           "id": "omsjfmull74ls",
-          "t": "Molas de braço nas portas grandes"
+          "t": "Molas de braço nas portas grandes",
+          "subs": []
         },
         {
           "id": "omsjfmulln65p",
-          "t": "Tratamento acústico da sala multiusos"
+          "t": "Tratamento acústico da sala multiusos",
+          "subs": [
+            {
+              "id": "omsjjqfjsa6jn",
+              "t": "1- definição baflles"
+            },
+            {
+              "id": "omsjjqfjs3sl5",
+              "t": "2- contratar fornecedor"
+            }
+          ]
         },
         {
           "id": "omsjfmull1rnw",
-          "t": "Facilitar Entrada de cabos no PT (posto de transformação)"
+          "t": "Facilitar Entrada de cabos no PT (posto de transformação)",
+          "subs": []
         }
       ]
     },
@@ -294,27 +372,33 @@
       "items": [
         {
           "id": "omsjfmullrpzi",
-          "t": "Vistoria final com a fiscalização/projetista de cada especialidade"
+          "t": "Vistoria final com a fiscalização/projetista de cada especialidade",
+          "subs": []
         },
         {
           "id": "omsjfmull0crn",
-          "t": "Auto de receção provisória da obra (dono de obra + empreiteiro)"
+          "t": "Auto de receção provisória da obra (dono de obra + empreiteiro)",
+          "subs": []
         },
         {
           "id": "omsjfmullcbfd",
-          "t": "Resolução da lista de defeitos (punch list)"
+          "t": "Resolução da lista de defeitos (punch list)",
+          "subs": []
         },
         {
           "id": "omsjfmull9osk",
-          "t": "Testes e comissionamento de instalações (elétrica, AVAC, águas, esgotos, gás, elevadores, incêndio)"
+          "t": "Testes e comissionamento de instalações (elétrica, AVAC, águas, esgotos, gás, elevadores, incêndio)",
+          "subs": []
         },
         {
           "id": "omsjfmullwsii",
-          "t": "Ensaios obrigatórios (isolamento elétrico, estanquidade, pressão de redes, etc.)"
+          "t": "Ensaios obrigatórios (isolamento elétrico, estanquidade, pressão de redes, etc.)",
+          "subs": []
         },
         {
           "id": "omsjfmull1r4k",
-          "t": "Entrega de telas finais (as-built) de todas as especialidades"
+          "t": "Entrega de telas finais (as-built) de todas as especialidades",
+          "subs": []
         }
       ]
     },
@@ -324,47 +408,58 @@
       "items": [
         {
           "id": "omsjfmullj03q",
-          "t": "Processo de alterações no decurso da Obra"
+          "t": "Processo de alterações no decurso da Obra",
+          "subs": []
         },
         {
           "id": "omsjfmullwyr6",
-          "t": "Submissão projeto de alterações Arquitetura"
+          "t": "Submissão projeto de alterações Arquitetura",
+          "subs": []
         },
         {
           "id": "omsjfmull41mh",
-          "t": "Submissão projeto de alterações Estrutura"
+          "t": "Submissão projeto de alterações Estrutura",
+          "subs": []
         },
         {
           "id": "omsjfmullntmt",
-          "t": "Pedidos de dispensa das outras especialidades"
+          "t": "Pedidos de dispensa das outras especialidades",
+          "subs": []
         },
         {
           "id": "omsjfmull57au",
-          "t": "Requerimento de autorização de utilização à Câmara Municipal"
+          "t": "Requerimento de autorização de utilização à Câmara Municipal",
+          "subs": []
         },
         {
           "id": "omsjfmull98hp",
-          "t": "Termos de responsabilidade dos técnicos"
+          "t": "Termos de responsabilidade dos técnicos",
+          "subs": []
         },
         {
           "id": "omsjfmullacqw",
-          "t": "Certificado Energético (SCE) atualizado"
+          "t": "Certificado Energético (SCE) atualizado",
+          "subs": []
         },
         {
           "id": "omsjfmulltdg1",
-          "t": "MAP's Segurança Contra Incêndio (SCIE)"
+          "t": "MAP's Segurança Contra Incêndio (SCIE)",
+          "subs": []
         },
         {
           "id": "omsjfmullofm5",
-          "t": "Ensaios Acústicos"
+          "t": "Ensaios Acústicos",
+          "subs": []
         },
         {
           "id": "omsjfmullpuoj",
-          "t": "Certificado Elevadores"
+          "t": "Certificado Elevadores",
+          "subs": []
         },
         {
           "id": "omsjfmulli00k",
-          "t": "Autorização de utilização"
+          "t": "Autorização de utilização",
+          "subs": []
         }
       ]
     },
@@ -374,23 +469,28 @@
       "items": [
         {
           "id": "omsjfmullladv",
-          "t": "Ligação definitiva de eletricidade"
+          "t": "Ligação definitiva de eletricidade",
+          "subs": []
         },
         {
           "id": "omsjfmull2m64",
-          "t": "Ligação definitiva de água e saneamento"
+          "t": "Ligação definitiva de água e saneamento",
+          "subs": []
         },
         {
           "id": "omsjfmullr6qc",
-          "t": "Ligação de gás (se aplicável)"
+          "t": "Ligação de gás (se aplicável)",
+          "subs": []
         },
         {
           "id": "omsjfmullwi0f",
-          "t": "Instalação e ativação de telecomunicações/internet"
+          "t": "Instalação e ativação de telecomunicações/internet",
+          "subs": []
         },
         {
           "id": "omsjfmullj3si",
-          "t": "Contratos de manutenção (elevadores, AVAC, elétrica, extintores)"
+          "t": "Contratos de manutenção (elevadores, AVAC, elétrica, extintores)",
+          "subs": []
         }
       ]
     },
@@ -400,19 +500,23 @@
       "items": [
         {
           "id": "omsjfmullv75s",
-          "t": "Cancelamento do seguro de obra (CAR/EAR)"
+          "t": "Cancelamento do seguro de obra (CAR/EAR)",
+          "subs": []
         },
         {
           "id": "omsjfmullxthq",
-          "t": "Contratação de seguro multirriscos do edifício"
+          "t": "Contratação de seguro multirriscos do edifício",
+          "subs": []
         },
         {
           "id": "omsjfmulls4k6",
-          "t": "Seguro de responsabilidade civil de exploração"
+          "t": "Seguro de responsabilidade civil de exploração",
+          "subs": []
         },
         {
           "id": "omsjfmullq4oq",
-          "t": "Seguro contra incêndio"
+          "t": "Seguro contra incêndio",
+          "subs": []
         }
       ]
     },
@@ -422,15 +526,18 @@
       "items": [
         {
           "id": "omsjfmullq2jf",
-          "t": "Extintores, bocas de incêndio e sinalética instalados e certificados"
+          "t": "Extintores, bocas de incêndio e sinalética instalados e certificados",
+          "subs": []
         },
         {
           "id": "omsjfmullukq6",
-          "t": "Plano de emergência/evacuação elaborado"
+          "t": "Plano de emergência/evacuação elaborado",
+          "subs": []
         },
         {
           "id": "omsjfmull4og5",
-          "t": "Sinalética de segurança e acessibilidade colocada"
+          "t": "Sinalética de segurança e acessibilidade colocada",
+          "subs": []
         }
       ]
     },
@@ -440,19 +547,23 @@
       "items": [
         {
           "id": "omsjfmulle9wc",
-          "t": "Limpeza final de obra (fina)"
+          "t": "Limpeza final de obra (fina)",
+          "subs": []
         },
         {
           "id": "omsjfmullr0ow",
-          "t": "Remoção de entulhos, materiais sobrantes e equipamentos de estaleiro"
+          "t": "Remoção de entulhos, materiais sobrantes e equipamentos de estaleiro",
+          "subs": []
         },
         {
           "id": "omsjfmullw9zb",
-          "t": "Desmontagem do estaleiro (vedações, contentores, casas de apoio)"
+          "t": "Desmontagem do estaleiro (vedações, contentores, casas de apoio)",
+          "subs": []
         },
         {
           "id": "omsjfmullrt1b",
-          "t": "Reposição de espaços exteriores/arranjos exteriores"
+          "t": "Reposição de espaços exteriores/arranjos exteriores",
+          "subs": []
         }
       ]
     },
@@ -462,19 +573,23 @@
       "items": [
         {
           "id": "omsjfmullzp9x",
-          "t": "Conta final de obra e fecho de contas com empreiteiro(s)"
+          "t": "Conta final de obra e fecho de contas com empreiteiro(s)",
+          "subs": []
         },
         {
           "id": "omsjfmullv4fj",
-          "t": "Libertação/gestão de retenções e garantias bancárias"
+          "t": "Libertação/gestão de retenções e garantias bancárias",
+          "subs": []
         },
         {
           "id": "omsjfmullj25z",
-          "t": "Faturação e pagamentos finais"
+          "t": "Faturação e pagamentos finais",
+          "subs": []
         },
         {
           "id": "omsjfmull9i7g",
-          "t": "Arquivo da documentação contratual e financeira"
+          "t": "Arquivo da documentação contratual e financeira",
+          "subs": []
         }
       ]
     },
@@ -484,15 +599,18 @@
       "items": [
         {
           "id": "omsjfmull6jj2",
-          "t": "Manuais de utilização e manutenção de equipamentos"
+          "t": "Manuais de utilização e manutenção de equipamentos",
+          "subs": []
         },
         {
           "id": "omsjfmullhvrx",
-          "t": "Termos de garantia de obra e de equipamentos instalados"
+          "t": "Termos de garantia de obra e de equipamentos instalados",
+          "subs": []
         },
         {
           "id": "omsjfmullecsb",
-          "t": "Contactos de assistência técnica/pós-venda"
+          "t": "Contactos de assistência técnica/pós-venda",
+          "subs": []
         }
       ]
     },
@@ -502,15 +620,18 @@
       "items": [
         {
           "id": "omsjfmullzmv1",
-          "t": "Recrutamento e formação da equipa de exploração"
+          "t": "Recrutamento e formação da equipa de exploração",
+          "subs": []
         },
         {
           "id": "omsjfmullyclm",
-          "t": "Definição de procedimentos operacionais"
+          "t": "Definição de procedimentos operacionais",
+          "subs": []
         },
         {
           "id": "omsjfmullz3jn",
-          "t": "Formação em segurança e emergência para colaboradores"
+          "t": "Formação em segurança e emergência para colaboradores",
+          "subs": []
         }
       ]
     },
@@ -520,19 +641,23 @@
       "items": [
         {
           "id": "omsjfmull2b1x",
-          "t": "Licenças específicas de atividade (comércio, restauração, alojamento, indústria, etc.)"
+          "t": "Licenças específicas de atividade (comércio, restauração, alojamento, indústria, etc.)",
+          "subs": []
         },
         {
           "id": "omsjfmull3vvt",
-          "t": "Comunicação prévia/autorização de exploração junto das entidades competentes"
+          "t": "Comunicação prévia/autorização de exploração junto das entidades competentes",
+          "subs": []
         },
         {
           "id": "omsjfmullxkv4",
-          "t": "Definição de data de abertura e plano de lançamento/marketing"
+          "t": "Definição de data de abertura e plano de lançamento/marketing",
+          "subs": []
         },
         {
           "id": "omsjfmullykxp",
-          "t": "Testes operacionais finais (simulação de funcionamento)"
+          "t": "Testes operacionais finais (simulação de funcionamento)",
+          "subs": []
         }
       ]
     }
