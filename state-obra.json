@@ -3,12 +3,12 @@
     "omsjfmulluco3": {
       "d": 0,
       "r": "",
-      "o": "opção1- cumprir projeto com inclusão dos passadiços e linhas de vida · opção2- definir data limite para decisão das escadas · opção3- Aceitar solução e custo da proposta A.pimenta"
+      "o": ""
     },
     "omsjfmullyaa4": {
       "d": 0,
       "r": "",
-      "o": "1- definição portão Rua do Arnado · 2- Gradeamento no topo voltado ao estacionamento Continente"
+      "o": ""
     },
     "omsjfmull74ls": {
       "d": 0,
@@ -18,7 +18,7 @@
     "omsjfmulln65p": {
       "d": 0,
       "r": "",
-      "o": "1- definição baflles (Arquitetos) · 2- contratar fornecedor (Reunia/Critical)"
+      "o": ""
     },
     "omsjfmull1rnw": {
       "d": 0,
@@ -314,17 +314,18 @@
           "subs": [
             {
               "id": "omsjjqfjrh09k",
-              "t": "opção1- cumprir projeto com inclusão dos passadiços e linhas de vida"
+              "t": "Opção 1 – Cumprir projeto com inclusão dos passadiços e linhas de vida"
             },
             {
               "id": "omsjjqfjrolxo",
-              "t": "opção2- definir data limite para decisão das escadas"
+              "t": "Opção 2 – Definir data limite para decisão das escadas"
             },
             {
               "id": "omsjjqfjrj4u3",
-              "t": "opção3- Aceitar solução e custo da proposta A.pimenta"
+              "t": "Opção 3 – Aceitar solução e custo da proposta A.Pimenta"
             }
-          ]
+          ],
+          "kind": "choice"
         },
         {
           "id": "omsjfmullyaa4",
@@ -332,11 +333,11 @@
           "subs": [
             {
               "id": "omsjjqfjsouec",
-              "t": "1- definição portão Rua do Arnado"
+              "t": "1 – Definição portão Rua do Arnado"
             },
             {
               "id": "omsjjqfjsmu1i",
-              "t": "2- Gradeamento no topo voltado ao estacionamento Continente"
+              "t": "2 – Gradeamento no topo voltado ao estacionamento Continente"
             }
           ]
         },
@@ -351,11 +352,11 @@
           "subs": [
             {
               "id": "omsjjqfjsa6jn",
-              "t": "1- definição baflles"
+              "t": "1 – Definição baflles"
             },
             {
               "id": "omsjjqfjs3sl5",
-              "t": "2- contratar fornecedor"
+              "t": "2 – Contratar fornecedor"
             }
           ]
         },
