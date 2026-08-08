@@ -133,6 +133,27 @@
       .owner-select{max-width:88px;font-size:11px}
       .resp{font-size:9px;padding:3px 6px}
     }
+
+    /* ── STATUS EXECUTIVO ── */
+    .exec{background:var(--card);border-radius:16px;padding:14px 15px;margin:12px 10px 2px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:12px}
+    .exec-top{display:flex;align-items:center;gap:14px}
+    .exec-donut-wrap{position:relative;width:72px;height:72px;flex-shrink:0}
+    .exec-donut{width:72px;height:72px;transform:rotate(-90deg)}
+    .exec-donut-track{fill:none;stroke:rgba(128,151,81,.15);stroke-width:7}
+    .exec-donut-fill{fill:none;stroke:var(--verde);stroke-width:7;stroke-linecap:round;stroke-dasharray:0 251.3;transition:stroke-dasharray .8s cubic-bezier(.4,0,.2,1)}
+    .exec-donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .exec-donut-pct{font-size:16.5px;font-weight:800;color:var(--lbl);line-height:1}
+    .exec-donut-lbl{font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--lbl3);margin-top:2px}
+    .exec-stats{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+    .exec-stat-main{font-size:12.5px;color:var(--lbl2);font-weight:500}
+    .exec-stat-main b{font-size:19px;font-weight:800;color:var(--lbl);display:block;line-height:1.15}
+    .exec-stat-sub{font-size:11px;color:var(--lbl3);font-weight:600}
+    .exec-owners{display:flex;flex-wrap:wrap;gap:6px}
+    .exec-chip{display:flex;align-items:center;gap:6px;background:var(--bg);border-radius:10px;padding:6px 10px;font-size:10.5px;font-weight:600;color:var(--lbl2);white-space:nowrap}
+    .exec-chip-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+    .exec-chip b{font-size:12px;font-weight:800;color:var(--lbl)}
+    .exec-chip.unassigned{background:rgba(139,61,46,.07);color:var(--red)}
+    .exec-chip.unassigned b{color:var(--red)}
   </style>
 </head>
 <body>
@@ -153,6 +174,26 @@
     <button class="edit-btn" id="edit-btn" title="Editar lista">✏️ Editar</button>
   </div>
   <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
+</div>
+
+<div class="exec">
+  <div class="exec-top">
+    <div class="exec-donut-wrap">
+      <svg class="exec-donut" viewBox="0 0 96 96">
+        <circle class="exec-donut-track" cx="48" cy="48" r="40"/>
+        <circle class="exec-donut-fill" id="exec-ring" cx="48" cy="48" r="40"/>
+      </svg>
+      <div class="exec-donut-center">
+        <div class="exec-donut-pct" id="exec-pct">0%</div>
+        <div class="exec-donut-lbl">Concluído</div>
+      </div>
+    </div>
+    <div class="exec-stats">
+      <div class="exec-stat-main"><b id="exec-n">0</b>de <span id="exec-total">0</span> itens concluídos</div>
+      <div class="exec-stat-sub" id="exec-cats">0 de 0 categorias completas</div>
+    </div>
+  </div>
+  <div class="exec-owners" id="exec-owners"></div>
 </div>
 
 <div class="body" id="body"></div>
@@ -385,6 +426,31 @@
     document.getElementById('pct').textContent=p+'%';
     document.getElementById('progress-fill').style.width=p+'%';
     document.getElementById('sub').textContent=`${g.d} de ${g.total} itens concluídos`;
+    updateExec(g,p);
+  }
+
+  function updateExec(g,p){
+    document.getElementById('exec-pct').textContent=p+'%';
+    document.getElementById('exec-ring').style.strokeDasharray=`${(p/100*251.3).toFixed(1)} 251.3`;
+    document.getElementById('exec-n').textContent=g.d;
+    document.getElementById('exec-total').textContent=g.total;
+
+    const zs=zones();
+    const catsDone=zs.filter((_,zi)=>zoneDone(zoneStats(zi))).length;
+    document.getElementById('exec-cats').textContent=`${catsDone} de ${zs.length} categorias completas`;
+
+    const counts={}; OWNERS.forEach(o=>{counts[o.k]={d:0,t:0};});
+    let unassigned=0;
+    zs.forEach(z=>z.items.forEach(it=>{
+      const s=chkState(it.id);
+      if(s.owner && counts[s.owner]){ counts[s.owner].t++; if(s.d)counts[s.owner].d++; }
+      else if(!s.owner){ unassigned++; }
+    }));
+    const ownersEl=document.getElementById('exec-owners');
+    ownersEl.innerHTML=OWNERS.map(o=>
+      `<div class="exec-chip"><span class="exec-chip-dot" style="background:${o.c}"></span>${o.n} <b>${counts[o.k].d}/${counts[o.k].t}</b></div>`
+    ).join('')+
+    (unassigned?`<div class="exec-chip unassigned"><span class="exec-chip-dot" style="background:var(--red)"></span>Sem owner <b>${unassigned}</b></div>`:'');
   }
 
   function renderSubs(item,inEdit){
@@ -631,6 +697,7 @@
     setField(id,'owner',val);
     sel.style.setProperty('--oc',oc||'');
     sel.parentElement.style.setProperty('--oc',oc||'');
+    updateProgress();
   });
 
   /* ── ASYNC INIT — carrega estado do GitHub, renderiza, depois faz polling ── */
