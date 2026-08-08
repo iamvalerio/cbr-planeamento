@@ -112,6 +112,17 @@
     .add-sub-btn{width:100%;margin-top:4px;padding:9px;border:1.5px dashed var(--sep);background:transparent;color:var(--lbl2);border-radius:10px;font-size:11.5px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;min-height:38px}
     .add-sub-btn:active{transform:scale(.98)}
 
+    /* ── OPÇÕES (escolha única, não conta para a % — apenas decisão) ── */
+    .opt-item{display:flex;align-items:flex-start;gap:10px;padding:8px 4px;cursor:pointer;-webkit-tap-highlight-color:transparent;border-radius:9px}
+    .opt-item:active{background:rgba(26,22,16,.04)}
+    .opt-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--lbl3);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;transition:all .16s}
+    .opt-radio::after{content:'';width:9px;height:9px;border-radius:50%;background:transparent;transition:background .16s}
+    .opt-item.sel .opt-radio{border-color:var(--verde)}
+    .opt-item.sel .opt-radio::after{background:var(--verde)}
+    .opt-label{font-size:13.5px;color:var(--lbl);line-height:1.4;flex:1;min-width:0;padding-top:2px}
+    .opt-item.sel .opt-label{font-weight:700}
+    .opt-resp{font-size:9px;font-weight:700;color:var(--slate);background:rgba(91,122,140,.1);border-radius:5px;padding:2px 6px;white-space:nowrap;flex-shrink:0;margin-top:3px}
+
     @media(max-width:480px){
       .topbar-s{max-width:52vw}
       .owner-select{max-width:104px}
@@ -166,10 +177,10 @@
   /* ── DADOS — CE_checklistconclusaoobra_2.xlsx (Coimbra Editora · Conclusão de Obra e Início de Exploração) ── */
   const OB_DEFAULT=[
     {z:'Obra por Executar / Pendências',c:'#8B3D2E',items:[
-      {t:'Instalação dos painéis fotovoltaicos',r:'',subs:[{t:'opção1- cumprir projeto com inclusão dos passadiços e linhas de vida',r:''},{t:'opção2- definir data limite para decisão das escadas',r:''},{t:'opção3- Aceitar solução e custo da proposta A.pimenta',r:''}]},
-      {t:'Portões/Grade no logradouro voltado à AutoIndustrial',r:'',subs:[{t:'1- definição portão Rua do Arnado',r:''},{t:'2- Gradeamento no topo voltado ao estacionamento Continente',r:''}]},
+      {t:'Instalação dos painéis fotovoltaicos',r:'',kind:'choice',subs:[{t:'Opção 1 – Cumprir projeto com inclusão dos passadiços e linhas de vida',r:''},{t:'Opção 2 – Definir data limite para decisão das escadas',r:''},{t:'Opção 3 – Aceitar solução e custo da proposta A.Pimenta',r:''}]},
+      {t:'Portões/Grade no logradouro voltado à AutoIndustrial',r:'',subs:[{t:'1 – Definição portão Rua do Arnado',r:''},{t:'2 – Gradeamento no topo voltado ao estacionamento Continente',r:''}]},
       {t:'Molas de braço nas portas grandes',r:'A.Pimenta/Critical'},
-      {t:'Tratamento acústico da sala multiusos',r:'',subs:[{t:'1- definição baflles',r:'Arquitetos'},{t:'2- contratar fornecedor',r:'Reunia/Critical'}]},
+      {t:'Tratamento acústico da sala multiusos',r:'',subs:[{t:'1 – Definição baflles',r:'Arquitetos'},{t:'2 – Contratar fornecedor',r:'Reunia/Critical'}]},
       {t:'Facilitar Entrada de cabos no PT (posto de transformação)',r:'A.Pimenta'},
     ]},
     {z:'Vistorias e Aceitação Técnica',c:'#5B7A8C',items:[
@@ -287,7 +298,7 @@
   }
 
   let editMode=false;
-  const BLANK=()=>({d:0,r:'',o:'',owner:''});
+  const BLANK=()=>({d:0,r:'',o:'',owner:'',choice:''});
 
   function newId(){ return 'o'+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
   function seed(){
@@ -297,34 +308,51 @@
         z:z.z, c:z.c,
         items:z.items.map(it=>{
           const id=newId();
-          _state.obcheck[id]={d:0,r:it.r||'',o:'',owner:''};
+          _state.obcheck[id]=BLANK(); _state.obcheck[id].r=it.r||'';
           const subs=(it.subs||[]).map(sub=>{
             const sid=newId();
-            _state.obcheck[sid]={d:0,r:sub.r||'',o:'',owner:''};
+            _state.obcheck[sid]=BLANK(); _state.obcheck[sid].r=sub.r||'';
             return {id:sid,t:sub.t};
           });
-          return {id,t:it.t,subs};
+          const item={id,t:it.t,subs};
+          if(it.kind)item.kind=it.kind;
+          return item;
         })
       }));
       _push();
     }
   }
   function migrate(){
-    // repara estado semeado antes desta versão (sem subs/owner), sem perder o que já estava marcado
+    // repara estado semeado antes desta versão (sem subs/owner/kind), sem perder o que já estava marcado
     const tmplByTitle={};
     OB_DEFAULT.forEach(z=>z.items.forEach(it=>{ tmplByTitle[it.t]=it; }));
     let changed=false;
     (_state.obzones||[]).forEach(z=>{
       z.items.forEach(item=>{
+        const tmpl=tmplByTitle[item.t];
+        if(tmpl && tmpl.kind && item.kind!==tmpl.kind){ item.kind=tmpl.kind; changed=true; }
         if(!Array.isArray(item.subs)){
-          const tmpl=tmplByTitle[item.t];
           const subsTmpl=(tmpl&&tmpl.subs)||[];
           item.subs=subsTmpl.map(sub=>{
             const sid=newId();
-            _state.obcheck[sid]={d:0,r:sub.r||'',o:'',owner:''};
+            _state.obcheck[sid]=BLANK(); _state.obcheck[sid].r=sub.r||'';
             return {id:sid,t:sub.t};
           });
           changed=true;
+        }else if(tmpl && Array.isArray(tmpl.subs) && tmpl.subs.length===item.subs.length){
+          // sincroniza o texto (ex.: capitalização) com o molde actual, só se ainda nada foi marcado
+          const noneDone=item.subs.every(s=>!chkState(s.id).d);
+          if(noneDone){
+            item.subs.forEach((s,i)=>{
+              const t=tmpl.subs[i];
+              if(s.t!==t.t){ s.t=t.t; changed=true; }
+              if(t.r && chkState(s.id).r!==t.r){ _state.obcheck[s.id].r=t.r; changed=true; }
+            });
+          }
+        }
+        // o texto das opções/sub-ações já vive na checklist — não repetir como descrição a fade
+        if((item.subs||[]).length && chkState(item.id).o){
+          _state.obcheck[item.id].o=''; changed=true;
         }
       });
     });
@@ -362,21 +390,38 @@
   function renderSubs(item,inEdit){
     const subs=item.subs||[];
     if(!inEdit && subs.length===0)return '';
-    const sst=subStats(item);
-    const countCls=sst.total>0 && sst.d===sst.total?' all':'';
-    let html=`<div class="subs"><div class="subs-hd"><span class="subs-lbl">Sub-ações</span>`+
-      (subs.length?`<span class="subs-count${countCls}">${sst.d}/${sst.total}</span>`:'')+
-      `</div>`;
+    const isChoice=item.kind==='choice';
+    const lbl=isChoice?'Opções (escolher uma)':'Sub-ações';
+    const addLbl=isChoice?'＋ Adicionar opção':'＋ Adicionar sub-ação';
+    let countHtml='';
+    if(!isChoice && subs.length){
+      const sst=subStats(item);
+      const countCls=sst.total>0 && sst.d===sst.total?' all':'';
+      countHtml=`<span class="subs-count${countCls}">${sst.d}/${sst.total}</span>`;
+    }
+    let html=`<div class="subs"><div class="subs-hd"><span class="subs-lbl">${lbl}</span>${countHtml}</div>`;
     if(inEdit){
+      // edição de texto/responsável é igual para opções e sub-ações — só muda a apresentação normal (radio vs check)
       html+=`<div class="subs-list">`+subs.map(sub=>{
         const s=chkState(sub.id);
         return `<div class="sub-edit-row" data-item-id="${item.id}">`+
-          `<input class="edit-inp sm" data-subid="${sub.id}" data-f="t" value="${esc(sub.t)}" placeholder="Sub-ação…">`+
+          `<input class="edit-inp sm" data-subid="${sub.id}" data-f="t" value="${esc(sub.t)}" placeholder="${isChoice?'Opção…':'Sub-ação…'}">`+
           `<input class="edit-inp sm" data-subid="${sub.id}" data-f="r" value="${esc(s.r)}" placeholder="Resp.…" style="max-width:110px">`+
-          `<button class="sub-del-btn" data-subid="${sub.id}" data-item-id="${item.id}" title="Apagar sub-ação">🗑</button>`+
+          `<button class="sub-del-btn" data-subid="${sub.id}" data-item-id="${item.id}" title="Apagar">🗑</button>`+
         `</div>`;
       }).join('')+`</div>`+
-      `<button class="add-sub-btn" data-item-id="${item.id}">＋ Adicionar sub-ação</button>`;
+      `<button class="add-sub-btn" data-item-id="${item.id}">${addLbl}</button>`;
+    }else if(isChoice){
+      const chosen=chkState(item.id).choice||'';
+      html+=`<div class="subs-list">`+subs.map(sub=>{
+        const s=chkState(sub.id);
+        const sel=chosen===sub.id;
+        return `<div class="opt-item${sel?' sel':''}" data-subid="${sub.id}" data-item-id="${item.id}">`+
+          `<div class="opt-radio"></div>`+
+          `<div class="opt-label">${esc(sub.t)}</div>`+
+          (s.r?`<span class="opt-resp">${esc(s.r)}</span>`:'')+
+        `</div>`;
+      }).join('')+`</div>`;
     }else{
       html+=`<div class="subs-list">`+subs.map(sub=>{
         const s=chkState(sub.id);
@@ -435,7 +480,7 @@
                   ownerSelectHtml(item.id,s.owner)+
                   (s.r?`<span class="resp">👤 ${esc(s.r)}</span>`:'')+
                 `</div>`+
-                (s.o?`<div class="obs">${esc(s.o)}</div>`:'')+
+                (s.o && !(item.subs&&item.subs.length)?`<div class="obs">${esc(s.o)}</div>`:'')+
               `</div>`+
             `</div>`+
             renderSubs(item,false);
@@ -513,6 +558,16 @@
       _push(); render();
       const inp=document.querySelector(`.edit-inp[data-subid="${sid}"][data-f="t"]`);
       if(inp)inp.focus();
+      return;
+    }
+    // escolher uma opção (não conta para a checklist/%, é só a decisão)
+    const optItem=e.target.closest('.opt-item');
+    if(optItem){
+      const subId=optItem.dataset.subid, itemId=optItem.dataset.itemId;
+      setField(itemId,'choice',subId);
+      optItem.closest('.subs-list').querySelectorAll('.opt-item').forEach(el=>el.classList.remove('sel'));
+      optItem.classList.add('sel');
+      if(navigator.vibrate)try{navigator.vibrate(6)}catch(e){}
       return;
     }
     // marcar sub-ação concluída
