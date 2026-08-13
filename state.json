@@ -118,7 +118,10 @@
       "s": "2026-09-07",
       "e": "2026-09-10",
       "name": "Plantas 4",
-      "deleted": 0
+      "deleted": 0,
+      "sup": null,
+      "ck_c": 1,
+      "ck_e": 0
     },
     "d08": {
       "done": 0,
@@ -370,7 +373,10 @@
       "s": "2026-07-20",
       "e": "2026-07-22",
       "name": "Plantas 3",
-      "deleted": 0
+      "deleted": 0,
+      "sup": null,
+      "ck_c": 1,
+      "ck_e": 0
     },
     "s07": {
       "done": 0,
