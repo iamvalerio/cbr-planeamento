@@ -63,7 +63,10 @@
       "s": null,
       "e": null,
       "name": "Equipamentos WC A",
-      "deleted": 0
+      "deleted": 0,
+      "sup": null,
+      "ck_c": 1,
+      "ck_e": 0
     },
     "d04": {
       "done": 1,
