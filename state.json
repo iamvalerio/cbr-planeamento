@@ -137,7 +137,10 @@
       "s": "2026-07-13",
       "e": "2026-07-17",
       "name": "Equipamentos WC B (1/2)",
-      "deleted": 0
+      "deleted": 0,
+      "sup": null,
+      "ck_c": 1,
+      "ck_e": 0
     },
     "d09": {
       "done": 0,
