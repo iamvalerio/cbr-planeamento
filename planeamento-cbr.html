@@ -407,6 +407,19 @@
     .fm-add:active{transform:scale(.99)}
     #fmcheck.editmode .fm-item{padding:8px 10px}
 
+    /* ── ARRASTAR PONTOS ENTRE ZONAS (toque: manter premido + deslizar) ── */
+    .fm-item{touch-action:pan-y;transition:transform .16s cubic-bezier(.4,0,.2,1),opacity .16s}
+    .fm-item.dragging{opacity:.26}
+    .fm-item.shift-down{transform:translateY(8px)}
+    .fm-ghost{position:fixed;z-index:900;pointer-events:none;margin:0;opacity:.97;
+      box-shadow:0 14px 34px rgba(60,40,16,.26),0 3px 10px rgba(60,40,16,.14);
+      transform:scale(1.03);transition:none}
+    .fm-zone.drop-on{position:relative}
+    .fm-zone.drop-on::after{content:'';position:absolute;inset:-6px -8px;border:2px dashed var(--zc,var(--verde));
+      border-radius:16px;pointer-events:none;background:rgba(128,151,81,.05)}
+    .fm-drag-hint{font-size:10.5px;font-weight:700;color:var(--lbl3);padding:2px 4px 8px;letter-spacing:.1px}
+    body.fm-dragging{-webkit-user-select:none;user-select:none}
+
     @media(max-width:480px){
       :root{--cw:40px;--nw:150px;--kw:50px;--tw:72px}
       .topbar-s{display:none}
@@ -1880,6 +1893,10 @@
   function renderFM(){
     const body=document.getElementById('fm-body');
     body.innerHTML='';
+    const hint=document.createElement('div');
+    hint.className='fm-drag-hint';
+    hint.textContent='Mantenha premido um ponto e deslize para o mudar de zona.';
+    body.appendChild(hint);
     fmZones().forEach((z,zi)=>{
       const st=fmZoneStats(zi);
       const zone=document.createElement('div');
@@ -1918,6 +1935,115 @@
     });
     updateFMProgress();
   }
+  /* ── ARRASTAR PONTOS ENTRE ZONAS ──
+     Toque: manter premido 320 ms para levantar o cartao, depois deslizar.
+     Rato: arranca ao mover mais de 8 px. Largar sobre outra zona move o ponto
+     para a posicao onde foi largado. O estado dos vistos (`fmcheck`) segue o
+     ponto porque esta indexado pelo id, nao pela zona. */
+  let drag=null, lastDropAt=0;
+  const LIFT_MS=320, MOVE_TOL=8;
+  const fmBodyEl=document.getElementById('fm-body');
+
+  function elAt(x,y,sel){ const el=document.elementFromPoint(x,y); return el?el.closest(sel):null; }
+  function clearDropHints(){
+    fmBodyEl.querySelectorAll('.fm-zone.drop-on').forEach(z=>z.classList.remove('drop-on'));
+    fmBodyEl.querySelectorAll('.fm-item.shift-down').forEach(i=>i.classList.remove('shift-down'));
+  }
+  function liftCard(){
+    const el=drag.el, r=el.getBoundingClientRect();
+    drag.lifted=true;
+    drag.offX=drag.x-r.left; drag.offY=drag.y-r.top;
+    const ghost=el.cloneNode(true);
+    ghost.classList.add('fm-ghost');
+    ghost.style.width=r.width+'px';
+    ghost.style.left=r.left+'px';
+    ghost.style.top=r.top+'px';
+    document.body.appendChild(ghost);
+    drag.ghost=ghost;
+    el.classList.add('dragging');
+    document.body.classList.add('fm-dragging');
+    if(navigator.vibrate)try{navigator.vibrate(14)}catch(e){}
+  }
+  function moveGhost(){
+    drag.ghost.style.left=(drag.x-drag.offX)+'px';
+    drag.ghost.style.top =(drag.y-drag.offY)+'px';
+    clearDropHints();
+    const zone=elAt(drag.x,drag.y,'.fm-zone');
+    if(zone)zone.classList.add('drop-on');
+    const over=elAt(drag.x,drag.y,'.fm-item');
+    if(over&&over!==drag.el){
+      const r=over.getBoundingClientRect();
+      if(drag.y<r.top+r.height/2)over.classList.add('shift-down');
+    }
+    const br=fmBodyEl.getBoundingClientRect();
+    if(drag.y<br.top+60)fmBodyEl.scrollTop-=14;
+    else if(drag.y>br.bottom-60)fmBodyEl.scrollTop+=14;
+  }
+  function dropCard(){
+    const id=drag.el.dataset.id, x=drag.x, y=drag.y;
+    const zoneEl=elAt(x,y,'.fm-zone');
+    const over=elAt(x,y,'.fm-item');
+    const overId=(over&&over!==drag.el)?over.dataset.id:null;
+    const overMid=over?(()=>{const r=over.getBoundingClientRect();return r.top+r.height/2;})():0;
+    endDrag();
+    lastDropAt=Date.now();
+    if(!zoneEl){ renderFM(); return; }
+    const zTo=+zoneEl.dataset.zi, zones=fmZones();
+    let from=-1, ix=-1;
+    zones.forEach((z,i)=>{const k=z.items.findIndex(x2=>x2.id===id); if(k>=0){from=i;ix=k;}});
+    if(from<0){ renderFM(); return; }
+    let to=zones[zTo].items.length;
+    if(overId){
+      const k=zones[zTo].items.findIndex(x2=>x2.id===overId);
+      if(k>=0)to=(y<overMid)?k:k+1;
+    }
+    const [item]=zones[from].items.splice(ix,1);
+    if(from===zTo&&ix<to)to--;
+    zones[zTo].items.splice(Math.max(0,Math.min(to,zones[zTo].items.length)),0,item);
+    _push(); renderFM();
+    if(navigator.vibrate)try{navigator.vibrate(from===zTo?8:[10,40,16])}catch(e){}
+  }
+  function endDrag(){
+    if(!drag)return;
+    clearTimeout(drag.timer);
+    if(drag.ghost)drag.ghost.remove();
+    if(drag.el)drag.el.classList.remove('dragging');
+    clearDropHints();
+    document.body.classList.remove('fm-dragging');
+    drag=null;
+  }
+
+  fmBodyEl.addEventListener('pointerdown',e=>{
+    if(fmEdit)return;                        // no modo Editar manda a edicao de texto
+    if(e.pointerType==='mouse'&&e.button!==0)return;
+    const el=e.target.closest('.fm-item');
+    if(!el)return;
+    drag={el,x:e.clientX,y:e.clientY,x0:e.clientX,y0:e.clientY,lifted:false,ghost:null,timer:null,pid:e.pointerId};
+    if(e.pointerType!=='mouse'){
+      drag.timer=setTimeout(()=>{ if(drag&&!drag.lifted)liftCard(); },LIFT_MS);
+    }
+  });
+  fmBodyEl.addEventListener('pointermove',e=>{
+    if(!drag||e.pointerId!==drag.pid)return;
+    drag.x=e.clientX; drag.y=e.clientY;
+    const far=Math.abs(drag.x-drag.x0)>MOVE_TOL||Math.abs(drag.y-drag.y0)>MOVE_TOL;
+    if(!drag.lifted){
+      if(e.pointerType==='mouse'){ if(far)liftCard(); }
+      else if(far){ clearTimeout(drag.timer); drag=null; return; }   // deixa o scroll normal
+    }
+    if(drag&&drag.lifted){ e.preventDefault(); moveGhost(); }
+  },{passive:false});
+  fmBodyEl.addEventListener('pointerup',e=>{
+    if(!drag||e.pointerId!==drag.pid)return;
+    if(drag.lifted){ drag.x=e.clientX; drag.y=e.clientY; dropCard(); }
+    else { clearTimeout(drag.timer); drag=null; }
+  });
+  fmBodyEl.addEventListener('pointercancel',()=>{ endDrag(); });
+  // o toque que largou o cartao nao pode contar como clique no visto
+  fmBodyEl.addEventListener('click',e=>{
+    if(Date.now()-lastDropAt<400){ e.stopPropagation(); e.preventDefault(); }
+  },true);
+
   function openFM(){ fmOpen=true; renderFM(); document.getElementById('fmcheck').classList.add('show'); document.body.style.overflow='hidden'; }
   function closeFM(){ fmOpen=false; if(fmEdit)setFmEdit(false); document.getElementById('fmcheck').classList.remove('show'); document.body.style.overflow=''; setNav('editora'); }
   function setFmEdit(on){
