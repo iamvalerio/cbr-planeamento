@@ -70,8 +70,16 @@
     .label{font-size:15px;font-weight:500;color:var(--lbl);line-height:1.35;word-wrap:break-word}
     .item.done .label{color:var(--lbl3);text-decoration:line-through;text-decoration-color:var(--lbl3)}
     .meta{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:8px}
-    .resp{font-size:10px;font-weight:700;color:var(--slate);background:rgba(91,122,140,.1);border-radius:6px;padding:4px 8px;white-space:nowrap}
-    .obs{font-size:11px;color:var(--lbl3);font-style:italic;line-height:1.4;margin-top:6px}
+    /* Nota: texto sempre visivel por inteiro (sem corte), quebra em qualquer ecra */
+    .note-slot{margin-top:8px}
+    .obs{font-size:12.5px;color:var(--lbl2);line-height:1.45;padding:8px 10px;background:rgba(196,168,130,.14);border-left:3px solid var(--madeira);border-radius:0 8px 8px 0;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;cursor:text;-webkit-tap-highlight-color:transparent}
+    .item.done .obs{opacity:.6}
+    .note-inp{width:100%;box-sizing:border-box;font-family:inherit;font-size:12.5px;line-height:1.45;color:var(--lbl);background:var(--card);border:1.5px solid var(--madeira);border-radius:8px;padding:8px 10px;outline:none;resize:none;overflow:hidden;min-height:44px}
+    .note-inp:focus{border-color:var(--verde)}
+    .chip-btn{font-size:10px;font-weight:700;border:1.5px dashed var(--sep);background:none;color:var(--lbl3);border-radius:8px;padding:5px 8px;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent;white-space:nowrap;min-height:30px}
+    .chip-btn:active{transform:scale(.96)}
+    .resp{font-size:10px;font-weight:700;color:var(--slate);background:rgba(91,122,140,.1);border-radius:6px;padding:4px 8px;white-space:nowrap;border:none;font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;min-height:30px}
+    .resp-inp{font-size:11.5px;font-family:inherit;font-weight:700;color:var(--slate);background:var(--card);border:1.5px solid var(--slate);border-radius:8px;padding:5px 8px;outline:none;max-width:170px;min-height:30px}
 
     /* Owner select */
     .owner-wrap{position:relative;display:inline-flex;flex-shrink:0}
@@ -152,6 +160,9 @@
     .exec-chip{display:flex;align-items:center;gap:6px;background:var(--bg);border-radius:10px;padding:6px 10px;font-size:10.5px;font-weight:600;color:var(--lbl2);white-space:nowrap}
     .exec-chip-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
     .exec-chip b{font-size:12px;font-weight:800;color:var(--lbl)}
+    .exec-chip.sub{background:rgba(91,122,140,.09);color:var(--slate)}
+    .exec-chip.sub b{color:var(--slate)}
+    .exec-subs-lbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--lbl3);align-self:center;margin-right:2px}
     .exec-chip.unassigned{background:rgba(139,61,46,.07);color:var(--red)}
     .exec-chip.unassigned b{color:var(--red)}
   </style>
@@ -194,6 +205,7 @@
     </div>
   </div>
   <div class="exec-owners" id="exec-owners"></div>
+  <div class="exec-owners" id="exec-subs"></div>
 </div>
 
 <div class="body" id="body"></div>
@@ -451,6 +463,22 @@
       `<div class="exec-chip"><span class="exec-chip-dot" style="background:${o.c}"></span>${o.n} <b>${counts[o.k].d}/${counts[o.k].t}</b></div>`
     ).join('')+
     (unassigned?`<div class="exec-chip unassigned"><span class="exec-chip-dot" style="background:var(--red)"></span>Sem owner <b>${unassigned}</b></div>`:'');
+
+    // ── Sub-owners (nome livre por item) no resumo ──
+    const subs=new Map();
+    zs.forEach(z=>z.items.forEach(it=>{
+      const nm=(chkState(it.id).r||'').trim();
+      if(!nm)return;
+      const k=nm.toLowerCase();
+      if(!subs.has(k))subs.set(k,{n:nm,d:0,t:0});
+      const e=subs.get(k); e.t++; if(chkState(it.id).d)e.d++;
+    }));
+    const subsEl=document.getElementById('exec-subs');
+    const list=[...subs.values()].sort((a,b)=>b.t-a.t||a.n.localeCompare(b.n,'pt'));
+    subsEl.innerHTML=list.length
+      ? `<span class="exec-subs-lbl">Sub-owners</span>`+list.map(o=>
+          `<div class="exec-chip sub">👤 ${esc(o.n)} <b>${o.d}/${o.t}</b></div>`).join('')
+      : '';
   }
 
   function renderSubs(item,inEdit){
@@ -544,9 +572,11 @@
                 `<div class="label">${esc(item.t)}</div>`+
                 `<div class="meta">`+
                   ownerSelectHtml(item.id,s.owner)+
-                  (s.r?`<span class="resp">👤 ${esc(s.r)}</span>`:'')+
+                  (s.r?`<button class="resp" data-resp="${item.id}">👤 ${esc(s.r)}</button>`
+                      :`<button class="chip-btn" data-resp="${item.id}">＋ Sub-owner</button>`)+
+                  (s.o?'':`<button class="chip-btn" data-note="${item.id}">📝 Nota</button>`)+
                 `</div>`+
-                (s.o && !(item.subs&&item.subs.length)?`<div class="obs">${esc(s.o)}</div>`:'')+
+                `<div class="note-slot" data-slot="${item.id}">`+(s.o?`<div class="obs" data-note="${item.id}">${esc(s.o)}</div>`:'')+`</div>`+
               `</div>`+
             `</div>`+
             renderSubs(item,false);
@@ -578,7 +608,66 @@
 
   document.getElementById('edit-btn').addEventListener('click',()=>{setEdit(!editMode);syncHeaderHeight();});
 
+  /* ── NOTA + SUB-OWNER: edicao inline (fora do modo Editar) ── */
+  function autoGrow(ta){ ta.style.height='auto'; ta.style.height=(ta.scrollHeight+2)+'px'; }
+  function openNote(id){
+    const slot=document.querySelector(`.note-slot[data-slot="${id}"]`);
+    if(!slot||slot.querySelector('.note-inp'))return;
+    const cur=chkState(id).o||'';
+    const ta=document.createElement('textarea');
+    ta.className='note-inp'; ta.dataset.id=id; ta.placeholder='Escrever nota…'; ta.value=cur;
+    slot.innerHTML=''; slot.appendChild(ta);
+    autoGrow(ta); ta.focus(); ta.selectionStart=ta.selectionEnd=ta.value.length;
+    const chip=slot.closest('.item').querySelector('[data-note]:not(.obs)');
+    if(chip&&chip.classList.contains('chip-btn'))chip.remove();
+  }
+  function closeNote(ta){
+    const id=ta.dataset.id, v=ta.value.trim();
+    setField(id,'o',v);
+    const slot=ta.closest('.note-slot');
+    slot.innerHTML=v?`<div class="obs" data-note="${id}">${esc(v)}</div>`:'';
+    const meta=slot.closest('.item').querySelector('.meta');
+    if(!v&&meta&&!meta.querySelector('[data-note]')){
+      const b=document.createElement('button'); b.className='chip-btn'; b.dataset.note=id; b.textContent='📝 Nota';
+      meta.appendChild(b);
+    }
+  }
+  function openResp(id,el){
+    const inp=document.createElement('input');
+    inp.type='text'; inp.className='resp-inp'; inp.dataset.resp=id;
+    inp.placeholder='Nome do sub-owner'; inp.value=chkState(id).r||'';
+    el.replaceWith(inp); inp.focus(); inp.select();
+  }
+  function closeResp(inp){
+    const id=inp.dataset.resp, v=inp.value.trim();
+    setField(id,'r',v);
+    const el=document.createElement('button');
+    if(v){ el.className='resp'; el.textContent='👤 '+v; }
+    else { el.className='chip-btn'; el.textContent='＋ Sub-owner'; }
+    el.dataset.resp=id;
+    inp.replaceWith(el);
+    updateProgress(); // o resumo conta sub-owners
+  }
+  document.getElementById('body').addEventListener('input',e=>{
+    const ta=e.target.closest('.note-inp'); if(!ta)return;
+    autoGrow(ta); setField(ta.dataset.id,'o',ta.value.trim());
+  });
+  document.getElementById('body').addEventListener('focusout',e=>{
+    const ta=e.target.closest('.note-inp'); if(ta){closeNote(ta);return;}
+    const inp=e.target.closest('.resp-inp'); if(inp)closeResp(inp);
+  });
+  document.getElementById('body').addEventListener('keydown',e=>{
+    if(e.key!=='Enter')return;
+    const inp=e.target.closest('.resp-inp'); if(inp){e.preventDefault();inp.blur();}
+  });
+
   document.getElementById('body').addEventListener('click',e=>{
+    if(!editMode){
+      const nEl=e.target.closest('[data-note]');
+      if(nEl){ e.stopPropagation(); openNote(nEl.dataset.note); return; }
+      const rEl=e.target.closest('[data-resp]');
+      if(rEl && !rEl.classList.contains('resp-inp')){ e.stopPropagation(); openResp(rEl.dataset.resp,rEl); return; }
+    }
     // apagar item
     const del=e.target.closest('.del-btn');
     if(del){
