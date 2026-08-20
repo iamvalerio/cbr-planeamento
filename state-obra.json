@@ -382,13 +382,6 @@
       "o": "",
       "owner": "",
       "choice": ""
-    },
-    "omt1fh3eubyog": {
-      "d": 0,
-      "r": "",
-      "o": "",
-      "owner": "",
-      "choice": ""
     }
   },
   "obzones": [
@@ -565,10 +558,6 @@
             {
               "id": "omt1fgmg6lo2i",
               "t": "Preparação processo final construção"
-            },
-            {
-              "id": "omt1fh3eubyog",
-              "t": ""
             }
           ]
         }
