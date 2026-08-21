@@ -999,10 +999,6 @@
           "t": "Caixotes lixo arrumos"
         },
         {
-          "id": "imrv6nnkqb4uq",
-          "t": "Ecoponto recepção"
-        },
-        {
           "id": "imrv6nnkqhe00",
           "t": "Decoração da estante da recepção"
         },
@@ -1049,6 +1045,10 @@
         {
           "id": "imrv6nnkqabzo",
           "t": "Carrinhos para entregas"
+        },
+        {
+          "id": "imrv6nnkqb4uq",
+          "t": "Ecoponto recepção"
         }
       ]
     },
