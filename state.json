@@ -436,6 +436,9 @@
       "name": "Mobiliário Informal - Consigo",
       "deleted": 0,
       "sup": null,
+      "own": null,
+      "note": "",
+      "noteAt": null,
       "ck_c": 1,
       "ck_e": 0
     },
