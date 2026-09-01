@@ -731,7 +731,16 @@
       "p": null,
       "b": [],
       "f": [],
-      "ck_c": 1
+      "s": null,
+      "e": null,
+      "name": null,
+      "deleted": 0,
+      "sup": null,
+      "own": null,
+      "note": "",
+      "noteAt": null,
+      "ck_c": 1,
+      "ck_e": 0
     },
     "w21": {
       "done": 0,
