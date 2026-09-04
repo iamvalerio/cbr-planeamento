@@ -1085,10 +1085,6 @@
           "t": "Chaveiro"
         },
         {
-          "id": "imrv6nnkqbedb",
-          "t": "Caixas para guarda-chuvas"
-        },
-        {
           "id": "imrv6nnkqyr5p",
           "t": "Estante arrumos"
         },
@@ -1147,6 +1143,10 @@
         {
           "id": "imrv6nnkqb4uq",
           "t": "Ecoponto recepção"
+        },
+        {
+          "id": "imrv6nnkqbedb",
+          "t": "Caixas para guarda-chuvas"
         }
       ]
     },
