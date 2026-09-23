@@ -54,7 +54,7 @@
       "ck_e": 1
     },
     "d03": {
-      "done": 0,
+      "done": 1,
       "p": "c",
       "b": [
         "A"
@@ -68,6 +68,9 @@
       "name": "Equipamentos WC A",
       "deleted": 0,
       "sup": null,
+      "own": null,
+      "note": "",
+      "noteAt": null,
       "ck_c": 1,
       "ck_e": 0
     },
