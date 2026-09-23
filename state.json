@@ -15,7 +15,7 @@
       "deleted": 1
     },
     "d01": {
-      "done": 0,
+      "done": 1,
       "p": null,
       "b": [
         "A"
@@ -28,6 +28,9 @@
       "name": "Plantas 1",
       "deleted": 0,
       "sup": null,
+      "own": null,
+      "note": "",
+      "noteAt": null,
       "ck_c": 1,
       "ck_e": 0
     },
