@@ -95,7 +95,7 @@
       "ck_e": 0
     },
     "d05": {
-      "done": 0,
+      "done": 1,
       "p": "i",
       "b": [
         "A"
@@ -108,6 +108,9 @@
       "name": "Plantas 2",
       "deleted": 0,
       "sup": null,
+      "own": null,
+      "note": "",
+      "noteAt": null,
       "ck_c": 1,
       "ck_e": 0
     },
