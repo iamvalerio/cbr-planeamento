@@ -530,7 +530,7 @@
       "ck_e": 0
     },
     "e03": {
-      "done": 0,
+      "done": 1,
       "p": "c",
       "b": [
         "A",
@@ -548,6 +548,9 @@
       "name": "Grupeme - Configuração",
       "deleted": 0,
       "sup": null,
+      "own": null,
+      "note": "",
+      "noteAt": null,
       "ck_c": 1,
       "ck_e": 0
     },
