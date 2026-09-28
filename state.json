@@ -133,7 +133,7 @@
       "ck_e": 0
     },
     "d08": {
-      "done": 0,
+      "done": 1,
       "p": "c",
       "b": [
         "B"
@@ -148,11 +148,14 @@
       "name": "Equipamentos WC B (1/2)",
       "deleted": 0,
       "sup": null,
+      "own": null,
+      "note": "",
+      "noteAt": null,
       "ck_c": 1,
       "ck_e": 0
     },
     "d09": {
-      "done": 0,
+      "done": 1,
       "p": "c",
       "b": [
         "A"
@@ -163,7 +166,13 @@
       "s": "2026-07-27",
       "e": "2026-07-31",
       "name": "Equipamentos WC B (2/2)",
-      "deleted": 0
+      "deleted": 0,
+      "sup": null,
+      "own": null,
+      "note": "",
+      "noteAt": null,
+      "ck_c": 0,
+      "ck_e": 0
     },
     "i01": {
       "done": 1,
