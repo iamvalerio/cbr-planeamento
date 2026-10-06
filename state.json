@@ -1605,12 +1605,12 @@
           "t": "Secadores"
         },
         {
-          "id": "imrv6nnkqklnu",
-          "t": "Retentores portas corta-fogo"
-        },
-        {
           "id": "ims1jo0trv1xz",
           "t": "Caixotes lixo"
+        },
+        {
+          "id": "imrv6nnkqklnu",
+          "t": "Retentores portas corta-fogo"
         }
       ]
     },
