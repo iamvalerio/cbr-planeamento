@@ -1290,7 +1290,7 @@
     },
     "imrv6nnkqfszs": {
       "c": 1,
-      "f": 1
+      "f": 0
     },
     "imrv6nnkqp9o1": {
       "c": 1,
@@ -1334,7 +1334,7 @@
     },
     "imrv6nnkqjgaf": {
       "c": 1,
-      "f": 1
+      "f": 0
     },
     "imrv6nnkqp5xg": {
       "c": 1,
@@ -1342,7 +1342,7 @@
     },
     "imrv6nnkqg8r4": {
       "c": 1,
-      "f": 1
+      "f": 0
     },
     "imrv6nnkrhpgb": {
       "c": 1,
@@ -1351,10 +1351,6 @@
     "imrv6nnkqhjva": {
       "c": 1,
       "f": 0
-    },
-    "imrv6nnkqa6jz": {
-      "c": 1,
-      "f": 1
     }
   },
   "fmzones": [
@@ -1454,7 +1450,7 @@
         },
         {
           "id": "imuy01hwhaofm",
-          "t": "Retir"
+          "t": "Retirare "
         }
       ]
     },
