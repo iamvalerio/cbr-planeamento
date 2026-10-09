@@ -115,7 +115,7 @@
       "ck_e": 0
     },
     "d07": {
-      "done": 0,
+      "done": 1,
       "p": null,
       "b": [
         "B"
@@ -129,6 +129,9 @@
       "name": "Plantas 4",
       "deleted": 0,
       "sup": null,
+      "own": null,
+      "note": "",
+      "noteAt": null,
       "ck_c": 1,
       "ck_e": 0
     },
