@@ -1127,6 +1127,11 @@
       "id": "c1792054065417",
       "cat": "wp",
       "name": "Libertar tudo da Nave"
+    },
+    {
+      "id": "c1792057492215",
+      "cat": "sec",
+      "name": "Caminho Evacuação Exterior Evento"
     }
   ],
   "fmcheck": {
